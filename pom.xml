@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>SDDC</groupId>
+  <artifactId>SDDC</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <testSourceDirectory>test</testSourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+ <developers>
+ <developer>
+ 	<id>silvan adrian</id>
+ 	<name>Silvan Adrian</name>
+ 	<organization>HSR</organization>
+ 	<organizationUrl>http://hsr.ch</organizationUrl>
+ </developer>
+  <developer>
+ 	<id>fabian binna</id>
+ 	<name>Fabian Binna</name>
+ 	<organization>HSR</organization>
+ 	<organizationUrl>http://hsr.ch</organizationUrl>
+ </developer>
+ </developers>
+<dependencies>
+  	<dependency>
+	<groupId>org.libvirt</groupId>
+	<artifactId>libvirt</artifactId>
+	<version>0.5.1</version>
+</dependency>
+<dependency>
+	<groupId>net.java.dev.jna</groupId>
+	<artifactId>jna</artifactId>
+	<version>4.2.0</version>
+</dependency>
+  <dependency>
+  	<groupId>junit</groupId>
+  	<artifactId>junit</artifactId>
+  	<version>4.12</version>
+  	<scope>test</scope>
+  </dependency>
+</dependencies>
+</project>
