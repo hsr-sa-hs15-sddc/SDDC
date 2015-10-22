@@ -3,3 +3,6 @@ jdk:
   - oraclejdk8
 notifications:
   slack: sddcteam:0kQltMakMELFspYW7JdQuGmL
+script: 
+  - mvn test
+  - mvn sonar:sonar

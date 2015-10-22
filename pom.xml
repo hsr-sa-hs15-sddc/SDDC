@@ -3,6 +3,11 @@
   <groupId>SDDC</groupId>
   <artifactId>SDDC</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+   <scm>
+	<connection>scm:git:git@github.com:silvanadrian/SDDC.git</connection>
+	<url>scm:git:git@github.com:silvanadrian/SDDC.git</url>
+	<developerConnection>scm:git:git@github.com:silvanadrian/SDDC.git</developerConnection>
+  </scm>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
@@ -15,8 +20,29 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>2.3</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+      </plugin>
     </plugins>
+    
   </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.19</version>
+      </plugin>
+    </plugins>
+  </reporting>
+ 
  <developers>
  <developer>
  	<id>silvan adrian</id>
@@ -49,4 +75,18 @@
   	<scope>test</scope>
   </dependency>
 </dependencies>
+<properties>
+    <sonar.host.url>http://sddc.silvn.com:9000</sonar.host.url>
+    <sonar.jdbc.url>jdbc:postgresql://sddc.silvn.com/sonar</sonar.jdbc.url>
+    <sonar.jdbc.driver>org.postgresql.Driver</sonar.jdbc.driver>
+    <sonar.jdbc.username>sonar</sonar.jdbc.username>
+    <sonar.jdbc.password>sonar%2015</sonar.jdbc.password>
+</properties>
+	<name>SDDC</name>
+	<url>http://sddc.silvn.com</url>
+	<description>Software Defined Data Center</description>
+	<organization>
+		<name>HSR</name>
+		<url>http://hsr.ch</url>
+	</organization>
 </project>
