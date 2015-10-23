@@ -3,7 +3,28 @@
   <groupId>SDDC</groupId>
   <artifactId>SDDC</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-   <scm>
+  	<name>SDDC</name>
+	<url>http://sddc.silvn.com</url>
+	<description>Software Defined Data Center</description>
+	<organization>
+		<name>HSR</name>
+		<url>http://hsr.ch</url>
+	</organization>
+ <developers>
+ <developer>
+ 	<id>silvan adrian</id>
+ 	<name>Silvan Adrian</name>
+ 	<organization>HSR</organization>
+ 	<organizationUrl>http://hsr.ch</organizationUrl>
+ </developer>
+  <developer>
+ 	<id>fabian binna</id>
+ 	<name>Fabian Binna</name>
+ 	<organization>HSR</organization>
+ 	<organizationUrl>http://hsr.ch</organizationUrl>
+ </developer>
+ </developers>
+  <scm>
 	<connection>scm:git:git@github.com:silvanadrian/SDDC.git</connection>
 	<url>scm:git:git@github.com:silvanadrian/SDDC.git</url>
 	<developerConnection>scm:git:git@github.com:silvanadrian/SDDC.git</developerConnection>
@@ -31,7 +52,6 @@
         <version>2.5.3</version>
       </plugin>
     </plugins>
-    
   </build>
   <reporting>
     <plugins>
@@ -40,23 +60,30 @@
         <artifactId>maven-surefire-report-plugin</artifactId>
         <version>2.19</version>
       </plugin>
+        <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+			<formats>
+				<format>html</format>
+				<format>xml</format>
+			</formats>
+		</configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <xmlOutput>true</xmlOutput>
+          <!-- Optional directory to put findbugs xdoc xml report -->
+          <xmlOutputDirectory>target/site</xmlOutputDirectory>
+        </configuration>
+      </plugin>
     </plugins>
   </reporting>
- 
- <developers>
- <developer>
- 	<id>silvan adrian</id>
- 	<name>Silvan Adrian</name>
- 	<organization>HSR</organization>
- 	<organizationUrl>http://hsr.ch</organizationUrl>
- </developer>
-  <developer>
- 	<id>fabian binna</id>
- 	<name>Fabian Binna</name>
- 	<organization>HSR</organization>
- 	<organizationUrl>http://hsr.ch</organizationUrl>
- </developer>
- </developers>
+
 <dependencies>
   	<dependency>
 	<groupId>org.libvirt</groupId>
@@ -82,11 +109,5 @@
     <sonar.jdbc.username>sonar</sonar.jdbc.username>
     <sonar.jdbc.password>sonar%2015</sonar.jdbc.password>
 </properties>
-	<name>SDDC</name>
-	<url>http://sddc.silvn.com</url>
-	<description>Software Defined Data Center</description>
-	<organization>
-		<name>HSR</name>
-		<url>http://hsr.ch</url>
-	</organization>
+
 </project>

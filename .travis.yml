@@ -4,5 +4,5 @@ jdk:
 notifications:
   slack: sddcteam:0kQltMakMELFspYW7JdQuGmL
 script: 
-  - mvn test
+  - mvn site
   - mvn sonar:sonar
