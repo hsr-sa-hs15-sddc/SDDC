@@ -4,9 +4,11 @@ package sddc.dataaccess;
 
 public interface IPersistenceFacade {
 	
-	int store(String data);
-	String get(int id);
-	void delete(int id);
-	void update(int id, String data);
-
+	int storeService(String data);
+	String[] getServices();
+	String getService(int id);
+	
+	int storeOrderedService(String data);
+	String[] getOrderedServices();
+	String getOrderedService(int id);
 }

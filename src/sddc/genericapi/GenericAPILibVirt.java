@@ -6,7 +6,7 @@ import org.libvirt.StoragePool;
 
 import sddc.dataaccess.IGenericAPIFacade;
 
-public class GenericAPIImpl implements IGenericAPIFacade {
+public class GenericAPILibVirt implements IGenericAPIFacade {
 	
 	private Connect conn;
 

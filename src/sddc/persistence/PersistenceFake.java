@@ -7,32 +7,48 @@ import sddc.dataaccess.IPersistenceFacade;
 
 public class PersistenceFake implements IPersistenceFacade {
 	
-	private Map<Integer, String> map;
+	private Map<Integer, String> services;
+	private Map<Integer, String> orderedServices;
 	
 	public PersistenceFake() {
-		map = new HashMap<>();
+		services = new HashMap<>();
+		orderedServices = new HashMap<>();
+	}
+
+	@Override //Refactor
+	public int storeService(String data) {
+		int hashCode = data.hashCode();
+		services.put(hashCode, data);
+		return hashCode;
 	}
 
 	@Override
-	public int store(String data) {
-		int hash = data.hashCode();
-		map.put(hash, data);
-		return hash;
+	public String[] getServices() {
+		return (String[]) services.values().toArray();
 	}
 
 	@Override
-	public String get(int id) {
-		return map.get(id);
+	public String getService(int id) {
+		return services.get(id);
+	}
+
+	@Override //Refactor
+	public int storeOrderedService(String data) {
+		int hashCode = data.hashCode();
+		orderedServices.put(hashCode, data);
+		return hashCode;
 	}
 
 	@Override
-	public void delete(int id) {
-		map.remove(id);
+	public String[] getOrderedServices() {
+		return (String[]) orderedServices.values().toArray();
 	}
 
 	@Override
-	public void update(int id, String data) {
-		map.put(id, data);
+	public String getOrderedService(int id) {
+		return orderedServices.get(id);
 	}
+
+	
 
 }

@@ -4,7 +4,7 @@ import org.libvirt.LibvirtException;
 
 import sddc.dataaccess.IGenericAPIFacade;
 import sddc.dataaccess.IPersistenceFacade;
-import sddc.genericapi.GenericAPIImpl;
+import sddc.genericapi.GenericAPILibVirt;
 import sddc.persistence.PersistenceFake;
 
 public class CRUDService {
@@ -12,7 +12,7 @@ public class CRUDService {
 	private IPersistenceFacade persistence;
 	private IGenericAPIFacade api;
 	
-	public CRUDService() throws LibvirtException {
+	public CRUDService() {
 		//Factory
 	}
 	

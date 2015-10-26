@@ -20,11 +20,11 @@ public class GenericAPIImplTest {
 
 	@Before
 	public void setUp() throws Exception {
-		api = new GenericAPIImpl();
+		api = new GenericAPILibVirt();
 		api.connect("test:///default", false);
 		
 		db = new PersistenceFake();
-		hash = db.store("<pool type=\"disk\"><name>vdb2</name><source><device path='/dev/vdb2'/></source><target><path>/dev</path></target></pool>");
+		hash = db.storeService("<pool type=\"disk\"><name>vdb2</name><source><device path='/dev/vdb2'/></source><target><path>/dev</path></target></pool>");
 	}
 
 	@After
@@ -34,7 +34,7 @@ public class GenericAPIImplTest {
 
 	@Test
 	public void testCreateStorage() throws LibvirtException {
-		String uuid = api.createStorage(db.get(hash));
+		String uuid = api.createStorage(db.getService(hash));
 		Assert.assertNotNull(uuid);
 	}
 	
@@ -42,5 +42,4 @@ public class GenericAPIImplTest {
 	public void testDeleteStorage() {
 		
 	}
-
 }

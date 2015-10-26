@@ -12,9 +12,9 @@ public interface IGenericAPIFacade {
 	String createStorage(String config) 
 			throws LibvirtException;
 	
-	void deleteStorage(String name) 
+	void deleteStorage(String uuid) 
 			throws LibvirtException;
 
-	String getStorage(String name) 
+	String getStorage(String uuid) 
 			throws LibvirtException;
 }
