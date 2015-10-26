@@ -1,6 +1,7 @@
 package sddc.genericapi;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.libvirt.LibvirtException;
@@ -23,7 +24,7 @@ public class GenericAPIImplTest {
 		api.connect("test:///default", false);
 		
 		db = new PersistenceFake();
-		hash = db.store("<pool type=\"dir\"><name>virtimages</name><target><path>/home/sddc/images</path></target></pool>");
+		hash = db.store("<pool type=\"disk\"><name>vdb2</name><source><device path='/dev/vdb2'/></source><target><path>/dev</path></target></pool>");
 	}
 
 	@After
@@ -33,7 +34,8 @@ public class GenericAPIImplTest {
 
 	@Test
 	public void testCreateStorage() throws LibvirtException {
-		api.createStorage(db.get(hash));
+		String uuid = api.createStorage(db.get(hash));
+		Assert.assertNotNull(uuid);
 	}
 	
 	@Test

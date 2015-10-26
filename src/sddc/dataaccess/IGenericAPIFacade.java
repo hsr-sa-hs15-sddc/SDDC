@@ -9,10 +9,12 @@ public interface IGenericAPIFacade {
 	
 	void disconnect();
 	
-	void createStorage(String config) 
+	String createStorage(String config) 
 			throws LibvirtException;
 	
 	void deleteStorage(String name) 
 			throws LibvirtException;
 
+	String getStorage(String name) 
+			throws LibvirtException;
 }

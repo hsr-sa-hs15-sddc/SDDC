@@ -28,24 +28,34 @@ public class GenericAPIImpl implements IGenericAPIFacade {
 	}
 
 	@Override
-	public void createStorage(String config) throws LibvirtException {
+	public String createStorage(String config) throws LibvirtException {
 		try {
-			conn.storagePoolCreateXML(config, 0);
+			StoragePool storagePool = conn.storagePoolCreateXML(config, 0);
+			return storagePool.getUUIDString();
 		} catch (LibvirtException libvirtException) {
 			//Logging
 			throw libvirtException;
 		}
-		
-		
 	}
 
 	@Override
-	public void deleteStorage(String name) throws LibvirtException {
+	public void deleteStorage(String uuid) throws LibvirtException {
 		try {
-			StoragePool storagePool = conn.storagePoolLookupByName(name);
+			StoragePool storagePool = conn.storagePoolLookupByUUIDString(uuid);
 			storagePool.destroy();
 			storagePool.undefine();
 		} catch (LibvirtException libvirtException) {
+			//Logging
+			throw libvirtException;
+		}
+	}
+
+	@Override
+	public String getStorage(String uuid) throws LibvirtException {
+		try {
+			StoragePool storagePool = conn.storagePoolLookupByUUIDString(uuid);
+			return storagePool.toString();
+		} catch(LibvirtException libvirtException) {
 			//Logging
 			throw libvirtException;
 		}
