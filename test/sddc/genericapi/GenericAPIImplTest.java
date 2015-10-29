@@ -7,39 +7,43 @@ import org.junit.Test;
 import org.libvirt.LibvirtException;
 
 import sddc.dataaccess.IGenericAPIFacade;
-import sddc.dataaccess.IPersistenceFacade;
-import sddc.persistence.PersistenceFake;
-
-//Kein richtiger Test
 
 public class GenericAPIImplTest {
 
 	private IGenericAPIFacade api;
-	private IPersistenceFacade db;
-	private int hash;
+	private String storageConfig = "<pool type=\"disk\"><name>vdb2</name><source><device path='/dev/vdb2'/></source><target><path>/dev</path></target></pool>";
+	private String storageUuid;
 
 	@Before
 	public void setUp() throws Exception {
 		api = new GenericAPILibVirt();
 		api.connect("test:///default", false);
 		
-		db = new PersistenceFake();
-		hash = db.storeService("<pool type=\"disk\"><name>vdb2</name><source><device path='/dev/vdb2'/></source><target><path>/dev</path></target></pool>");
+		storageUuid = api.createStorage(storageConfig);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		api.disconnect();
 	}
-
+	
 	@Test
 	public void testCreateStorage() throws LibvirtException {
-		String uuid = api.createStorage(db.getService(hash));
+		String uuid = api.createStorage(storageConfig);
 		Assert.assertNotNull(uuid);
+		Assert.assertNotNull(api.getStorage(uuid));
 	}
 	
 	@Test
-	public void testDeleteStorage() {
-		
+	public void testDeleteStorage() throws LibvirtException {
+		api.deleteStorage(storageUuid);
+		Assert.assertNull(api.getStorage(storageUuid));
+	}
+	
+	@Test
+	public void testGetStorage() throws LibvirtException {
+		Assert.assertNotNull(api.getStorage(storageUuid));
+		api.deleteStorage(storageUuid);
+		Assert.assertNull(api.getStorage(storageUuid));
 	}
 }

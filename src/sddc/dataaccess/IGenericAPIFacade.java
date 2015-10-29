@@ -9,6 +9,19 @@ public interface IGenericAPIFacade {
 	
 	void disconnect();
 	
+	//Compute
+	
+	String createCompute(String config) 
+			throws LibvirtException;
+	
+	void deleteCompute(String uuid) 
+			throws LibvirtException;
+	
+	String getCompute(String uuid) 
+			throws LibvirtException;
+	
+	//Storage
+	
 	String createStorage(String config) 
 			throws LibvirtException;
 	

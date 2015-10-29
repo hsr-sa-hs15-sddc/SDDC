@@ -1,6 +1,7 @@
 package sddc.genericapi;
 
 import org.libvirt.Connect;
+import org.libvirt.Domain;
 import org.libvirt.LibvirtException;
 import org.libvirt.StoragePool;
 
@@ -25,6 +26,42 @@ public class GenericAPILibVirt implements IGenericAPIFacade {
 	public void disconnect() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public String createCompute(String config) throws LibvirtException {
+		try {
+			Domain domain = conn.domainDefineXML(config);
+			return domain.getUUIDString();
+		} catch(LibvirtException libvirtException) {
+			//Logging
+			throw libvirtException;
+		}
+		
+	}
+
+	@Override
+	public void deleteCompute(String uuid) throws LibvirtException {
+		try {
+			Domain domain = conn.domainLookupByUUIDString(uuid);
+			domain.destroy();
+			domain.undefine();
+		} catch(LibvirtException libvirtException) {
+			//Logging
+			throw libvirtException;
+		}
+		
+	}
+
+	@Override
+	public String getCompute(String uuid) throws LibvirtException {
+		try {
+			Domain domain = conn.domainLookupByUUIDString(uuid);
+			return domain.toString();
+		} catch(LibvirtException libvirtException) {
+			//Logging
+			throw libvirtException;
+		}
 	}
 
 	@Override
@@ -60,5 +97,7 @@ public class GenericAPILibVirt implements IGenericAPIFacade {
 			throw libvirtException;
 		}
 	}
+
+	
 
 }
