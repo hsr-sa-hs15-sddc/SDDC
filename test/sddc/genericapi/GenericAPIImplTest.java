@@ -11,11 +11,13 @@ import sddc.dataaccess.IGenericAPIFacade;
 public class GenericAPIImplTest {
 
 	private IGenericAPIFacade api;
-	
+	private String storageConfig, networkConfig, domainConfig;
+
 	@Before
 	public void setUp() throws Exception {
 		api = new GenericAPILibVirt();
 		api.connect("test:///default", false);
+		storageConfig = "<pool type=\"disk\"><name>vdb2</name><source><device path='/dev/vdb2'/></source><target><path>/dev</path></target></pool>";
 	}
 
 	@After
@@ -23,18 +25,37 @@ public class GenericAPIImplTest {
 		api.disconnect();
 	}
 	
+	/* Storage Tests*/
+	
 	@Test(expected=org.libvirt.LibvirtException.class)
-	public void testStorage() throws LibvirtException {
-		String storageConfig = "<pool type=\"disk\"><name>vdb2</name><source><device path='/dev/vdb2'/></source><target><path>/dev</path></target></pool>";
-		String storageUuid;
-		
+	public void testCreateStorage() throws LibvirtException {
+		String failingConfig = "<pool>";
+		String storageUuid = api.createStorage(failingConfig);
+		Assert.assertNull(storageUuid);
 		storageUuid = api.createStorage(storageConfig);
 		Assert.assertNotNull(storageUuid);
-		Assert.assertNotNull(api.getStorage(storageUuid));
+	}
+	
+	@Test(expected=org.libvirt.LibvirtException.class)
+	public void testDeleteStorage() throws LibvirtException {
+		String storageUuid = api.createStorage(storageConfig);
 		api.deleteStorage(storageUuid);
 		Assert.assertNull(api.getStorage(storageUuid));
 	}
 	
+	@Test(expected=org.libvirt.LibvirtException.class)
+	public void testDeleteStoragefailing() throws LibvirtException {
+		String failingUuid = "12345";
+		api.deleteStorage(failingUuid);
+	}
+	
+	@Test
+	public void testGetStorage() throws LibvirtException {
+		String storageUuid = api.createStorage(storageConfig);
+		Assert.assertNotNull(api.getStorage(storageUuid));
+	}
+	
+	/* Network Tests */
 	
 	@Test(expected=org.libvirt.LibvirtException.class)
 	public void testNetwork() throws LibvirtException {
@@ -49,5 +70,8 @@ public class GenericAPIImplTest {
 		Assert.assertNotNull(api.getNetwork(networkUuid));
 		api.deleteNetwork(networkUuid);
 		Assert.assertNull(api.getNetwork(networkUuid));
+		
 	}
+	
+	
 }
