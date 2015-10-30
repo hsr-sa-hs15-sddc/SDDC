@@ -30,4 +30,15 @@ public interface IGenericAPIFacade {
 
 	String getStorage(String uuid) 
 			throws LibvirtException;
+	
+	//Network
+	
+	String createNetwork(String config) 
+			throws LibvirtException;
+	
+	void deleteNetwork(String uuid)
+			throws LibvirtException;
+	
+	String getNetwork(String uuid)
+			throws LibvirtException;
 }

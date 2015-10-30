@@ -3,6 +3,7 @@ package sddc.genericapi;
 import org.libvirt.Connect;
 import org.libvirt.Domain;
 import org.libvirt.LibvirtException;
+import org.libvirt.Network;
 import org.libvirt.StoragePool;
 
 import sddc.dataaccess.IGenericAPIFacade;
@@ -92,6 +93,39 @@ public class GenericAPILibVirt implements IGenericAPIFacade {
 		try {
 			StoragePool storagePool = conn.storagePoolLookupByUUIDString(uuid);
 			return storagePool.toString();
+		} catch(LibvirtException libvirtException) {
+			//Logging
+			throw libvirtException;
+		}
+	}
+
+	@Override
+	public String createNetwork(String config) throws LibvirtException {
+		try {
+			Network network = conn.networkCreateXML(config);
+			return network.getUUIDString();
+		} catch(LibvirtException libvirtException) {
+			//Logging
+			throw libvirtException;
+		}
+	}
+
+	@Override
+	public void deleteNetwork(String uuid) throws LibvirtException {
+		try {
+			Network network = conn.networkLookupByUUIDString(uuid);
+			network.destroy();
+		} catch(LibvirtException libvirtException) {
+			//Logging
+			throw libvirtException;
+		}
+	}
+
+	@Override
+	public String getNetwork(String uuid) throws LibvirtException {
+		try {
+			Network network = conn.networkLookupByUUIDString(uuid);
+			return network.toString();
 		} catch(LibvirtException libvirtException) {
 			//Logging
 			throw libvirtException;
