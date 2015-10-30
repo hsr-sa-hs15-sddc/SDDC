@@ -18,6 +18,10 @@ public class GenericAPIImplTest {
 		api = new GenericAPILibVirt();
 		api.connect("test:///default", false);
 		storageConfig = "<pool type=\"disk\"><name>vdb2</name><source><device path='/dev/vdb2'/></source><target><path>/dev</path></target></pool>";
+		networkConfig = "<network><name>default6</name><bridge name=\"virbr0\" /><forward mode=\"nat\"/><ip address=\"192.168.122.1\" netmask=\"255.255.255.0\">"
+				+ "<dhcp><range start=\"192.168.122.2\" end=\"192.168.122.254\" /></dhcp>"
+        + "</ip><ip family=\"ipv6\" address=\"2001:db8:ca2:2::1\" prefix=\"64\" >"
+        +  "<dhcp><range start=\"2001:db8:ca2:2:1::10\" end=\"2001:db8:ca2:2:1::ff\" /></dhcp></ip></network>";
 	}
 
 	@After
@@ -65,19 +69,31 @@ public class GenericAPIImplTest {
 	/* Network Tests */
 	
 	@Test(expected=org.libvirt.LibvirtException.class)
-	public void testNetwork() throws LibvirtException {
-		String networkConfig = "<network><name>default6</name><bridge name=\"virbr0\" /><forward mode=\"nat\"/><ip address=\"192.168.122.1\" netmask=\"255.255.255.0\">"
-				+ "<dhcp><range start=\"192.168.122.2\" end=\"192.168.122.254\" /></dhcp>"
-        + "</ip><ip family=\"ipv6\" address=\"2001:db8:ca2:2::1\" prefix=\"64\" >"
-        +  "<dhcp><range start=\"2001:db8:ca2:2:1::10\" end=\"2001:db8:ca2:2:1::ff\" /></dhcp></ip></network>";
-		String networkUuid;
-		
+	public void testCreateNetwork() throws LibvirtException {
+		String failingConfig = "<network>";
+		String networkUuid = api.createNetwork(failingConfig);
+		Assert.assertNull(networkUuid);
 		networkUuid = api.createNetwork(networkConfig);
 		Assert.assertNotNull(networkUuid);
+	}
+	
+	@Test(expected=org.libvirt.LibvirtException.class)
+	public void testDeleteNetwork() throws LibvirtException {
+		String networkUuid = api.createNetwork(networkConfig);
+		api.deleteStorage(networkUuid);
+		Assert.assertNull(api.getStorage(networkUuid));
+	}
+	
+	@Test(expected=org.libvirt.LibvirtException.class)
+	public void testDeleteNetworkfailing() throws LibvirtException {
+		String failingUuid = "12345";
+		api.deleteNetwork(failingUuid);
+	}
+	
+	@Test
+	public void testGetNetwork() throws LibvirtException {
+		String networkUuid = api.createNetwork(networkConfig);
 		Assert.assertNotNull(api.getNetwork(networkUuid));
-		api.deleteNetwork(networkUuid);
-		Assert.assertNull(api.getNetwork(networkUuid));
-		
 	}
 	
 	
