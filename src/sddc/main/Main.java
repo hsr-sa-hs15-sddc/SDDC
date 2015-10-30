@@ -1,3 +1,4 @@
+package sddc.main;
 
 
 import org.libvirt.*;
@@ -8,9 +9,4 @@ public class Main {
 		System.out.println("Hello World");
 	}
 	
-	
-	public static String getString() {
-		return "Hallo Welt";
-	}
-
 }
