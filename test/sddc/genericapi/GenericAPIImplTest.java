@@ -11,7 +11,7 @@ import sddc.dataaccess.IGenericAPIFacade;
 public class GenericAPIImplTest {
 
 	private IGenericAPIFacade api;
-	private String storageConfig, networkConfig, domainConfig;
+	private String storageConfig, networkConfig, computeConfig;
 
 	@Before
 	public void setUp() throws Exception {
@@ -22,7 +22,7 @@ public class GenericAPIImplTest {
 			+ "<dhcp><range start=\"192.168.122.2\" end=\"192.168.122.254\" /></dhcp>"
 		    + "</ip><ip family=\"ipv6\" address=\"2001:db8:ca2:2::1\" prefix=\"64\" >"
 		    +  "<dhcp><range start=\"2001:db8:ca2:2:1::10\" end=\"2001:db8:ca2:2:1::ff\" /></dhcp></ip></network>";
-		domainConfig = "<domain type='qemu' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>"
+		computeConfig = "<domain type='qemu' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>"
 		  + "<name>QEmu-fedora-i686</name><memory>219200</memory><os><type arch='i686' machine='pc'>hvm</type></os>"
 		  + "<devices><emulator>/usr/bin/qemu-system-x86_64</emulator></devices><qemu:commandline>"
 		  + "<qemu:arg value='-newarg'/><qemu:env name='QEMU_ENV' value='VAL'/></qemu:commandline></domain>";
@@ -40,14 +40,34 @@ public class GenericAPIImplTest {
 		api.connect("test://", false);
 	}
 	
-	/* Domain Tests */
+	/* Compute Tests */
+	
 	@Test(expected=org.libvirt.LibvirtException.class)
-	public void testCreateDomain() throws LibvirtException {
+	public void testCreateCompute() throws LibvirtException {
 		String failingConfig = "<domain>";
-		String domainUuid = api.createCompute(failingConfig);
-		Assert.assertNull(domainUuid);
-		domainUuid = api.createCompute(domainConfig);
-		Assert.assertNotNull(domainUuid);
+		String computeUuid = api.createCompute(failingConfig);
+		Assert.assertNull(computeUuid);
+		computeUuid = api.createCompute(computeConfig);
+		Assert.assertNotNull(computeUuid);
+	}
+	
+	@Test(expected=org.libvirt.LibvirtException.class)
+	public void testDeleteCompute() throws LibvirtException {
+		String computeUuid = api.createCompute(computeConfig);
+		api.deleteCompute(computeUuid);
+		Assert.assertNull(api.getCompute(computeUuid));
+	}
+	
+	@Test(expected=org.libvirt.LibvirtException.class)
+	public void testDeleteComputefailing() throws LibvirtException {
+		String failingUuid = "12345";
+		api.deleteCompute(failingUuid);
+	}
+	
+	@Test
+	public void testGetCompute() throws LibvirtException {
+		String computeUuid = api.createCompute(computeConfig);
+		Assert.assertNotNull(api.getCompute(computeUuid));
 	}
 	
 	
