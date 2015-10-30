@@ -8,5 +8,5 @@ jdk:
 notifications:
   slack: sddcteam:0kQltMakMELFspYW7JdQuGmL
 script: 
-  - mvn site
+  - mvn test cobertura:cobertura -Dcobertura.report.format=xml
   - mvn sonar:sonar
