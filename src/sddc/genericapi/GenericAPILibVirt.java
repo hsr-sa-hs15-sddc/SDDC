@@ -24,9 +24,13 @@ public class GenericAPILibVirt implements IGenericAPIFacade {
 	}
 
 	@Override
-	public void disconnect() {
-		// TODO Auto-generated method stub
-		
+	public void disconnect() throws LibvirtException {
+		try {
+			conn.close();
+		} catch (LibvirtException libvirtException) {
+			//Logging
+			throw libvirtException;
+		}
 	}
 	
 	@Override

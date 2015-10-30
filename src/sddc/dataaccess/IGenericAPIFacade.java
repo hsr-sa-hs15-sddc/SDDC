@@ -7,7 +7,8 @@ public interface IGenericAPIFacade {
 	void connect(String uri, boolean readOnly) 
 			throws LibvirtException;
 	
-	void disconnect();
+	void disconnect()
+			throws LibvirtException;
 	
 	//Compute
 	
