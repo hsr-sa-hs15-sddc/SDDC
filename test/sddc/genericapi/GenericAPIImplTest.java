@@ -10,7 +10,7 @@ import sddc.dataaccess.IGenericAPIFacade;
 
 public class GenericAPIImplTest {
 
-	private IGenericAPIFacade api,api2;
+	private IGenericAPIFacade api;
 	private String storageConfig, networkConfig, domainConfig;
 
 	@Before
@@ -19,9 +19,13 @@ public class GenericAPIImplTest {
 		api.connect("test:///default", false);
 		storageConfig = "<pool type=\"disk\"><name>vdb2</name><source><device path='/dev/vdb2'/></source><target><path>/dev</path></target></pool>";
 		networkConfig = "<network><name>default6</name><bridge name=\"virbr0\" /><forward mode=\"nat\"/><ip address=\"192.168.122.1\" netmask=\"255.255.255.0\">"
-				+ "<dhcp><range start=\"192.168.122.2\" end=\"192.168.122.254\" /></dhcp>"
-        + "</ip><ip family=\"ipv6\" address=\"2001:db8:ca2:2::1\" prefix=\"64\" >"
-        +  "<dhcp><range start=\"2001:db8:ca2:2:1::10\" end=\"2001:db8:ca2:2:1::ff\" /></dhcp></ip></network>";
+			+ "<dhcp><range start=\"192.168.122.2\" end=\"192.168.122.254\" /></dhcp>"
+		    + "</ip><ip family=\"ipv6\" address=\"2001:db8:ca2:2::1\" prefix=\"64\" >"
+		    +  "<dhcp><range start=\"2001:db8:ca2:2:1::10\" end=\"2001:db8:ca2:2:1::ff\" /></dhcp></ip></network>";
+		domainConfig = "<domain type='qemu' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>"
+		  + "<name>QEmu-fedora-i686</name><memory>219200</memory><os><type arch='i686' machine='pc'>hvm</type></os>"
+		  + "<devices><emulator>/usr/bin/qemu-system-x86_64</emulator></devices><qemu:commandline>"
+		  + "<qemu:arg value='-newarg'/><qemu:env name='QEMU_ENV' value='VAL'/></qemu:commandline></domain>";
 	}
 
 	@After
@@ -35,6 +39,17 @@ public class GenericAPIImplTest {
 	public void testConnect() throws LibvirtException {
 		api.connect("test://", false);
 	}
+	
+	/* Domain Tests */
+	@Test(expected=org.libvirt.LibvirtException.class)
+	public void testCreateDomain() throws LibvirtException {
+		String failingConfig = "<domain>";
+		String domainUuid = api.createCompute(failingConfig);
+		Assert.assertNull(domainUuid);
+		domainUuid = api.createCompute(domainConfig);
+		Assert.assertNotNull(domainUuid);
+	}
+	
 	
 	/* Storage Tests*/
 	
@@ -80,8 +95,8 @@ public class GenericAPIImplTest {
 	@Test(expected=org.libvirt.LibvirtException.class)
 	public void testDeleteNetwork() throws LibvirtException {
 		String networkUuid = api.createNetwork(networkConfig);
-		api.deleteStorage(networkUuid);
-		Assert.assertNull(api.getStorage(networkUuid));
+		api.deleteNetwork(networkUuid);
+		Assert.assertNull(api.getNetwork(networkUuid));
 	}
 	
 	@Test(expected=org.libvirt.LibvirtException.class)
