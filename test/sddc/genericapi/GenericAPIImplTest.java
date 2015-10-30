@@ -10,7 +10,7 @@ import sddc.dataaccess.IGenericAPIFacade;
 
 public class GenericAPIImplTest {
 
-	private IGenericAPIFacade api;
+	private IGenericAPIFacade api,api2;
 	private String storageConfig, networkConfig, domainConfig;
 
 	@Before
@@ -23,6 +23,13 @@ public class GenericAPIImplTest {
 	@After
 	public void tearDown() throws Exception {
 		api.disconnect();
+	}
+	
+	/* Connect Test */
+	
+	@Test(expected=org.libvirt.LibvirtException.class)
+	public void testConnect() throws LibvirtException {
+		api.connect("test://", false);
 	}
 	
 	/* Storage Tests*/
