@@ -29,13 +29,12 @@ public class PersistenceFakeImplTest {
 	
 	@Test
 	public void testStoreOrderedService() {
-		assertEquals(-862545276,persistence.storeOrderedService("Hello World"));
-		assertEquals(-862545276,persistence.storeOrderedService("Hello World"));
-		assertEquals("Hello World",persistence.getOrderedService(-862545276));
-		/* Same Hashcode gets replaced -> otherwise there would be a Duplication */
-		persistence.storeOrderedService("Hello World123");
-		String[] string = {"Hello World", "Hello World123"};
-		assertTrue(Arrays.equals(string, persistence.getOrderedServices()));
+		String[] service = {"Hello World", "Hello World"};
+		assertEquals(200006406,persistence.storeOrderedService(service));
+		assertEquals(200006406,persistence.storeOrderedService(service));
+		assertTrue(Arrays.equals(service, persistence.getOrderedService(200006406)));
+		String[][] string = {{"Hello World", "Hello World"}};
+		assertArrayEquals(string,persistence.getOrderedServices());
 	}
 	
 	

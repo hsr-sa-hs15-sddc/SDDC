@@ -1,6 +1,6 @@
 package sddc.dataaccess;
 
-//Facade muss überarbeitet werden
+//Facade muss ï¿½berarbeitet werden
 
 public interface IPersistenceFacade {
 	
@@ -8,7 +8,7 @@ public interface IPersistenceFacade {
 	String[] getServices();
 	String getService(int id);
 	
-	int storeOrderedService(String data);
-	String[] getOrderedServices();
-	String getOrderedService(int id);
+	int storeOrderedService(String[] data);
+	String[][] getOrderedServices();
+	String[] getOrderedService(int id);
 }

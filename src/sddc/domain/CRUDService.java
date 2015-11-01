@@ -9,6 +9,7 @@ public class CRUDService {
 	
 	private IPersistenceFacade persistence;
 	private IGenericAPIFacade api;
+	private String[] order = new String[3];
 	
 	public CRUDService(IGenericAPIFacade api, IPersistenceFacade persistence) {
 		this.api = api;
@@ -17,15 +18,17 @@ public class CRUDService {
 	
 	public void orderService(int id) throws LibvirtException {
 		String service = persistence.getService(id);
-		
+
 		String network = getContentOfXMLTagName(service, "net");
-		api.createNetwork(network);
+		order[0] = api.createNetwork(network);
 		
 		String storage = getContentOfXMLTagName(service, "storage");
-		api.createStorage(storage);
+		order[1] = api.createStorage(storage);
 		
 		String compute = getContentOfXMLTagName(service, "compute");
-		api.createCompute(compute);
+		order[2] = api.createCompute(compute);
+		
+		persistence.storeOrderedService(order);
 	}
 	
 	public String[] getServices() {

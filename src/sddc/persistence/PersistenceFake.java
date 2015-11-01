@@ -8,7 +8,7 @@ import sddc.dataaccess.IPersistenceFacade;
 public class PersistenceFake implements IPersistenceFacade {
 	
 	private Map<Integer, String> services;
-	private Map<Integer, String> orderedServices;
+	private Map<Integer, String[]> orderedServices;
 	
 	public PersistenceFake() {
 		services = new HashMap<>();
@@ -33,19 +33,19 @@ public class PersistenceFake implements IPersistenceFacade {
 	}
 
 	@Override //Refactor
-	public int storeOrderedService(String data) {
+	public int storeOrderedService(String[] data) {
 		int hashCode = data.hashCode();
 		orderedServices.put(hashCode, data);
 		return hashCode;
 	}
 
 	@Override
-	public String[] getOrderedServices() {
-		return (String[]) orderedServices.values().toArray(new String[orderedServices.size()]);
+	public String[][] getOrderedServices() {
+		return (String[][]) orderedServices.values().toArray(new String[orderedServices.size()][]);
 	}
 
 	@Override
-	public String getOrderedService(int id) {
+	public String[] getOrderedService(int id) {
 		return orderedServices.get(id);
 	}
 
