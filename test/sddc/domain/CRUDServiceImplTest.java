@@ -37,8 +37,7 @@ public class CRUDServiceImplTest {
 	
 	
 	@Test
-	public void testOrderService() throws LibvirtException {
-		service.orderService(identifier);
+	public void testGetService() throws LibvirtException {
 		assertNotNull(service.getService(identifier));
 	}
 	

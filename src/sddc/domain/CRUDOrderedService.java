@@ -9,7 +9,7 @@ public class CRUDOrderedService {
 	
 	private IPersistenceFacade persistence;
 	private IGenericAPIFacade api;
-	private String[] cancel;
+	private String[] cancel = new String[3];
 	
 	public CRUDOrderedService(IGenericAPIFacade api, IPersistenceFacade persistence) {
 		this.api = api;
@@ -26,13 +26,12 @@ public class CRUDOrderedService {
 	
 	public void cancelOrderedService(int id) throws LibvirtException {
 		cancel = persistence.getOrderedService(id);
-		
-		api.deleteNetwork(cancel[0]);
-		
-		api.deleteStorage(cancel[1]);
-		
-		api.deleteCompute(cancel[2]);
-		
+		if(cancel[0] != null)
+			api.deleteNetwork(cancel[0]);
+		if(cancel[1] != null)
+			api.deleteStorage(cancel[1]);
+		if(cancel[2] != null)
+			api.deleteCompute(cancel[2]);
 	}
 	
 	
