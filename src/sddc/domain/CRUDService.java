@@ -4,30 +4,41 @@ import org.libvirt.LibvirtException;
 
 import sddc.dataaccess.IGenericAPIFacade;
 import sddc.dataaccess.IPersistenceFacade;
-import sddc.genericapi.GenericAPILibVirt;
-import sddc.persistence.PersistenceFake;
 
 public class CRUDService {
 	
 	private IPersistenceFacade persistence;
 	private IGenericAPIFacade api;
 	
-	public CRUDService() {
-		//Factory
+	public CRUDService(IGenericAPIFacade api, IPersistenceFacade persistence) {
+		this.api = api;
+		this.persistence = persistence;
 	}
 	
-
-	
-	public void orderService(int id) {
+	public void orderService(int id) throws LibvirtException {
+		String service = persistence.getService(id);
 		
+		String network = getContentOfXMLTagName(service, "net");
+		api.createNetwork(network);
+		
+		String storage = getContentOfXMLTagName(service, "storage");
+		api.createStorage(storage);
+		
+		String compute = getContentOfXMLTagName(service, "compute");
+		api.createCompute(compute);
 	}
 	
-	public String getServices() {
-		return null;
+	public String[] getServices() {
+		return persistence.getServices();
 	}
 	
 	public String getService(int id) {
-		return null;
+		return persistence.getService(id);
+	}
+	
+	private String getContentOfXMLTagName(String xml, String tag) {
+		return xml.substring(xml.indexOf("<" + tag + ">") + ("<" + tag + ">").length(), 
+				xml.indexOf("</" + tag + ">"));
 	}
 
 }

@@ -8,16 +8,17 @@ public class CRUDOrderedService {
 	private IPersistenceFacade persistence;
 	private IGenericAPIFacade api;
 	
-	public CRUDOrderedService() {
-		//Factory
+	public CRUDOrderedService(IGenericAPIFacade api, IPersistenceFacade persistence) {
+		this.api = api;
+		this.persistence = persistence;
 	}
 
-	public String getOrderedServices() {
-		return null;
+	public String[] getOrderedServices() {
+		return persistence.getOrderedServices();
 	}
 	
 	public String getOrderedService(int id) {
-		return null;
+		return persistence.getOrderedService(id);
 	}
 	
 	public void cancelOrderedService(int id) {
