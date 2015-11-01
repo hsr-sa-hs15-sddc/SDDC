@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>SDDC</groupId>
   <artifactId>SDDC</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
   	<name>SDDC</name>
 	<url>http://sddc.silvn.com</url>
 	<description>Software Defined Data Center</description>
@@ -28,7 +28,6 @@
 	<connection>scm:git:git@github.com:silvanadrian/SDDC.git</connection>
 	<url>scm:git:git@github.com:silvanadrian/SDDC.git</url>
 	<developerConnection>scm:git:git@github.com:silvanadrian/SDDC.git</developerConnection>
-    <tag>HEAD</tag>
   </scm>
   <build>
     <sourceDirectory>src</sourceDirectory>
