@@ -24,7 +24,7 @@ public class PersistenceFake implements IPersistenceFacade {
 
 	@Override
 	public String[] getServices() {
-		return (String[]) services.values().toArray();
+		return (String[]) services.values().toArray(new String[services.size()]);
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class PersistenceFake implements IPersistenceFacade {
 
 	@Override
 	public String[] getOrderedServices() {
-		return (String[]) orderedServices.values().toArray();
+		return (String[]) orderedServices.values().toArray(new String[orderedServices.size()]);
 	}
 
 	@Override

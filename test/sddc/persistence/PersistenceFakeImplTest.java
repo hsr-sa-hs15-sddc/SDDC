@@ -2,6 +2,8 @@ package sddc.persistence;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import org.junit.*;
 import sddc.dataaccess.IPersistenceFacade;
 public class PersistenceFakeImplTest {
@@ -21,7 +23,7 @@ public class PersistenceFakeImplTest {
 		/* Same Hashcode gets replaced -> otherwise there would be a Duplication */
 		persistence.storeService("Hello World123");
 		String[] string = {"Hello World", "Hello World123"};
-		assert(string.equals(persistence.getServices()));
+		assertTrue(Arrays.equals(string, persistence.getServices()));
 	}
 	
 	
@@ -33,7 +35,7 @@ public class PersistenceFakeImplTest {
 		/* Same Hashcode gets replaced -> otherwise there would be a Duplication */
 		persistence.storeOrderedService("Hello World123");
 		String[] string = {"Hello World", "Hello World123"};
-		assert(string.equals(persistence.getOrderedServices()));
+		assertTrue(Arrays.equals(string, persistence.getOrderedServices()));
 	}
 	
 	
