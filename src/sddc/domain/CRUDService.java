@@ -20,13 +20,16 @@ public class CRUDService {
 		String service = persistence.getService(id);
 
 		String network = getContentOfXMLTagName(service, "net");
-		order[0] = api.createNetwork(network);
+		if(network != null)
+			order[0] = api.createNetwork(network);
 		
 		String storage = getContentOfXMLTagName(service, "storage");
-		order[1] = api.createStorage(storage);
+		if(storage != null)
+			order[1] =	api.createStorage(storage);
 		
 		String compute = getContentOfXMLTagName(service, "compute");
-		order[2] = api.createCompute(compute);
+		if(compute != null)
+			order[2] = api.createCompute(compute);
 		
 		persistence.storeOrderedService(order);
 	}
@@ -40,6 +43,9 @@ public class CRUDService {
 	}
 	
 	private String getContentOfXMLTagName(String xml, String tag) {
+		if(xml.indexOf("<" + tag + ">") <= -1)
+			return null;
+		
 		return xml.substring(xml.indexOf("<" + tag + ">") + ("<" + tag + ">").length(), 
 				xml.indexOf("</" + tag + ">"));
 	}
