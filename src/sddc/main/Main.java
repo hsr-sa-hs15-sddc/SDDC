@@ -1,8 +1,14 @@
 package sddc.main;
 
 
+import java.io.BufferedReader;
 import java.io.Console;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.libvirt.*;
 
@@ -15,15 +21,26 @@ public class Main {
 
 	private static CRUDService service;
 	
-	public static void main(String[] args) {
-		 Console console = System.console();
+	
+	static String readFile(String path, Charset encoding) 
+			  throws IOException 
+			{
+			  byte[] encoded = Files.readAllBytes(Paths.get(path));
+			  return new String(encoded, encoding);
+			}
+	
+	public static void main(String[] args) throws IOException {
+		 
+		BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+		 
 		 
 		 boolean connected = false;
 		 IGenericAPIFacade api = new GenericAPILibVirt();
 		 
 		 //Login
 		 do {
-			 String uri = console.readLine("Please enter Connection uri : ");
+			 System.out.print("Please enter Connection uri : ");
+			 String uri = console.readLine();
 			 try {
 					api.connect(uri, false);
 					connected = true;
@@ -32,8 +49,11 @@ public class Main {
 				}
 		 } while(!connected);
 		 
+		 
+		 
+		 
 		 IPersistenceFacade persistence = new PersistenceFake();
-		 persistence.storeService(new File("testservice.xml").toString());
+		 System.out.println("testservice id = " + persistence.storeService(readFile("testservice.xml", Charset.defaultCharset())));
 		 
 		 service = new CRUDService(api, persistence);
 		 
@@ -41,10 +61,12 @@ public class Main {
 		 boolean exit = false;
 		 
 	     while(!exit) {
-	    	 String input = console.readLine(">");
+	    	 System.out.print(">");
+	    	 String input = console.readLine();
 	    	 
 	    	 if(input.equals("order")) {
-	    		 String id = console.readLine("Enter service ID: ");
+	    		 System.out.print("Enter service ID: ");
+	    		 String id = console.readLine();
 	    		 try {
 					service.orderService(Integer.valueOf(id));
 				} catch (NumberFormatException e) {
