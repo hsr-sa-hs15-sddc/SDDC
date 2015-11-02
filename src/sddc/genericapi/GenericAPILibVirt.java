@@ -119,7 +119,7 @@ public class GenericAPILibVirt implements IGenericAPIFacade {
 		try {
 			Network network = conn.networkLookupByUUIDString(uuid);
 			network.destroy();
-			network.undefine();
+			//network.undefine();
 		} catch(LibvirtException libvirtException) {
 			//Logging
 			throw libvirtException;

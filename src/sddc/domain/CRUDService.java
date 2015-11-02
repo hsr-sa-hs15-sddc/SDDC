@@ -16,7 +16,7 @@ public class CRUDService {
 		this.persistence = persistence;
 	}
 	
-	public void orderService(int id) throws LibvirtException {
+	public int orderService(int id) throws LibvirtException {
 		String service = persistence.getService(id);
 
 		String network = getContentOfXMLTagName(service, "net");
@@ -31,7 +31,7 @@ public class CRUDService {
 		if(compute != null)
 			order[2] = api.createCompute(compute);
 		
-		persistence.storeOrderedService(order);
+		return persistence.storeOrderedService(order);
 	}
 	
 	public String[] getServices() {

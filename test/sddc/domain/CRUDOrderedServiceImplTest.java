@@ -27,7 +27,6 @@ public class CRUDOrderedServiceImplTest {
 	private CRUDOrderedService orderedService;
 	private int identifier, storedidentifier;
 	private String file;
-	//private String[] order = {"net", "compute", "storage"};
 	
 	@Before
 	public void setUp() throws Exception {
@@ -38,23 +37,38 @@ public class CRUDOrderedServiceImplTest {
 		orderedService = new CRUDOrderedService(api, persistence);
 		file = readFile("testservice.xml",StandardCharsets.UTF_8);
 		identifier = persistence.storeService(file);
+		storedidentifier = service.orderService(identifier);
 	}
 	
 	
-	@Test
-	public void testOrderService() throws LibvirtException {
+	@Test(expected=org.libvirt.LibvirtException.class)
+	public void testCancelNetwork() throws LibvirtException {
 		assertNotNull(service.getService(identifier));
-		service.orderService(identifier);
 		assertTrue(Arrays.deepToString(orderedService.getOrderedServices()).length()>2);
+		orderedService.cancelOrderedService(storedidentifier);
+		String[] str = orderedService.getOrderedService(storedidentifier);
+		api.getNetwork(str[0]);
 	}
 	
-	/* Nicht möglich ohne id des OrderedService
-	@Test
-	public void testCancelOrderedServices() throws LibvirtException {
-		storedidentifier = persistence.storeOrderedService(order);
+	@Test(expected=org.libvirt.LibvirtException.class)
+	public void testCancelStorage() throws LibvirtException {
+		assertNotNull(service.getService(identifier));
+		assertTrue(Arrays.deepToString(orderedService.getOrderedServices()).length()>2);
+		orderedService.cancelOrderedService(storedidentifier);
 		String[] str = orderedService.getOrderedService(storedidentifier);
-		assertArrayEquals(order,orderedService.getOrderedService(storedidentifier));
-	}*/
+		api.getStorage(str[1]);
+	}
+	
+	
+	@Test(expected=org.libvirt.LibvirtException.class)
+	public void testCancelCompute() throws LibvirtException {
+		assertNotNull(service.getService(identifier));
+		assertTrue(Arrays.deepToString(orderedService.getOrderedServices()).length()>2);
+		orderedService.cancelOrderedService(storedidentifier);
+		String[] str = orderedService.getOrderedService(storedidentifier);
+		api.getCompute(str[2]);
+	}
+	
 	
 	static String readFile(String path, Charset encoding) throws IOException {
 		byte[] encoded = Files.readAllBytes(Paths.get(path));
