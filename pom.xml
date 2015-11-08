@@ -33,6 +33,11 @@
   <build>
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
+     <resources>
+     <resource>
+       <directory>src/sddc/resources</directory>
+     </resource>
+   </resources>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -145,18 +150,4 @@
     <sonar.jdbc.password>sonar%2015</sonar.jdbc.password>
 </properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.libvirt</groupId>
-				<artifactId>libvirt</artifactId>
-				<version>0.5.1</version>
-			</dependency>
-			<dependency>
-				<groupId>net.java.dev.jna</groupId>
-				<artifactId>jna</artifactId>
-				<version>4.2.0</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 </project>
