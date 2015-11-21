@@ -29,9 +29,10 @@ import sddc.services.ServiceRepo;
 public class WorkflowTest {
 
 	private String storageConfig, networkConfig, computeConfig;
-	private ServiceModule module1, module2, module3;
+	private ServiceModule module1, module2, module3, computeModule, storageModule, networkModule;
 	private Set<ServiceModule> modules = new HashSet<ServiceModule>();
 	private Service  service;
+	private String failingConfig = "Hello World";
 	
 	@Autowired
 	private OrderedServiceRepo orderedRepo;
@@ -100,6 +101,39 @@ public class WorkflowTest {
 		Assert.assertTrue(orderedRepo.findByName("Testservice").getIdentifiers().size() == 3);
 		workflow.cancelService(orderedRepo.findByName("Testservice"));
 		Assert.assertNull(orderedRepo.findByName("Testservice"));
+	}
+	
+	@Test
+	public void testExceptionCompute() {
+		Set<ServiceModule> modules = new HashSet<ServiceModule>();
+		computeModule = new ServiceModule("FailingCompute",Size.S, Category.Compute, failingConfig );
+		modules.add(computeModule);
+		Service service = new Service("Hello Exception",modules);
+		repo.save(service);
+		modulesRepo.save(modules);
+		workflow.orderService(service);
+	}
+	
+	@Test
+	public void testExceptionStorage() {
+		Set<ServiceModule> modules = new HashSet<ServiceModule>();
+		storageModule = new ServiceModule("FailingStorage",Size.S, Category.Compute, failingConfig );
+		modules.add(storageModule);
+		Service service = new Service("Hello Exception",modules);
+		repo.save(service);
+		modulesRepo.save(modules);
+		workflow.orderService(service);
+	}
+	
+	@Test
+	public void testExceptionNetwork() {
+		Set<ServiceModule> modules = new HashSet<ServiceModule>();
+		networkModule = new ServiceModule("FailingNetwork", Category.Compute, failingConfig );
+		modules.add(networkModule);
+		Service service = new Service("Hello Exception",modules);
+		repo.save(service);
+		modulesRepo.save(modules);
+		workflow.orderService(service);
 	}
 	
 	
