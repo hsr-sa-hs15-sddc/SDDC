@@ -32,8 +32,7 @@ public class Workflow {
 		try {
 			api.connect("test:///default", false);
 		} catch (LibvirtException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Could not connect: " + e.getMessage());
 		}
 	}
 	
@@ -42,8 +41,7 @@ public class Workflow {
 		try {
 			this.api.connect("test:///default", false);
 		} catch (LibvirtException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Could not connect: " + e.getMessage());
 		}
 	}
 	
@@ -57,7 +55,6 @@ public class Workflow {
 				ids.add(new Identifier(identifier, serviceModule.getCategory(), serviceModule.getSize()));
 			} catch (LibvirtException e) {
 				LOGGER.error("Could not create Network: " + e.getMessage());
-				e.printStackTrace();
 				rollback(ids);
 				return;
 			}
@@ -69,7 +66,6 @@ public class Workflow {
 				ids.add(new Identifier(identifier, serviceModule.getCategory(), serviceModule.getSize()));
 			} catch (LibvirtException e) {
 				LOGGER.error("Could not create Storage: " + e.getMessage());
-				e.printStackTrace();
 				rollback(ids);
 				return;
 			}
@@ -81,7 +77,6 @@ public class Workflow {
 				ids.add(new Identifier(identifier, serviceModule.getCategory(), serviceModule.getSize()));
 			} catch (LibvirtException e) {
 				LOGGER.error("Could not create Compute: " + e.getMessage());
-				e.printStackTrace();
 				rollback(ids);
 				return;
 			}
@@ -97,7 +92,6 @@ public class Workflow {
 				api.deleteCompute(identifier.getUuid());
 			} catch (LibvirtException e) {
 				LOGGER.error("Could not delete Compute: " + e.getMessage());
-				e.printStackTrace();
 			}
 		}
 		
@@ -106,7 +100,6 @@ public class Workflow {
 				api.deleteStorage(identifier.getUuid());
 			} catch (LibvirtException e) {
 				LOGGER.error("Could not delete Storage: " + e.getMessage());
-				e.printStackTrace();
 			}
 		}
 		
@@ -115,7 +108,6 @@ public class Workflow {
 				api.deleteNetwork(identifier.getUuid());
 			} catch (LibvirtException e) {
 				LOGGER.error("Could not delete Network: " + e.getMessage());
-				e.printStackTrace();
 			}
 		}
 		
