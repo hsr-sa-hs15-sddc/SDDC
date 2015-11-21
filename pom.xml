@@ -3,10 +3,36 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>sddc</groupId>
-    <artifactId>sddc-prototyp</artifactId>
+	<groupId>SDDC</groupId>
+  <artifactId>SDDC</artifactId>
     <version>0.0.2-SNAPSHOT</version>
+  	<name>SDDC</name>
+	<url>http://sddc.silvn.com</url>
+	<description>Software Defined Data Center</description>
+	<organization>
+		<name>HSR</name>
+		<url>http://hsr.ch</url>
+	</organization>
+ <developers>
+ <developer>
+ 	<id>silvan adrian</id>
+ 	<name>Silvan Adrian</name>
+ 	<organization>HSR</organization>
+ 	<organizationUrl>http://hsr.ch</organizationUrl>
+ </developer>
+  <developer>
+ 	<id>fabian binna</id>
+ 	<name>Fabian Binna</name>
+ 	<organization>HSR</organization>
+ 	<organizationUrl>http://hsr.ch</organizationUrl>
+ </developer>
+ </developers>
+  <scm>
+	<connection>scm:git:git@github.com:silvanadrian/SDDC.git</connection>
+	<url>scm:git:git@github.com:silvanadrian/SDDC.git</url>
+	<developerConnection>scm:git:git@github.com:silvanadrian/SDDC.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -108,5 +134,12 @@
             </plugin>
         </plugins>
     </build>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
+    <properties>
+    <sonar.host.url>http://sddc.silvn.com:9000</sonar.host.url>
+    <sonar.jdbc.url>jdbc:postgresql://sddc.silvn.com/sonar</sonar.jdbc.url>
+    <sonar.jdbc.driver>org.postgresql.Driver</sonar.jdbc.driver>
+    <sonar.jdbc.username>sonar</sonar.jdbc.username>
+    <sonar.jdbc.password>sonar%2015</sonar.jdbc.password>
+</properties>
 </project>
