@@ -2,6 +2,7 @@ package sddc.services;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import junit.framework.Assert;
 import sddc.ApplicationMain;
 import sddc.services.domain.Category;
-import sddc.services.domain.Service;
-import sddc.services.domain.ServiceModule;
+import sddc.services.domain.Identifier;
+import sddc.services.domain.OrderedService;
 import sddc.services.domain.Size;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,30 +27,25 @@ import sddc.services.domain.Size;
         initializers = ConfigFileApplicationContextInitializer.class)
 @Configuration
 @Profile("dev")
-public class ServiceControllerTest {
+public class OrderedServiceControllerTest {
 	
 	@Autowired
-	private ServiceController controller;
+	private OrderedServiceController controller;
 	
 	@Autowired
     private ApplicationContext context;
 	
 	@Autowired
-	private ServiceRepo repo;
-	
-	
-	private String networkconfig = "<network><name>default6</name><bridge name=\"virbr0\" /><forward mode=\"nat\"/><ip address=\"192.168.122.1\" netmask=\"255.255.255.0\">"
-			+ "<dhcp><range start=\"192.168.122.2\" end=\"192.168.122.254\" /></dhcp>"
-		    + "</ip><ip family=\"ipv6\" address=\"2001:db8:ca2:2::1\" prefix=\"64\" >"
-		    +  "<dhcp><range start=\"2001:db8:ca2:2:1::10\" end=\"2001:db8:ca2:2:1::ff\" /></dhcp></ip></network>";
+	private OrderedServiceRepo repo;
 	
 	@Before
-	public void setUp() {
-	repo.deleteAll();
-	Set<ServiceModule> modules = new HashSet<ServiceModule>();
-	modules.add(new ServiceModule("Network Bridge",Size.S,Category.Network,networkconfig));
-    repo.save(new Service("Network Virtual Bridge",modules));
-	}
+	 public void setUp() {
+		 repo.deleteAll();
+		 Set<Identifier> ids = new HashSet<Identifier>();
+		 ids.add(new Identifier(UUID.randomUUID().toString(),Category.Compute,Size.L));
+		 ids.add(new Identifier(UUID.randomUUID().toString(),Category.Network,Size.S));
+		 repo.save(new OrderedService("LAMP Stack",ids));
+	 }
 	
 	@Test
 	public void testFindAll() {
@@ -59,10 +55,10 @@ public class ServiceControllerTest {
 	 @Test
 	    public void verifyContext () {
 
-	        ServiceRepo repo = context.getBean(ServiceRepo.class);
+	        OrderedServiceRepo repo = context.getBean(OrderedServiceRepo.class);
 	        Assert.assertNotNull( repo );
 
-	        repo = (ServiceRepo) context.getBean("serviceRepo");
+	        repo = (OrderedServiceRepo) context.getBean("orderedServiceRepo");
 	        Assert.assertNotNull( repo );
 
 	    }

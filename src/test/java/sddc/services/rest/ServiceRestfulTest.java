@@ -19,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 import junit.framework.Assert;
 import sddc.ApplicationMain;
 import sddc.services.OrderedServiceRepo;
-import sddc.services.ServiceModuleRepo;
 import sddc.services.ServiceRepo;
 import sddc.services.domain.Category;
 import sddc.services.domain.Service;
@@ -34,8 +33,6 @@ import sddc.services.domain.Size;
 @WebIntegrationTest
 public class ServiceRestfulTest {
 	RestTemplate template = new TestRestTemplate();
-	
-	
 	
 	@Autowired
 	private ServiceRepo repo;
@@ -89,13 +86,13 @@ public class ServiceRestfulTest {
 	 }
 	 
 	 
-	/* @Test 
+	@Test 
 	 public void testPutService() {
 		 Long id = repo.findByServiceName("Network Virtual Bridge").getId();
 		 Service service = repo.findOne(id);
 		 service.setServiceName("Some new Service");
 		 template.put("http://localhost:8080/api/services/{id}", service, id);
-		 System.out.println(repo.findOne(id).getServiceName());
-	 }*/
+		 Assert.assertEquals("Some new Service",repo.findOne(id).getServiceName());
+	 }
 	 
 }
