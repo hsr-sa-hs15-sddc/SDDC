@@ -14,7 +14,7 @@ public class FileUtilTest {
 
 	@Test
 	public void getContentOfFileTest() {
-		String content = FileUtil.getContentOfFile("configfiles/LibVirtStorageConfigExample.xml", Charset.defaultCharset(), true);
+		String content = FileUtil.getContentOfFile("src/test/resources/LibVirtStorageConfigExample.xml", Charset.defaultCharset(), true);
 		Assert.assertEquals(storageConfig.replaceAll("\\s",""), content);
 	}
 

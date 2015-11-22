@@ -1,0 +1,13 @@
+<pool type="disk">
+
+	<name>{{name}}</name>
+	
+	<source>
+		<device path='/dev/vdb2' />
+	</source>
+	
+	<target>
+		<path>/dev</path>
+	</target>
+	
+</pool>
