@@ -1,6 +1,11 @@
 package sddc.services;
 
+import java.nio.charset.Charset;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import sddc.services.domain.Service;
+import sddc.services.domain.ServiceModule;
+import sddc.services.domain.Size;
 import sddc.services.domain.Workflow;
+import sddc.util.FileUtil;
+import sddc.services.domain.Category;
 
 
 @RestController
@@ -20,8 +29,41 @@ public class ServiceController {
     @Autowired
     private ServiceRepo repo;
     
+    
     @Autowired
     private Workflow workflow;
+    
+    
+    private String networkConfig = FileUtil.getContentOfFile("src/main/resources/LibVirtNetworkConfig.xml",
+    		Charset.defaultCharset(), false);
+    		
+    private String ubuntuConfig = FileUtil.getContentOfFile("src/main/resources/LibVirtComputeConfigUbuntu.xml",
+    		Charset.defaultCharset(), false);
+
+    private String debianConfig = FileUtil.getContentOfFile("src/main/resources/LibVirtComputeConfigDebian.xml",
+    		Charset.defaultCharset(), false);
+    
+    @PostConstruct
+    private void createInitialData() {
+    	repo.deleteAll(); //Testumgebung danach rausnehmen
+    	Set<ServiceModule> modules = new HashSet<ServiceModule>();
+    	ServiceModule network = new ServiceModule("Network Bridge",Category.Network,networkConfig);
+    	ServiceModule compute = new ServiceModule("Debian Squeez",Size.M, Category.Compute,debianConfig);
+    	modules.add(network);
+    	modules.add(compute);
+        Service service = new Service("Virtual Bridge + Debian",modules);
+        repo.save(service);
+        Set<ServiceModule> modules2 = new HashSet<ServiceModule>();
+        ServiceModule compute2 = new ServiceModule("Ubuntu VM",Size.M,Category.Compute,ubuntuConfig);
+        modules2.add(compute2);
+        Service service2 = new Service("Ubuntu 14.04",modules2);
+        repo.save(service2);
+        Set<ServiceModule> modules3 = new HashSet<ServiceModule>();
+        ServiceModule compute3 = new ServiceModule("Debian VM",Size.M,Category.Compute,debianConfig);
+        modules3.add(compute3);
+        Service service3 = new Service("Debian Squezzy",modules3);
+        repo.save(service3);
+    }
     
     @RequestMapping(value="/api/services/{id}",method = RequestMethod.GET)
     @ResponseBody
