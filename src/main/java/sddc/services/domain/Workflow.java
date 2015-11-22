@@ -23,7 +23,6 @@ public class Workflow {
 	
 	private IGenericAPIFacade api;
 	
-
 	public static final Logger LOGGER = LoggerFactory.getLogger(Workflow.class);
 
 	//TODO: DI and Factory
