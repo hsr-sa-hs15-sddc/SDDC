@@ -14,6 +14,7 @@ import org.libvirt.LibvirtException;
 import sddc.services.OrderedServiceRepo;
 import sddc.services.genericapi.GenericAPILibVirt;
 import sddc.services.genericapi.IGenericAPIFacade;
+import sddc.services.genericapi.factory.GenericAPILibVirtFactory;
 
 @Controller
 public class Workflow {
@@ -25,23 +26,8 @@ public class Workflow {
 	
 	public static final Logger LOGGER = LoggerFactory.getLogger(Workflow.class);
 
-	//TODO: DI and Factory
-	public Workflow(IGenericAPIFacade api) {
-		this.api = api;
-		try {
-			api.connect("test:///default", false);
-		} catch (LibvirtException e) {
-			LOGGER.error("Could not connect: " + e.getMessage());
-		}
-	}
-	
 	public Workflow() {
-		this.api = new GenericAPILibVirt();
-		try {
-			this.api.connect("test:///default", false);
-		} catch (LibvirtException e) {
-			LOGGER.error("Could not connect: " + e.getMessage());
-		}
+		api = GenericAPILibVirtFactory.getInstance();
 	}
 	
 	//Refactoring + Logging

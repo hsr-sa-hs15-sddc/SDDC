@@ -14,6 +14,7 @@ public class FileUtil {
 			content = Files.readAllBytes(Paths.get(path));
 		} catch (IOException e) {
 			e.printStackTrace();
+			
 		}
 		
 		String s = new String(content, encoding);
@@ -22,6 +23,16 @@ public class FileUtil {
 			s = s.replaceAll("\\s","");
 		
 		return s;
+	}
+	
+	//Syntax: "name=value; ...
+	public static String getValueOfAttributeFromFile(String content, String attribute) {
+		
+		content = content.replaceAll("\\s","");
+		String str = attribute + "=";
+		String s = content.substring(content.lastIndexOf(str) + str.length());
+		return s.substring(0, s.indexOf(';'));
+
 	}
 	
 }
