@@ -34,7 +34,7 @@ public class WorkflowTest {
 	private ServiceModule module1, module2, module3, computeModule, storageModule, networkModule;
 	private Set<ServiceModule> modules = new HashSet<ServiceModule>();
 	private Service  service;
-	private String failingConfig = "Hello World";
+	private String failingConfig = "Hello World-{{UUID}}";
 	
 	@Autowired
 	private OrderedServiceRepo orderedRepo;
