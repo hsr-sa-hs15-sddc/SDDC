@@ -10,7 +10,7 @@ import junit.framework.Assert;
 
 public class FileUtilTest {
 	
-	private static final String storageConfig = "<pool type=\"disk\"><name>vdb2</name><source><device path='/dev/vdb2'/></source><target><path>/dev</path></target></pool>";
+	private static final String storageConfig = "<pool type=\"disk\"><name>{{name}}</name><source><device path='/dev/vdb2'/></source><target><path>/dev</path></target></pool>";
 
 	@Test
 	public void getContentOfFileTest() {
