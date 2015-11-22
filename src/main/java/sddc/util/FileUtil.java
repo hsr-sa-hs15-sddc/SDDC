@@ -9,14 +9,12 @@ public class FileUtil {
 
 	public static String getContentOfFile(String path, Charset encoding, boolean removeWhitespaces) {
 		
-		byte[] content = null;
+		byte[] content;
 		try {
 			content = Files.readAllBytes(Paths.get(path));
 		} catch (IOException e) {
-			e.printStackTrace();
-			
+			return "";
 		}
-		
 		String s = new String(content, encoding);
 		
 		if(removeWhitespaces)
