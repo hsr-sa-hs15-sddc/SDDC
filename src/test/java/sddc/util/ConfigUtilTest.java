@@ -12,10 +12,11 @@ public class ConfigUtilTest {
 		Assert.assertEquals("<root><name>newName</name></root>", result);
 	}
 	
-	@Test(expected = ConfigUtilIdentifierNotInConfigException.class)
-	public void ConfigUtilIdentifierNotInConfigExceptionTest() {
-		String xml = "<root><name>{{name}}</name></root>";
-		ConfigUtil.changeValue(xml, "{{nam}}", "newName");
+	@Test
+	public void ConfigUtilIdentifierNotInConfigTest() {
+		String xml = "<root><name></name></root>";
+		String result = ConfigUtil.changeValue(xml, "{{nam}}", "newName");
+		Assert.assertEquals(xml, result);
 	}
 
 }

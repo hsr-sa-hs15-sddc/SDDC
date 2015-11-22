@@ -8,7 +8,7 @@ public class ConfigUtil {
 		if(config.contains(identifier)) {
 			return config.replace(identifier, newValue);
 		} else {
-			throw new ConfigUtilIdentifierNotInConfigException("Identifier: " + identifier + " not in Config");
+			return config;
 		}
 	}
 	
