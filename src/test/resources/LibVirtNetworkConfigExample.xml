@@ -1,7 +1,7 @@
 <network>
 
-	<name>{{name}}</name>
-	<bridge name="virbr0" />
+	<name>network-{{UUID}}</name>
+	<bridge name="virbr-{{UUID}}" />
 	<forward mode="nat" />
 	
 	<ip address="192.168.122.1" netmask="255.255.255.0">

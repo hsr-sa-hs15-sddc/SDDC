@@ -1,9 +1,9 @@
 <pool type="disk">
 
-	<name>{{name}}</name>
+	<name>vdb-{{UUID}}</name>
 	
 	<source>
-		<device path='/dev/vdb2' />
+		<device path='/dev/vdb-{{UUID}}' />
 	</source>
 	
 	<target>

@@ -2,6 +2,11 @@ package sddc.services.genericapi;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import sddc.util.ConfigUtil;
+
+import java.util.UUID;
+
 import org.libvirt.Connect;
 import org.libvirt.Domain;
 import org.libvirt.LibvirtException;
@@ -38,6 +43,9 @@ public class GenericAPILibVirt implements IGenericAPIFacade {
 	
 	@Override
 	public String createCompute(String config) throws LibvirtException {
+		
+		config = replaceUUID(config);
+		
 		logger.trace("createCompute(congig: " + config + ")");
 		try {
 			Domain domain = conn.domainDefineXML(config);
@@ -77,6 +85,9 @@ public class GenericAPILibVirt implements IGenericAPIFacade {
 
 	@Override
 	public String createStorage(String config) throws LibvirtException {
+		
+		config = replaceUUID(config);
+		
 		logger.trace("createStorage(config: " + config + ")");
 		try {
 			StoragePool storagePool = conn.storagePoolCreateXML(config, 0);
@@ -114,6 +125,9 @@ public class GenericAPILibVirt implements IGenericAPIFacade {
 
 	@Override
 	public String createNetwork(String config) throws LibvirtException {
+		
+		config = replaceUUID(config);
+		
 		logger.trace("createNetwork(config: " + config + ")");
 		try {
 			Network network = conn.networkCreateXML(config);
@@ -147,5 +161,10 @@ public class GenericAPILibVirt implements IGenericAPIFacade {
 			logger.error("Could not get Network: " + libvirtException.getMessage());
 			throw libvirtException;
 		}
+	}
+	
+	private String replaceUUID(String config) {
+		UUID uuid = UUID.randomUUID();
+		return ConfigUtil.changeValue(config, "{{UUID}}", "" + uuid);
 	}
 }

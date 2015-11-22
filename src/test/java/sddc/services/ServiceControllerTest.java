@@ -1,5 +1,6 @@
 package sddc.services;
 
+import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,6 +21,7 @@ import sddc.services.domain.Category;
 import sddc.services.domain.Service;
 import sddc.services.domain.ServiceModule;
 import sddc.services.domain.Size;
+import sddc.util.FileUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ApplicationMain.class,
@@ -38,10 +40,14 @@ public class ServiceControllerTest {
 	private ServiceRepo repo;
 	
 	
-	private String networkconfig = "<network><name>default6</name><bridge name=\"virbr0\" /><forward mode=\"nat\"/><ip address=\"192.168.122.1\" netmask=\"255.255.255.0\">"
+	private String networkconfig = FileUtil.getContentOfFile("src/test/resources/LibVirtNetworkConfigExample.xml", Charset.defaultCharset(), false);
+			
+			/*
+			"<network><name>default6</name><bridge name=\"virbr0\" /><forward mode=\"nat\"/><ip address=\"192.168.122.1\" netmask=\"255.255.255.0\">"
 			+ "<dhcp><range start=\"192.168.122.2\" end=\"192.168.122.254\" /></dhcp>"
 		    + "</ip><ip family=\"ipv6\" address=\"2001:db8:ca2:2::1\" prefix=\"64\" >"
 		    +  "<dhcp><range start=\"2001:db8:ca2:2:1::10\" end=\"2001:db8:ca2:2:1::ff\" /></dhcp></ip></network>";
+		    */
 	
 	@Before
 	public void setUp() {
