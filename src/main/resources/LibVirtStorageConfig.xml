@@ -1,13 +1,6 @@
-<pool type="disk">
-
-	<name>vdb-{{UUID}}</name>
-	
-	<source>
-		<device path='/dev/vdb-{{UUID}}' />
-	</source>
-	
-	<target>
-		<path>/dev</path>
-	</target>
-	
+<pool type="dir">
+        <name>virtimages-{{UUID}}</name>
+        <target>
+          <path>/home/sddc/guest_images</path>
+        </target>
 </pool>

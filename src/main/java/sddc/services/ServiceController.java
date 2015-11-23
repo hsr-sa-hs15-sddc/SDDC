@@ -46,9 +46,12 @@ public class ServiceController {
     private String debianConfig = FileUtil.getContentOfFile("src/main/resources/LibVirtComputeConfigDebian.xml",
     		Charset.defaultCharset(), false);
     
+    private String storageConfig = FileUtil.getContentOfFile("src/main/resources/LibVirtStorageConfig.xml",
+    		Charset.defaultCharset(), false);
+    
     @PostConstruct
     private void createInitialData() {
-    	repo.deleteAll(); //Testumgebung danach rausnehmen
+    	repo.deleteAll();
     	Set<ServiceModule> modules = new HashSet<ServiceModule>();
     	ServiceModule network = new ServiceModule("Network Bridge",Category.Network,networkConfig);
     	ServiceModule compute = new ServiceModule("Debian Squeez",Size.M, Category.Compute,ubuntuConfigNet);
@@ -66,6 +69,11 @@ public class ServiceController {
         modules3.add(compute3);
         Service service3 = new Service("Debian Squeeze",modules3);
         repo.save(service3);
+        Set<ServiceModule> modules4 = new HashSet<ServiceModule>();
+        ServiceModule storage = new ServiceModule("Dir Storage Pool",Size.M,Category.Storage,storageConfig);
+        modules4.add(storage);
+        Service service4 = new Service("Storage Pool",modules4);
+        repo.save(service4);
     }
     
     @RequestMapping(value="/api/services/{id}",method = RequestMethod.GET)
