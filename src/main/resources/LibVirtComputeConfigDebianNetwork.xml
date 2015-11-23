@@ -37,7 +37,7 @@
     </controller>
     <interface type='bridge'>
       <mac address='52:54:00:ea:84:54'/>
-      <source bridge='virbr0'/>
+      <source bridge='virbr1'/>
       <target dev='vnet0'/>
       <model type='virtio'/>
       <alias name='net0'/>

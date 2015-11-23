@@ -39,6 +39,9 @@ public class ServiceController {
     		
     private String ubuntuConfig = FileUtil.getContentOfFile("src/main/resources/LibVirtComputeConfigUbuntu.xml",
     		Charset.defaultCharset(), false);
+    
+    private String ubuntuConfigNet = FileUtil.getContentOfFile("src/main/resources/LibVirtComputeConfigDebianNetwork.xml",
+    		Charset.defaultCharset(), false);
 
     private String debianConfig = FileUtil.getContentOfFile("src/main/resources/LibVirtComputeConfigDebian.xml",
     		Charset.defaultCharset(), false);
@@ -48,7 +51,7 @@ public class ServiceController {
     	repo.deleteAll(); //Testumgebung danach rausnehmen
     	Set<ServiceModule> modules = new HashSet<ServiceModule>();
     	ServiceModule network = new ServiceModule("Network Bridge",Category.Network,networkConfig);
-    	ServiceModule compute = new ServiceModule("Debian Squeez",Size.M, Category.Compute,debianConfig);
+    	ServiceModule compute = new ServiceModule("Debian Squeez",Size.M, Category.Compute,ubuntuConfigNet);
     	modules.add(network);
     	modules.add(compute);
         Service service = new Service("Virtual Bridge + Debian",modules);
@@ -61,7 +64,7 @@ public class ServiceController {
         Set<ServiceModule> modules3 = new HashSet<ServiceModule>();
         ServiceModule compute3 = new ServiceModule("Debian VM",Size.M,Category.Compute,debianConfig);
         modules3.add(compute3);
-        Service service3 = new Service("Debian Squezzy",modules3);
+        Service service3 = new Service("Debian Squeeze",modules3);
         repo.save(service3);
     }
     

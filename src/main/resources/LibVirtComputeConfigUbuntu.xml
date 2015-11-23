@@ -8,9 +8,6 @@
   </resource>
   <os>
     <type arch='x86_64' machine='pc-i440fx-trusty'>hvm</type>
-    <kernel>/var/lib/libvirt/boot/virtinst-linux.p3qJYq</kernel>
-    <initrd>/var/lib/libvirt/boot/virtinst-initrd.gz.mbhcza</initrd>
-    <cmdline>method=http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/ console=ttyS0,115200n8 serial</cmdline>
     <boot dev='hd'/>
   </os>
   <features>
@@ -61,8 +58,4 @@
       <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
     </memballoon>
   </devices>
-  <seclabel type='dynamic' model='apparmor' relabel='yes'>
-    <label>libvirt-d2b8fc36-13ff-8f5c-5544-a57123be5e8c</label>
-    <imagelabel>libvirt-d2b8fc36-13ff-8f5c-5544-a57123be5e8c</imagelabel>
-  </seclabel>
 </domain>

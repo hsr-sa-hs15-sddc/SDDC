@@ -49,6 +49,7 @@ public class GenericAPILibVirt implements IGenericAPIFacade {
 		logger.trace("createCompute(congig: " + config + ")");
 		try {
 			Domain domain = conn.domainDefineXML(config);
+			domain.create();
 			return domain.getUUIDString();
 		} catch(LibvirtException libvirtException) {
 			logger.error("Could not create Compute: " + libvirtException.getMessage());
