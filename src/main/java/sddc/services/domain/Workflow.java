@@ -12,7 +12,6 @@ import org.libvirt.LibvirtException;
 
 
 import sddc.services.OrderedServiceRepo;
-import sddc.services.genericapi.GenericAPILibVirt;
 import sddc.services.genericapi.IGenericAPIFacade;
 import sddc.services.genericapi.factory.GenericAPILibVirtFactory;
 
@@ -30,7 +29,6 @@ public class Workflow {
 		api = GenericAPILibVirtFactory.getInstance();
 	}
 	
-	//Refactoring + Logging
 	public void orderService(Service service) {
 		
 		Set<Identifier> ids = new HashSet<Identifier>();
@@ -70,7 +68,6 @@ public class Workflow {
 		orderedServiceRepo.save(new OrderedService(service.getServiceName(),ids));
 	}
 	
-	//Refactoring + Logging
 	public void cancelService(OrderedService orderedService) {
 		for(Identifier identifier : orderedService.getIdentifiers(Category.Compute)) {
 			try {

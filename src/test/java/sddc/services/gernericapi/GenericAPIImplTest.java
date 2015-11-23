@@ -22,27 +22,15 @@ public class GenericAPIImplTest {
 		api = new GenericAPILibVirt();
 		api.connect("test:///default", false);
 		
-		storageConfig = FileUtil.getContentOfFile("src/test/resources/LibVirtStorageConfigExample.xml", Charset.defaultCharset(), false);
+		storageConfig = FileUtil.getContentOfFile("src/test/resources/LibVirtStorageConfigExample.xml", 
+				Charset.defaultCharset(), false);
+						
+		networkConfig = FileUtil.getContentOfFile("src/test/resources/LibVirtNetworkConfigExample.xml", 
+				Charset.defaultCharset(), false);
 				
-				//"<pool type=\"disk\"><name>vdb2</name><source><device path='/dev/vdb2'/></source><target><path>/dev</path></target></pool>";
-		
-		networkConfig = FileUtil.getContentOfFile("src/test/resources/LibVirtNetworkConfigExample.xml", Charset.defaultCharset(), false);
+		computeConfig = FileUtil.getContentOfFile("src/test/resources/LibVirtComputeConfigExample.xml", 
+				Charset.defaultCharset(), false);
 				
-			/*
-			"<network><name>default6</name><bridge name=\"virbr0\" /><forward mode=\"nat\"/><ip address=\"192.168.122.1\" netmask=\"255.255.255.0\">"
-			+ "<dhcp><range start=\"192.168.122.2\" end=\"192.168.122.254\" /></dhcp>"
-		    + "</ip><ip family=\"ipv6\" address=\"2001:db8:ca2:2::1\" prefix=\"64\" >"
-		    +  "<dhcp><range start=\"2001:db8:ca2:2:1::10\" end=\"2001:db8:ca2:2:1::ff\" /></dhcp></ip></network>";
-		    */
-				
-		computeConfig = FileUtil.getContentOfFile("src/test/resources/LibVirtComputeConfigExample.xml", Charset.defaultCharset(), false);
-				
-			/*
-			"<domain type='test' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>"
-		  + "<name>QEmu-fedora-i686</name><memory>219200</memory><os><type arch='i686' machine='pc'>hvm</type></os>"
-		  + "<devices><emulator>/usr/bin/qemu-system-x86_64</emulator></devices><qemu:commandline>"
-		  + "<qemu:arg value='-newarg'/><qemu:env name='QEMU_ENV' value='VAL'/></qemu:commandline></domain>";
-		  */
 	}
 
 	@After

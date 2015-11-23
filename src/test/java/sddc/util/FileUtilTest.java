@@ -1,7 +1,5 @@
 package sddc.util;
 
-import static org.junit.Assert.*;
-
 import java.nio.charset.Charset;
 
 import org.junit.Test;

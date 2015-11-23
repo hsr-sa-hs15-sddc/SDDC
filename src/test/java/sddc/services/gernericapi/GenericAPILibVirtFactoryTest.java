@@ -1,6 +1,5 @@
 package sddc.services.gernericapi;
 
-import static org.junit.Assert.*;
 
 import org.junit.Test;
 
