@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: sddc.services.rest.ServiceRestfulTest
--------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.067 sec - in sddc.services.rest.ServiceRestfulTest
