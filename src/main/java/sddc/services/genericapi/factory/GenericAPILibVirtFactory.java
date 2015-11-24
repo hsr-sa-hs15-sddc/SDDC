@@ -11,7 +11,7 @@ import sddc.util.FileUtil;
 public class GenericAPILibVirtFactory {
 	
 	private static IGenericAPIFacade api;
-	private static final String CONFIG_PATH = "src/main/resources/GenericAPILibVirtConfig.conf";
+	private static final String CONFIG_PATH = "./GenericAPILibVirtConfig.conf";
 
 	public static IGenericAPIFacade getInstance() {
 		if(api == null) {

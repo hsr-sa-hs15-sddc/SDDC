@@ -34,19 +34,19 @@ public class ServiceController {
     private Workflow workflow;
     
     
-    private String networkConfig = FileUtil.getContentOfFile("src/main/resources/LibVirtNetworkConfig.xml",
+    private String networkConfig = FileUtil.getContentOfFile("./LibVirtNetworkConfig.xml",
     		Charset.defaultCharset(), false);
     		
-    private String ubuntuConfig = FileUtil.getContentOfFile("src/main/resources/LibVirtComputeConfigUbuntu.xml",
+    private String ubuntuConfig = FileUtil.getContentOfFile("./LibVirtComputeConfigUbuntu.xml",
     		Charset.defaultCharset(), false);
     
-    private String ubuntuConfigNet = FileUtil.getContentOfFile("src/main/resources/LibVirtComputeConfigDebianNetwork.xml",
+    private String ubuntuConfigNet = FileUtil.getContentOfFile("./LibVirtComputeConfigDebianNetwork.xml",
     		Charset.defaultCharset(), false);
 
-    private String debianConfig = FileUtil.getContentOfFile("src/main/resources/LibVirtComputeConfigDebian.xml",
+    private String debianConfig = FileUtil.getContentOfFile("./LibVirtComputeConfigDebian.xml",
     		Charset.defaultCharset(), false);
     
-    private String storageConfig = FileUtil.getContentOfFile("src/main/resources/LibVirtStorageConfig.xml",
+    private String storageConfig = FileUtil.getContentOfFile("./LibVirtStorageConfig.xml",
     		Charset.defaultCharset(), false);
     
     @PostConstruct
