@@ -10,3 +10,6 @@ notifications:
 script: 
   - mvn test cobertura:cobertura -Dcobertura.report.format=xml
   - mvn sonar:sonar
+branches:
+  only:
+    - master
