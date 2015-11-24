@@ -1,3 +1,13 @@
+# blacklist
+branches:
+  except:
+    - docker
+
+# whitelist
+branches:
+  only:
+    - master
+
 sudo: required
 before_install:
   - sudo apt-get update -qq
@@ -10,6 +20,4 @@ notifications:
 script: 
   - mvn test cobertura:cobertura -Dcobertura.report.format=xml
   - mvn sonar:sonar
-branches:
-  only:
-    - master
+
