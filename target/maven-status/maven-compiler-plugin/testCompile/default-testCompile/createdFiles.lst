@@ -1,0 +1,6 @@
+sddc/services/domain/WorkflowTest.class
+sddc/services/OrderedServiceControllerTest.class
+sddc/services/gernericapi/GenericAPIImplTest.class
+sddc/services/rest/OrderedServiceRestfulTest.class
+sddc/services/ServiceControllerTest.class
+sddc/services/rest/ServiceRestfulTest.class

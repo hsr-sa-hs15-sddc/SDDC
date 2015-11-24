@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default">
+  <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#/services">SDDC</a>
+  </div>
+  <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#/services">Offerings</a></li>
+              <li><a href="#/orderedservices">Services</a></li>
+            </ul>
+          </div>
+</nav>
+<h1>Offerings</h1>
+<br>
+<span ng-repeat="service in services">
+<a href="#/services/{{service.id}}">
+<div  class="col-sm-4" >
+<div style="background:#4388cc;height:200px;">
+  <h2 style="color:#FFF;text-align:center;line-height:2em;">{{service.serviceName}}</h2>
+</div>
+</div>
+</a>
+</span>
