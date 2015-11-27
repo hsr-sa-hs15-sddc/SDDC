@@ -7,4 +7,24 @@ CodeCoverage und generelle Metriken können hier angesehen werden:
 
 #REST API + Dashboard
 
-Server startet auf port 8080 (API Path -> /api/services, /api/orderedservices) oder Startseite einfaches AngularJS Dashboard um Services zu Ordern und terminieren (Customer Dashboard)
+Server startet auf port 8080 (API Paths -> /api/services, /api/orderedservices, /api/servicemodules)
+
+##Customer Dashboard
+
+<a href="http://app.silvn.com/#/services">http://app.silvn.com/#/services</a>
+
+##Admin Dashboard
+
+<a href="http://app.silvn.com/#/admin/services">http://app.silvn.com/#/admin/services</a>
+
+#Dockerfile
+
+```
+docker pull silvanadrian/sddc
+```
+
+##Docker Container ausführen
+
+```
+docker run -d -p 80:8080 silvanadrian/sddc
+```
