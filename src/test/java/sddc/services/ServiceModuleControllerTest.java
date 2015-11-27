@@ -45,9 +45,6 @@ public class ServiceModuleControllerTest {
 	
 	@Test
 	public void testFindAll() {
-		for (ServiceModule module : controller.findAllServiceModules()){
-			System.out.println(module.getName());
-		}
 		Assert.assertEquals(1,controller.findAllServiceModules().size());
 	}
 	

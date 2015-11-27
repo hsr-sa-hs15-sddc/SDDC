@@ -37,14 +37,16 @@ public class ServiceModuleController {
 	     }
 	  	 
 	  	@RequestMapping(value = "/api/servicemodules/new", method = RequestMethod.POST)
-	    public ServiceModule createServiceModule(@RequestBody ServiceModule module) {
-	    	return repo.save(module);
+	    public String createServiceModule(@RequestBody ServiceModule module) {
+	    	repo.save(module);
+	    	return "ok";
 	    }
 	  	
 	  	 @RequestMapping(value="/api/servicemodules/{id}", method = RequestMethod.PUT)
 	     @Transactional
 	     public void updateServiceModule(@PathVariable("id") long id, @RequestBody ServiceModule module) {
 	     	ServiceModule m = repo.findOne(id);
+	     	m.setConfig(module.getConfig());
 	     	m.setName(module.getName());
 	     	m.setSize(module.getSize());
 	     	m.setServices(module.getServices());
