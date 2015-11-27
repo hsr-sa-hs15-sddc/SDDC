@@ -8,9 +8,9 @@ spring:
   profiles: prod
 spring.datasource:
   dataSourceClassName: org.postgresql.Driver
-  url: "jdbc:postgresql://86.119.35.56:5432/sddctest"
+  url: "jdbc:postgresql://86.119.35.56:5432/sddc"
   databaseName:
-  serverName: "sddc.silvn.com"
+  serverName: "app.silvn.com"
   username: "sddc"
   password: "sddc2015"
   cachePrepStmts: true
