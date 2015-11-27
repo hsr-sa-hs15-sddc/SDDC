@@ -80,5 +80,13 @@ public class ServiceModule {
 	public void setConfig(String config) {
 		this.config = config;
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	
 }

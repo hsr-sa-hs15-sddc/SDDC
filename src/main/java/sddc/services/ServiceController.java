@@ -29,7 +29,6 @@ public class ServiceController {
     @Autowired
     private ServiceRepo repo;
     
-    
     @Autowired
     private Workflow workflow;
     
@@ -99,8 +98,10 @@ public class ServiceController {
     public void updateService(@PathVariable("id") long id, @RequestBody Service service) {
     	Service s = repo.findOne(id);
     	s.setServiceName(service.getServiceName());
+    	s.setServiceModules(service.getServiceModules());
     	repo.save(s);
     }
+    
 
     @RequestMapping("/api/services")
     @ResponseBody
@@ -108,6 +109,7 @@ public class ServiceController {
         List<Service> result = repo.findAll();
         return result;
     }
+    
     
     @RequestMapping(value = "/api/services", method = RequestMethod.PUT)
     public void createService(@RequestBody Service service) {

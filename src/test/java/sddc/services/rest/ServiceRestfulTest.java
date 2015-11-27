@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import junit.framework.Assert;
 import sddc.ApplicationMain;
 import sddc.services.OrderedServiceRepo;
+import sddc.services.ServiceModuleRepo;
 import sddc.services.ServiceRepo;
 import sddc.services.domain.Category;
 import sddc.services.domain.Service;
@@ -40,26 +41,23 @@ public class ServiceRestfulTest {
 	private ServiceRepo repo;
 	
 	@Autowired
+	private ServiceModuleRepo moduleRepo;
+	
+	@Autowired
 	private OrderedServiceRepo orderedRepo;
 	
 	private String networkconfig = FileUtil.getContentOfFile("src/test/resources/LibVirtNetworkConfigExample.xml", Charset.defaultCharset(), false);
-			
-			/*
-			"<network><name>default6</name><bridge name=\"virbr0\" /><forward mode=\"nat\"/><ip address=\"192.168.122.1\" netmask=\"255.255.255.0\">"
-			+ "<dhcp><range start=\"192.168.122.2\" end=\"192.168.122.254\" /></dhcp>"
-		    + "</ip><ip family=\"ipv6\" address=\"2001:db8:ca2:2::1\" prefix=\"64\" >"
-		    +  "<dhcp><range start=\"2001:db8:ca2:2:1::10\" end=\"2001:db8:ca2:2:1::ff\" /></dhcp></ip></network>";
-		    */
 	
 	@Before
 	public void setUp() {
 	repo.deleteAll();
 	orderedRepo.deleteAll();
+	moduleRepo.deleteAll();
 	Set<ServiceModule> modules = new HashSet<ServiceModule>();
 	modules.add(new ServiceModule("Network Bridge",Size.S,Category.Network,networkconfig));
     repo.save(new Service("Network Virtual Bridge",modules));
 	}
-	
+	 
 	@Test
 	public void testGetServices () {
 	    Service[] result = template.getForObject("http://localhost:8080/api/services", Service[].class);
@@ -97,8 +95,12 @@ public class ServiceRestfulTest {
 		 Long id = repo.findByServiceName("Network Virtual Bridge").getId();
 		 Service service = repo.findOne(id);
 		 service.setServiceName("Some new Service");
+		 Set<ServiceModule> modules =service.getServiceModules();
+		 modules.add(new ServiceModule("Debian",Size.S,Category.Network,networkconfig));
 		 template.put("http://localhost:8080/api/services/{id}", service, id);
 		 Assert.assertEquals("Some new Service",repo.findOne(id).getServiceName());
-	 }
+		 Assert.assertEquals(2, repo.findOne(id).getServiceModules().size());
+	}
+	 
 	 
 }
