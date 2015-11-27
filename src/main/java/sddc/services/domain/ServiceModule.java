@@ -39,16 +39,16 @@ public class ServiceModule {
 	public ServiceModule() {}
 	
 	public ServiceModule(String name, Size size, Category category, String config) {
-		this.name = name;
-		this.size = size;
-		this.category = category;
-		this.config = config;
+		this.setName(name);
+		this.setSize(size);
+		this.setCategory(category);
+		this.setConfig(config);
 	}
 	
 	public ServiceModule(String name, Category category, String config) {
-		this.name = name;
-		this.category = category;
-		this.config = config;
+		this.setName(name);
+		this.setCategory(category);
+		this.setConfig(config);
 	}
 	
 	
@@ -87,6 +87,18 @@ public class ServiceModule {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public void setSize(Size size) {
+		this.size = size;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }

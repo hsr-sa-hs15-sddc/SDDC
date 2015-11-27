@@ -1,9 +1,6 @@
 package sddc.services;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
+import java.nio.charset.Charset;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,49 +14,53 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import junit.framework.Assert;
 import sddc.ApplicationMain;
 import sddc.services.domain.Category;
-import sddc.services.domain.Identifier;
-import sddc.services.domain.OrderedService;
+import sddc.services.domain.ServiceModule;
 import sddc.services.domain.Size;
+import sddc.util.FileUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ApplicationMain.class,
         initializers = ConfigFileApplicationContextInitializer.class)
 @ActiveProfiles("dev")
-public class OrderedServiceControllerTest {
+public class ServiceModuleControllerTest {
 	
 	@Autowired
-	private OrderedServiceController controller;
+	private ServiceModuleController controller;
 	
 	@Autowired
     private ApplicationContext context;
 	
 	@Autowired
-	private OrderedServiceRepo repo;
+	private ServiceModuleRepo repo;
+	
+	
+	private String networkconfig = FileUtil.getContentOfFile("src/test/resources/LibVirtNetworkConfigExample.xml", 
+			Charset.defaultCharset(), false);
 	
 	@Before
-	 public void setUp() {
-		 repo.deleteAll();
-		 Set<Identifier> ids = new HashSet<Identifier>();
-		 ids.add(new Identifier(UUID.randomUUID().toString(),Category.Compute,Size.L));
-		 ids.add(new Identifier(UUID.randomUUID().toString(),Category.Network,Size.S));
-		 repo.save(new OrderedService("LAMP Stack",ids));
-	 }
+	public void setUp() {
+		repo.deleteAllInBatch();
+		repo.save(new ServiceModule("Network Bridges",Size.S,Category.Network,networkconfig));
+	}
 	
 	@Test
 	public void testFindAll() {
-		Assert.assertEquals(1,controller.findAllServices().size());
+		for (ServiceModule module : controller.findAllServiceModules()){
+			System.out.println(module.getName());
+		}
+		Assert.assertEquals(1,controller.findAllServiceModules().size());
 	}
 	
 	 @Test
-	    public void verifyContext () {
+	 public void verifyContext () {
 
-	        OrderedServiceRepo repo = context.getBean(OrderedServiceRepo.class);
-	        Assert.assertNotNull( repo );
+		 ServiceModuleRepo repo = context.getBean(ServiceModuleRepo.class);
+		 Assert.assertNotNull( repo );
 
-	        repo = (OrderedServiceRepo) context.getBean("orderedServiceRepo");
-	        Assert.assertNotNull( repo );
+		 repo = (ServiceModuleRepo) context.getBean("serviceModuleRepo");
+		 Assert.assertNotNull( repo );
 
-	    }
+	 }
 	
 	
 }

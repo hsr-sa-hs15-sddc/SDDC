@@ -12,8 +12,7 @@ import org.springframework.boot.test.ConfigFileApplicationContextInitializer;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.boot.test.WebIntegrationTest;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
@@ -31,8 +30,7 @@ import sddc.util.FileUtil;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ApplicationMain.class,
         initializers = ConfigFileApplicationContextInitializer.class)
-@Configuration
-@Profile("dev")
+@ActiveProfiles("dev")
 @WebIntegrationTest
 public class ServiceRestfulTest {
 	RestTemplate template = new TestRestTemplate();
@@ -91,7 +89,7 @@ public class ServiceRestfulTest {
 	 
 	 
 	@Test 
-	 public void testPutService() {
+	 public void testUpdateService() {
 		 Long id = repo.findByServiceName("Network Virtual Bridge").getId();
 		 Service service = repo.findOne(id);
 		 service.setServiceName("Some new Service");

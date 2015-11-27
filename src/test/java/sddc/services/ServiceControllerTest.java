@@ -11,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.ConfigFileApplicationContextInitializer;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import junit.framework.Assert;
@@ -26,8 +25,7 @@ import sddc.util.FileUtil;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ApplicationMain.class,
         initializers = ConfigFileApplicationContextInitializer.class)
-@Configuration
-@Profile("dev")
+@ActiveProfiles("dev")
 public class ServiceControllerTest {
 	
 	@Autowired

@@ -111,7 +111,7 @@ public class ServiceController {
     }
     
     
-    @RequestMapping(value = "/api/services", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/services/new", method = RequestMethod.POST)
     public void createService(@RequestBody Service service) {
     	repo.save(service);
     }
