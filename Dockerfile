@@ -52,4 +52,4 @@ ADD LibVirtComputeConfigUbuntu.xml LibVirtComputeConfigUbuntu.xml
 ADD LibVirtNetworkConfig.xml LibVirtNetworkConfig.xml
 ADD LibVirtStorageConfig.xml LibVirtStorageConfig.xml
 
-CMD java -jar *.jar
+CMD java -jar -Dspring.profiles.active=prod *.jar
