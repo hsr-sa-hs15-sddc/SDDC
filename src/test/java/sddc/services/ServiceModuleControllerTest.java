@@ -10,6 +10,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import junit.framework.Assert;
 import sddc.ApplicationMain;
@@ -22,6 +23,7 @@ import sddc.util.FileUtil;
 @SpringApplicationConfiguration(classes = ApplicationMain.class,
         initializers = ConfigFileApplicationContextInitializer.class)
 @ActiveProfiles("dev")
+@WebAppConfiguration
 public class ServiceModuleControllerTest {
 	
 	@Autowired

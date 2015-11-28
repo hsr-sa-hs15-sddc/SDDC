@@ -29,7 +29,6 @@ import sddc.services.domain.Size;
         initializers = ConfigFileApplicationContextInitializer.class)
 @ActiveProfiles("dev")
 @WebIntegrationTest
-
 public class OrderedServiceRestfulTest {
 	
 	RestTemplate template = new TestRestTemplate();

@@ -14,6 +14,7 @@ import org.springframework.boot.test.ConfigFileApplicationContextInitializer;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import sddc.ApplicationMain;
 import sddc.services.OrderedServiceRepo;
@@ -26,6 +27,7 @@ import sddc.util.FileUtil;
 @SpringApplicationConfiguration(classes = ApplicationMain.class,
         initializers = ConfigFileApplicationContextInitializer.class)
 @ActiveProfiles("dev")
+@WebAppConfiguration
 public class WorkflowTest {
 
 	private String storageConfig, networkConfig, computeConfig;
