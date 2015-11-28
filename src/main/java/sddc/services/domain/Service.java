@@ -26,7 +26,7 @@ public class Service {
 	@Column(name="name",unique=true)
 	private String serviceName;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
 	@JoinTable(name = "service_modules", joinColumns = { 
 			@JoinColumn(name = "service_id", nullable = true, updatable = true) }, 
 			inverseJoinColumns = { @JoinColumn(name = "servicemodule_id", 

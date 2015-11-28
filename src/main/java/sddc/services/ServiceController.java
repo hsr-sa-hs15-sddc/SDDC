@@ -30,6 +30,9 @@ public class ServiceController {
     private ServiceRepo repo;
     
     @Autowired
+    private ServiceModuleRepo moduleRepo;
+    
+    @Autowired
     private Workflow workflow;
     
     
@@ -51,6 +54,7 @@ public class ServiceController {
     @PostConstruct
     private void createInitialData() {
     	repo.deleteAll();
+    	moduleRepo.deleteAll();
     	Set<ServiceModule> modules = new HashSet<ServiceModule>();
     	ServiceModule network = new ServiceModule("Network Bridge",Category.Network,networkConfig);
     	ServiceModule compute = new ServiceModule("Debian Squeez",Size.M, Category.Compute,ubuntuConfigNet);
@@ -112,8 +116,8 @@ public class ServiceController {
     
     
     @RequestMapping(value = "/api/services/new", method = RequestMethod.POST)
-    public void createService(@RequestBody Service service) {
-    	repo.save(service);
+    public Service createService(@RequestBody Service service) {
+    	return repo.save(service);
     }
     
   

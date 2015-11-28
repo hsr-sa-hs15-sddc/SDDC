@@ -15,31 +15,18 @@
             </ul>
           </div>
 </nav>
-<h1>ServiceModules</h1>
-<table class="table">
-    <thead>
-    <tr>
-        <td>
-            Name
-        </td>
-        <td>
-            Size
-        </td>
-        <td>
-            Options
-        </td>
-    </tr>
-    </thead>
-    <tr ng-repeat="module in servicemodules">
-        <td><a href="#/admin/servicemodules/{{module.id}}">{{module.name}}</a></td>
-        <td>
-            {{module.size}}
-        </td>
-        <td>
-            <button type="button" class="btn btn-primary" ng-click="deleteServiceModule(module)">Delete</button>
-            <button type="button" class="btn btn-primary" ng-click="">Edit</button>
-        </td>
-    </tr>
+<a href="#/admin/servicemodules">Back to Overview</a>
+
+<h1>{{module.name}}</h1>
+
+<h3>Size</h3>
+{{module.size}}
+
+<h3>Category</h3>
+{{module.category}}
+
+<h3>Config</h3>
+<div class="">{{module.config}}</div>
 
 
-</table>
+<button type="button" class="btn btn-lg btn-primary" ng-click="">Edit ServiceModule</button>

@@ -26,16 +26,20 @@ sddcDashboard.config(function($routeProvider) {
         templateUrl: 'views/admin/listservice.html'
   })
   .when('/admin/servicemodules', {
-        controller: 'adminServicesController',
+        controller: 'adminServiceModulesController',
         templateUrl: 'views/admin/listservicemodules.html'
   })
   .when('/admin/services/:serviceId', {
   controller: 'detailAdminServicesController',
   templateUrl: '/views/admin/detailservice.html'
   })
+   .when('/admin/servicemodules/:servicemoduleId', {
+    controller: 'detailAdminServiceModulesController',
+    templateUrl: '/views/admin/detailservicemodule.html'
+  })
   .otherwise({
 			redirectTo: '/services'
-		});
+	});
 ;
 });
 
@@ -46,4 +50,8 @@ sddcDashboard.factory("Service", function($resource) {
 
 sddcDashboard.factory("OrderedService", function($resource) {
   return $resource("/api/orderedservices/:id",{id: '@id'});
+});
+
+sddcDashboard.factory("ServiceModule", function($resource) {
+    return $resource("/api/servicemodules/:id",{id: '@id'});
 });

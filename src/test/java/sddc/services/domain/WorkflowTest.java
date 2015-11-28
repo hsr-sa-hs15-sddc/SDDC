@@ -4,7 +4,6 @@ import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,6 +49,10 @@ public class WorkflowTest {
 
 	@Before
 	public void setUp() throws Exception {
+		orderedRepo.deleteAll();
+		repo.deleteAll();
+		orderedRepo.deleteAll();
+		modulesRepo.deleteAll();
 		storageConfig = FileUtil.getContentOfFile("src/test/resources/LibVirtStorageConfigExample.xml",
 				Charset.defaultCharset(), false);
 						
@@ -67,15 +70,8 @@ Charset.defaultCharset(), false);
 		modules.add(module3);
 		service = new Service("Testservice",modules);
 		repo.save(service);
-		modulesRepo.save(modules);
 	}
 	
-	@After
-	public void tearDown() {
-		orderedRepo.deleteAll();
-		repo.deleteAll();
-		orderedRepo.deleteAll();
-	}
 	
 	/* Test Service */
 	@Test

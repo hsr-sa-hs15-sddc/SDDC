@@ -9,6 +9,17 @@ sddcDashboard.controller('adminServicesController', function($scope, $http){
             })
         };
 
+
+    $scope.deleteService = function(service) {
+        $http.delete("/api/services/{id}".replace('{id}',service.id)).success(function (data)
+            {
+                if ( ! $scope.$$phase) {
+                    $scope.$apply();
+                }
+            }
+        ).error();
+    };
+
         $scope.findServices();
 
     });

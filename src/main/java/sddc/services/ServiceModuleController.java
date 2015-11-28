@@ -2,6 +2,8 @@ package sddc.services;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,12 +13,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import sddc.services.domain.Category;
 import sddc.services.domain.ServiceModule;
+import sddc.services.domain.Size;
+
 @RestController
 public class ServiceModuleController {
 	  	@Autowired
 	   	private ServiceModuleRepo repo;
 	  
+	    @PostConstruct
+	    private void createInitialData() {
+	    	repo.save(new ServiceModule("Deletable ServiceModule",Size.S, Category.Storage,"Config"));
+	    }
+	  	
+	  	
 	  	@RequestMapping("/api/servicemodules")
 	    @ResponseBody
 	    public List<ServiceModule> findAllServiceModules() {
@@ -32,14 +43,15 @@ public class ServiceModuleController {
 	  	 
 	  	 @RequestMapping(value="/api/servicemodules/{id}",method = RequestMethod.DELETE)
 	     @ResponseBody
-	     public void deleteServiceModule(@PathVariable("id") long id){
-	          repo.delete(id);;
+	     public String deleteServiceModule(@PathVariable("id") long id){
+	  		 System.out.println("Delete");
+	          repo.delete(id);
+	          return "ok";
 	     }
 	  	 
 	  	@RequestMapping(value = "/api/servicemodules/new", method = RequestMethod.POST)
-	    public String createServiceModule(@RequestBody ServiceModule module) {
-	    	repo.save(module);
-	    	return "ok";
+	    public ServiceModule createServiceModule(@RequestBody ServiceModule module) {
+	    	return repo.save(module);
 	    }
 	  	
 	  	 @RequestMapping(value="/api/servicemodules/{id}", method = RequestMethod.PUT)

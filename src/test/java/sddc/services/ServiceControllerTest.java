@@ -39,6 +39,9 @@ public class ServiceControllerTest {
 	@Autowired
 	private ServiceRepo repo;
 	
+	@Autowired
+	private ServiceModuleRepo moduleRepo;
+	
 	
 	private String networkconfig = FileUtil.getContentOfFile("src/test/resources/LibVirtNetworkConfigExample.xml", 
 			Charset.defaultCharset(), false);
@@ -46,6 +49,7 @@ public class ServiceControllerTest {
 	@Before
 	public void setUp() {
 	repo.deleteAll();
+	moduleRepo.deleteAll();
 	Set<ServiceModule> modules = new HashSet<ServiceModule>();
 	modules.add(new ServiceModule("Network Bridge",Size.S,Category.Network,networkconfig));
     repo.save(new Service("Network Virtual Bridge",modules));

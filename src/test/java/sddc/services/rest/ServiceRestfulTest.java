@@ -87,6 +87,13 @@ public class ServiceRestfulTest {
 		 Assert.assertNull(repo.findByServiceName("Network Virtual Bridge"));
 	 }
 	 
+	 @Test
+	 public void testCreateService() {
+		 Service service = new Service("Windows VM");
+		 Service result = template.postForObject("http://localhost:8080/api/services/new", service, Service.class);
+		 Assert.assertEquals("Windows VM",result.getServiceName());
+	 }
+	 
 	 
 	@Test 
 	 public void testUpdateService() {

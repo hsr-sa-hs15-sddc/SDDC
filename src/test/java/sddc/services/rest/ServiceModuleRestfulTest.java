@@ -44,11 +44,20 @@ public class ServiceModuleRestfulTest {
 	}
 	 
 	@Test
-	public void testGetServices () {
+	public void testGetServiceModules () {
 	    ServiceModule[] result = template.getForObject("http://localhost:8080/api/servicemodules", ServiceModule[].class);
 
 	    Assert.assertEquals(1, result.length);
 	 }
+	
+	@Test
+	public void testCreateServiceModule() {
+		ServiceModule module = new ServiceModule("KVM VM",Size.L,Category.Compute,networkconfig);
+		ServiceModule result = template.postForObject("http://localhost:8080/api/servicemodules/new", module, ServiceModule.class);
+		Assert.assertEquals("KVM VM", result.getName());
+		Assert.assertEquals(Size.L, result.getSize());
+		Assert.assertEquals(Category.Compute, result.getCategory());
+	}
 	    
 	    
 	 @Test
@@ -58,21 +67,12 @@ public class ServiceModuleRestfulTest {
 	    Assert.assertEquals("Network Bridge",result.getName());
 	 }
 	 
-	@Test
-	 public void testPostServiceModule() {
-		 ServiceModule module = new ServiceModule("Network Bridge2",Size.S,Category.Network,networkconfig);
-		 String result = template.postForObject("http://localhost:8080/api/servicemodules/new", module, String.class);
-		 Assert.assertEquals("ok", result);
-		 Assert.assertNotNull(repo.findByName("Network Bridge2"));
-	 }
-	 
 	 @Test
 	 public void testDeleteServiceModule() {
 		 long id = repo.findByName("Network Bridge").getId();
 		 template.delete("http://localhost:8080/api/servicemodules/{id}", id);
 		 Assert.assertNull(repo.findByName("Network Bridge"));
 	 }
-	 
 	
 	@Test 
 	 public void testUpdateServiceModule() {
