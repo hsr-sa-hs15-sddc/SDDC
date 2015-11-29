@@ -7,6 +7,8 @@ import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +37,7 @@ public class ServiceController {
     @Autowired
     private Workflow workflow;
     
+    private static final Logger logger = LoggerFactory.getLogger(ServiceController.class);
     
     private String networkConfig = FileUtil.getContentOfFile("./LibVirtNetworkConfig.xml",
     		Charset.defaultCharset(), false);
@@ -82,39 +85,44 @@ public class ServiceController {
     @RequestMapping(value="/api/services/{id}",method = RequestMethod.GET)
     @ResponseBody
     public Service findService(@PathVariable("id") long id){
+    	logger.info("Get Service:" + repo.findOne(id).getServiceName());
         return repo.findOne(id);
     }
     
     @RequestMapping(value = "/api/services/new", method = RequestMethod.POST)
     public Service createService(@RequestBody Service service) {
+    	logger.info("Create Service:" + service.getServiceName());
     	return repo.save(service);
     }
 
     @RequestMapping(value = "/api/services/{id}", method = RequestMethod.POST)
     public @ResponseBody String orderService(@RequestBody Service service){
     	workflow.orderService(service);
+    	logger.info("Order Service:" + service.getServiceName());
     	return "ok";
     }
     
     @RequestMapping(value="/api/services/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteService(@PathVariable("id") long id) {
+    	logger.info("Delete Service:" + repo.findOne(id).getServiceName());
     	repo.delete(id);
     }
     
     @RequestMapping(value="/api/services/{id}", method = RequestMethod.PUT)
     @Transactional
     public void updateService(@PathVariable("id") long id, @RequestBody Service service) {
+    	logger.info("Update Service:" + repo.findOne(id).getServiceName());
     	Service s = repo.findOne(id);
     	s.setServiceName(service.getServiceName());
     	s.setModules(service.getModules());
     	repo.save(s);
     }
-    
 
     @RequestMapping("/api/services")
     @ResponseBody
     public List<Service> findAllServices() {
+    	logger.info("Get all Services");
         List<Service> result = repo.findAll();
         return result;
     }

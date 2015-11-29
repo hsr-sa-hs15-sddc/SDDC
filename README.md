@@ -19,7 +19,7 @@ Server startet auf port 8080 (API Paths -> /api/services, /api/orderedservices, 
 
 ##REST API Doku
 
-<a href="app.silvn.com/swagger-ui.html">app.silvn.com/swagger-ui.html</a>
+<a href="http://app.silvn.com/swagger-ui.html">http://app.silvn.com/swagger-ui.html</a>
 
 #Dockerfile
 
