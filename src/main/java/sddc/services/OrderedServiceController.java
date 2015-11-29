@@ -3,7 +3,8 @@ package sddc.services;
 
 import java.util.List;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,21 +24,26 @@ public class OrderedServiceController {
 	@Autowired
 	private Workflow workflow;
 	
+	private static final Logger logger = LoggerFactory.getLogger(OrderedServiceController.class);
+	
     @RequestMapping("/api/orderedservices")
     @ResponseBody
     public List<OrderedService> findAllServices() {
         List<OrderedService> result = repo.findAll();
+        logger.info("Get all OrderedServices");
         return result;
     }
     
     @RequestMapping(value="/api/orderedservices/{id}",method = RequestMethod.GET)
     @ResponseBody
     public OrderedService findService(@PathVariable("id") long id){
+    	logger.info("Get OrderedService:" + repo.findOne(id).getOrderedServiceName());
         return repo.findOne(id);
     }
     
     @RequestMapping(value = "/api/orderedservices/{id}", method = RequestMethod.DELETE)
     public String cancelService(@PathVariable("id") long id){
+    logger.info("Cancel OrderedService:" + repo.findOne(id).getOrderedServiceName());
      workflow.cancelService(repo.findOne(id));
      return "ok";
     }

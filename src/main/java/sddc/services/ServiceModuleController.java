@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +23,8 @@ import sddc.services.domain.Size;
 public class ServiceModuleController {
 	  	@Autowired
 	   	private ServiceModuleRepo repo;
+	  	
+	  	private static final Logger logger = LoggerFactory.getLogger(ServiceModuleController.class);
 	  
 	    @PostConstruct
 	    private void createInitialData() {
@@ -31,6 +35,7 @@ public class ServiceModuleController {
 	  	@RequestMapping("/api/servicemodules")
 	    @ResponseBody
 	    public List<ServiceModule> findAllServiceModules() {
+	  		logger.info("Get all ServiceModules");
 	        List<ServiceModule> result = repo.findAll();
 	        return result;
 	    }
@@ -38,24 +43,28 @@ public class ServiceModuleController {
 	  	 @RequestMapping(value="/api/servicemodules/{id}",method = RequestMethod.GET)
 	     @ResponseBody
 	     public ServiceModule findServiceModule(@PathVariable("id") long id){
+	  		 logger.info("Get ServiceModule:" + repo.findOne(id).getName());
 	         return repo.findOne(id);
 	     }
 	  	 
 	  	 @RequestMapping(value="/api/servicemodules/{id}",method = RequestMethod.DELETE)
 	     @ResponseBody
 	     public String deleteServiceModule(@PathVariable("id") long id){
+	  		 logger.info("Delete ServiceModule:" + repo.findOne(id).getName());
 	          repo.delete(id);
 	          return "ok";
 	     }
 	  	 
 	  	@RequestMapping(value = "/api/servicemodules/new", method = RequestMethod.POST)
 	    public ServiceModule createServiceModule(@RequestBody ServiceModule module) {
+	  		logger.info("Create ServiceModule:" + module.getName());
 	    	return repo.save(module);
 	    }
 	  	
 	  	 @RequestMapping(value="/api/servicemodules/{id}", method = RequestMethod.PUT)
 	     @Transactional
 	     public void updateServiceModule(@PathVariable("id") long id, @RequestBody ServiceModule module) {
+	  		logger.info("Update ServiceModule:" + module.getName());
 	     	ServiceModule m = repo.findOne(id);
 	     	m.setConfig(module.getConfig());
 	     	m.setName(module.getName());

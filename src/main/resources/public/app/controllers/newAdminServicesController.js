@@ -7,7 +7,7 @@ sddcDashboard.controller('newAdminServicesController', function($scope,$http,$lo
     $scope.save = function(service){
             $scope.service.$save()
                 .then(function(service){
-                    $location.path('/services/'+service.id);
+                    $location.path('/admin/services/' + service.id);
                 });
     }
 

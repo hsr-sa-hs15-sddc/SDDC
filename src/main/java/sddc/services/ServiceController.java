@@ -90,15 +90,20 @@ public class ServiceController {
     }
     
     @RequestMapping(value = "/api/services/new", method = RequestMethod.POST)
+    @Transactional
     public Service createService(@RequestBody Service service) {
     	logger.info("Create Service:" + service.getServiceName());
-    	return repo.save(service);
+    	Set<ServiceModule> modules = new HashSet<ServiceModule>();
+    	for (ServiceModule module: service.getModules()){
+    		modules.add(moduleRepo.findOne(module.getId()));
+    	}
+    	return repo.save(new Service(service.getServiceName(),modules));
     }
 
     @RequestMapping(value = "/api/services/{id}", method = RequestMethod.POST)
     public @ResponseBody String orderService(@RequestBody Service service){
-    	workflow.orderService(service);
     	logger.info("Order Service:" + service.getServiceName());
+    	workflow.orderService(service);
     	return "ok";
     }
     
