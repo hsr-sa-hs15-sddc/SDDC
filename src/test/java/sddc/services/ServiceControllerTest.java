@@ -57,7 +57,7 @@ public class ServiceControllerTest {
 	
 	@Test
 	public void testFindAll() {
-		Assert.assertEquals(1,controller.findAllServices().size());
+		Assert.assertEquals(1,controller.getServices().size());
 	}
 	
 	 @Test

@@ -34,7 +34,7 @@ public class ServiceModuleController {
 	  	
 	  	@RequestMapping("/api/servicemodules")
 	    @ResponseBody
-	    public List<ServiceModule> findAllServiceModules() {
+	    public List<ServiceModule> getServiceModules() {
 	  		logger.info("Get all ServiceModules");
 	        List<ServiceModule> result = repo.findAll();
 	        return result;
@@ -42,17 +42,16 @@ public class ServiceModuleController {
 
 	  	 @RequestMapping(value="/api/servicemodules/{id}",method = RequestMethod.GET)
 	     @ResponseBody
-	     public ServiceModule findServiceModule(@PathVariable("id") long id){
+	     public ServiceModule getServiceModule(@PathVariable("id") long id){
 	  		 logger.info("Get ServiceModule:" + repo.findOne(id).getName());
 	         return repo.findOne(id);
 	     }
 	  	 
 	  	 @RequestMapping(value="/api/servicemodules/{id}",method = RequestMethod.DELETE)
 	     @ResponseBody
-	     public String deleteServiceModule(@PathVariable("id") long id){
+	     public void deleteServiceModule(@PathVariable("id") long id){
 	  		 logger.info("Delete ServiceModule:" + repo.findOne(id).getName());
-	          repo.delete(id);
-	          return "ok";
+	         repo.delete(id);
 	     }
 	  	 
 	  	@RequestMapping(value = "/api/servicemodules/new", method = RequestMethod.POST)

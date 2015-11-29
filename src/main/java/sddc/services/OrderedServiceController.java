@@ -28,7 +28,7 @@ public class OrderedServiceController {
 	
     @RequestMapping("/api/orderedservices")
     @ResponseBody
-    public List<OrderedService> findAllServices() {
+    public List<OrderedService> getOrderedServices() {
         List<OrderedService> result = repo.findAll();
         logger.info("Get all OrderedServices");
         return result;
@@ -36,15 +36,14 @@ public class OrderedServiceController {
     
     @RequestMapping(value="/api/orderedservices/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public OrderedService findService(@PathVariable("id") long id){
+    public OrderedService getOrderedService(@PathVariable("id") long id){
     	logger.info("Get OrderedService:" + repo.findOne(id).getOrderedServiceName());
         return repo.findOne(id);
     }
     
     @RequestMapping(value = "/api/orderedservices/{id}", method = RequestMethod.DELETE)
-    public String cancelService(@PathVariable("id") long id){
+    public void cancelOrderedService(@PathVariable("id") long id){
     logger.info("Cancel OrderedService:" + repo.findOne(id).getOrderedServiceName());
      workflow.cancelService(repo.findOne(id));
-     return "ok";
     }
 }

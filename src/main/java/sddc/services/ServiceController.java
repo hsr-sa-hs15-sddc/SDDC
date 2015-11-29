@@ -82,9 +82,17 @@ public class ServiceController {
         repo.save(service4);
     }
     
+    @RequestMapping("/api/services")
+    @ResponseBody
+    public List<Service> getServices() {
+    	logger.info("Get all Services");
+        List<Service> result = repo.findAll();
+        return result;
+    }
+    
     @RequestMapping(value="/api/services/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public Service findService(@PathVariable("id") long id){
+    public Service getService(@PathVariable("id") long id){
     	logger.info("Get Service:" + repo.findOne(id).getServiceName());
         return repo.findOne(id);
     }
@@ -101,14 +109,12 @@ public class ServiceController {
     }
 
     @RequestMapping(value = "/api/services/{id}", method = RequestMethod.POST)
-    public @ResponseBody String orderService(@RequestBody Service service){
+    public void orderService(@RequestBody Service service){
     	logger.info("Order Service:" + service.getServiceName());
     	workflow.orderService(service);
-    	return "ok";
     }
     
     @RequestMapping(value="/api/services/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
     public void deleteService(@PathVariable("id") long id) {
     	logger.info("Delete Service:" + repo.findOne(id).getServiceName());
     	repo.delete(id);
@@ -123,17 +129,5 @@ public class ServiceController {
     	s.setModules(service.getModules());
     	repo.save(s);
     }
-
-    @RequestMapping("/api/services")
-    @ResponseBody
-    public List<Service> findAllServices() {
-    	logger.info("Get all Services");
-        List<Service> result = repo.findAll();
-        return result;
-    }
-    
-    
-   
-  
 
 }

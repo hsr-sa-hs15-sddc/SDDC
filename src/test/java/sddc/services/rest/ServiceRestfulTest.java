@@ -75,8 +75,7 @@ public class ServiceRestfulTest {
 	 public void testPostService() {
 		 long id = repo.findByServiceName("Network Virtual Bridge").getId();
 		 Service service = repo.findByServiceName("Network Virtual Bridge");
-		 String result = template.postForObject("http://localhost:8080/api/services/{id}", service, String.class, id);
-		 Assert.assertEquals("ok", result);
+		 template.postForObject("http://localhost:8080/api/services/{id}", service, String.class, id);
 		 Assert.assertNotNull(orderedRepo.findByName("Network Virtual Bridge"));
 	 }
 	 

@@ -49,7 +49,7 @@ public class OrderedServiceControllerTest {
 	
 	@Test
 	public void testFindAll() {
-		Assert.assertEquals(1,controller.findAllServices().size());
+		Assert.assertEquals(1,controller.getOrderedServices().size());
 	}
 	
 	 @Test
