@@ -17,16 +17,34 @@
 </nav>
 <a href="#/admin/servicemodules">Back to Overview</a>
 
-<h1>{{module.name}}</h1>
+<h1>Edit ServiceModule</h1>
 
-<h3>Size</h3>
-{{module.size}}
 
-<h3>Category</h3>
-{{module.category}}
 
-<h3>Config</h3>
-<div class="">{{module.config}}</div>
+<div class="form-group">
+    <label>Modulename:</label>
+    <input type="text" class="form-control" data-ng-model="servicemodule.name" required />
+</div>
+
+
+<div class="form-group">
+    <label>Category:</label>
+    <input type="text" class="form-control" data-ng-model="servicemodule.category" required />
+</div>
+
+
+
+<div ng-if="servicemodule.size" class="form-group">
+    <label>Size:</label>
+    <input type="text" class="form-control" data-ng-model="servicemodule.size" required />
+</div>
+
+
+<div class="form-group">
+    <label>Config:</label>
+    <textarea class="form-control" rows="30" data-ng-model="servicemodule.config" required></textarea>
+</div>
+
 <div class="clearfix"></div>
 
-<a href="#/admin/servicemodules/{{module.id}}/edit"><button type="button" class="btn btn-lg btn-primary" ng-click="">Edit ServiceModule</button></a>
+<button type="button" class="btn btn-lg btn-primary" ng-click="updateServiceModule(servicemodule)">Save Service</button>

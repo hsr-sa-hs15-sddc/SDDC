@@ -26,6 +26,9 @@
             Size
         </td>
         <td>
+            Category
+        </td>
+        <td>
             Options
         </td>
     </tr>
@@ -36,10 +39,16 @@
             {{module.size}}
         </td>
         <td>
+            {{module.category}}
+        </td>
+        <td>
             <button type="button" class="btn btn-primary" ng-click="deleteServiceModule(module)">Delete</button>
-            <button type="button" class="btn btn-primary" ng-click="">Edit</button>
+            <a href="#/admin/servicemodules/{{module.id}}/edit"><button type="button" class="btn btn-primary" ng-click="">Edit</button></a>
         </td>
     </tr>
 
 
 </table>
+
+
+<a href="#/admin/servicemodules/new"><button type="button" class="btn btn-primary" >Create new ServiceModule</button></a>

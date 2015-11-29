@@ -15,18 +15,25 @@
             </ul>
           </div>
 </nav>
-<a href="#/admin/servicemodules">Back to Overview</a>
+<a href="#/admin/services">Back to Overview</a>
 
-<h1>{{module.name}}</h1>
+<h1>New Service</h1>
 
-<h3>Size</h3>
-{{module.size}}
+<div class="form-group">
+    <label>Servicename:</label>
+    <input type="text" class="form-control" data-ng-model="service.serviceName" required />
+</div>
 
-<h3>Category</h3>
-{{module.category}}
+<h2>Modules:</h2>
+<div class="checkbox" ng-repeat="module in servicemodules">
+    <label>
+        <input type="checkbox" checklist-model="service.modules" checklist-value="module"> {{module.name}}
+    </label>
+</div>
 
-<h3>Config</h3>
-<div class="">{{module.config}}</div>
+
+{{service}}
+
 <div class="clearfix"></div>
 
-<a href="#/admin/servicemodules/{{module.id}}/edit"><button type="button" class="btn btn-lg btn-primary" ng-click="">Edit ServiceModule</button></a>
+<button type="button" class="btn btn-lg btn-primary" ng-click="save(service)">Save Service</button>

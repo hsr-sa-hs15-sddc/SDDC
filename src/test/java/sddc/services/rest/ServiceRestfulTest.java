@@ -100,11 +100,11 @@ public class ServiceRestfulTest {
 		 Long id = repo.findByServiceName("Network Virtual Bridge").getId();
 		 Service service = repo.findOne(id);
 		 service.setServiceName("Some new Service");
-		 Set<ServiceModule> modules =service.getServiceModules();
+		 Set<ServiceModule> modules =service.getModules();
 		 modules.add(new ServiceModule("Debian",Size.S,Category.Network,networkconfig));
 		 template.put("http://localhost:8080/api/services/{id}", service, id);
 		 Assert.assertEquals("Some new Service",repo.findOne(id).getServiceName());
-		 Assert.assertEquals(2, repo.findOne(id).getServiceModules().size());
+		 Assert.assertEquals(2, repo.findOne(id).getModules().size());
 	}
 	 
 	 

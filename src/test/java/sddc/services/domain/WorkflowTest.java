@@ -77,7 +77,7 @@ Charset.defaultCharset(), false);
 	@Test
 	public void testService() {
 		Assert.assertEquals("Testservice",repo.findByServiceName("Testservice").getServiceName());
-		Assert.assertTrue(repo.findByServiceName("Testservice").getServiceModules().size() == 3);
+		Assert.assertTrue(repo.findByServiceName("Testservice").getModules().size() == 3);
 	}
 	
 	/* Test Modules */

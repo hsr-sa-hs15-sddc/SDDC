@@ -85,6 +85,11 @@ public class ServiceController {
         return repo.findOne(id);
     }
     
+    @RequestMapping(value = "/api/services/new", method = RequestMethod.POST)
+    public Service createService(@RequestBody Service service) {
+    	return repo.save(service);
+    }
+
     @RequestMapping(value = "/api/services/{id}", method = RequestMethod.POST)
     public @ResponseBody String orderService(@RequestBody Service service){
     	workflow.orderService(service);
@@ -102,7 +107,7 @@ public class ServiceController {
     public void updateService(@PathVariable("id") long id, @RequestBody Service service) {
     	Service s = repo.findOne(id);
     	s.setServiceName(service.getServiceName());
-    	s.setServiceModules(service.getServiceModules());
+    	s.setModules(service.getModules());
     	repo.save(s);
     }
     
@@ -115,11 +120,7 @@ public class ServiceController {
     }
     
     
-    @RequestMapping(value = "/api/services/new", method = RequestMethod.POST)
-    public Service createService(@RequestBody Service service) {
-    	return repo.save(service);
-    }
-    
+   
   
 
 }

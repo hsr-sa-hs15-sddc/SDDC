@@ -44,7 +44,6 @@ public class ServiceModuleController {
 	  	 @RequestMapping(value="/api/servicemodules/{id}",method = RequestMethod.DELETE)
 	     @ResponseBody
 	     public String deleteServiceModule(@PathVariable("id") long id){
-	  		 System.out.println("Delete");
 	          repo.delete(id);
 	          return "ok";
 	     }

@@ -37,7 +37,7 @@ public class Service {
 	
 	public Service(String serviceName, Set<ServiceModule> modules) {
 	    this.serviceName = serviceName;
-	    this.modules = modules;
+	    this.setModules(modules);
 	}
 	
 	public Service(String serviceName) {
@@ -56,20 +56,25 @@ public class Service {
 		this.serviceName = name;;
 	}
 	
-	public Set<ServiceModule> getServiceModules() {
-		return this.modules;
-	}
 	
 	public Set<ServiceModule> getServiceModules(Category category) {
 		Set<ServiceModule> m = new HashSet<>();
-		for(ServiceModule serviceModule : modules) {
+		for(ServiceModule serviceModule : getModules()) {
 			if(serviceModule.getCategory() == category)
 				m.add(serviceModule);
 		}
 		return m;
 	}
-	
-	public void setServiceModules(Set<ServiceModule> modules) {
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Set<ServiceModule> getModules() {
+		return modules;
+	}
+
+	public void setModules(Set<ServiceModule> modules) {
 		this.modules = modules;
 	}
 }

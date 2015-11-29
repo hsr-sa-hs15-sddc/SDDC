@@ -15,18 +15,13 @@
             </ul>
           </div>
 </nav>
-<a href="#/admin/servicemodules">Back to Overview</a>
+<a href="#/admin/services">Back to Overview</a>
 
-<h1>{{module.name}}</h1>
+<h1>{{service.serviceName}}</h1>
 
-<h3>Size</h3>
-{{module.size}}
-
-<h3>Category</h3>
-{{module.category}}
-
-<h3>Config</h3>
-<div class="">{{module.config}}</div>
-<div class="clearfix"></div>
-
-<a href="#/admin/servicemodules/{{module.id}}/edit"><button type="button" class="btn btn-lg btn-primary" ng-click="">Edit ServiceModule</button></a>
+<h2>Module:</h2>
+<span ng-repeat="module in service.modules">
+<h4>{{module.name}}</h4>
+</span>
+<br>
+<a href="#/admin/services/{{service.id}}/edit"><button type="button" class="btn btn-lg btn-primary" ng-click="">Edit Service</button></a>

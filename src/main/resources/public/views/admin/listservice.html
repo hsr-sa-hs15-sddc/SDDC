@@ -35,14 +35,17 @@
     <tr ng-repeat="service in services">
         <td><a href="#/admin/services/{{service.id}}">{{service.serviceName}}</a></td>
         <td>
-        <span ng-repeat="module in service.serviceModules">
+        <span ng-repeat="module in service.modules">
         {{module.name}},
         </span></td>
         <td>
           <button type="button" class="btn btn-primary" ng-click="deleteService(service)">Delete</button>
-          <button type="button" class="btn btn-primary" ng-click="editService(service)">Edit</button>
+          <a href="#/admin/services/{{service.id}}/edit"><button type="button" class="btn btn-primary" >Edit</button></a>
         </td>
     </tr>
 
 
 </table>
+
+<a href="#/admin/services/new"><button type="button" class="btn btn-primary" >Create new Service</button></a>
+

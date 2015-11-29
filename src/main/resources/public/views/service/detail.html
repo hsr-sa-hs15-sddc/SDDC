@@ -20,8 +20,8 @@
 <h1>{{service.serviceName}}</h1>
 
 <h2>Module:</h2>
-<span ng-repeat="module in service.serviceModules">
+<span ng-repeat="module in service.modules">
 <h4>{{module.name}}</h4>
 </span>
 <br>
-<button type="button" class="btn btn-lg btn-primary" ng-click="orderService()">Order Service</button>
+<button type="button" class="btn btn-lg btn-primary" ng-click="order(service)">Order Service</button>
