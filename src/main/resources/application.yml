@@ -10,7 +10,7 @@ spring:
   
 spring.datasource:
      dataSourceClassName: org.postgresql.Driver
-     url: "jdbc:postgresql://86.119.35.56:5432/sddc"
+     url: "jdbc:postgresql://86.119.35.56:5432/sddctest"
      databaseName:
      serverName: "app.silvn.com"
      username: "sddc"
