@@ -35,7 +35,7 @@ public class Workflow {
 		for(ServiceModule serviceModule : service.getServiceModules(Category.Network)) {
 			try {
 				String identifier = api.createNetwork(serviceModule.getConfig());
-				ids.add(new Identifier(identifier, serviceModule.getCategory(), serviceModule.getSize()));
+				ids.add(new Identifier(identifier, serviceModule.getCategory(), serviceModule.getSize(), Provider.LibVirt));
 			} catch (LibvirtException e) {
 				LOGGER.error("Could not create Network: " + e.getMessage());
 				rollback(ids);
@@ -46,7 +46,7 @@ public class Workflow {
 		for(ServiceModule serviceModule : service.getServiceModules(Category.Storage)) {
 			try {
 				String identifier = api.createStorage(serviceModule.getConfig());
-				ids.add(new Identifier(identifier, serviceModule.getCategory(), serviceModule.getSize()));
+				ids.add(new Identifier(identifier, serviceModule.getCategory(), serviceModule.getSize(), Provider.LibVirt));
 			} catch (LibvirtException e) {
 				LOGGER.error("Could not create Storage: " + e.getMessage());
 				rollback(ids);
@@ -57,7 +57,7 @@ public class Workflow {
 		for(ServiceModule serviceModule : service.getServiceModules(Category.Compute)) {
 			try {
 				String identifier = api.createCompute(serviceModule.getConfig());
-				ids.add(new Identifier(identifier, serviceModule.getCategory(), serviceModule.getSize()));
+				ids.add(new Identifier(identifier, serviceModule.getCategory(), serviceModule.getSize(), Provider.LibVirt));
 			} catch (LibvirtException e) {
 				LOGGER.error("Could not create Compute: " + e.getMessage());
 				rollback(ids);

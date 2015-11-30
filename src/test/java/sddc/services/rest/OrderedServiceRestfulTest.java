@@ -22,6 +22,7 @@ import sddc.services.OrderedServiceRepo;
 import sddc.services.domain.Category;
 import sddc.services.domain.Identifier;
 import sddc.services.domain.OrderedService;
+import sddc.services.domain.Provider;
 import sddc.services.domain.Size;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -40,8 +41,8 @@ public class OrderedServiceRestfulTest {
 	 public void setUp() {
 		 repo.deleteAll();
 		 Set<Identifier> ids = new HashSet<Identifier>();
-		 ids.add(new Identifier(UUID.randomUUID().toString(),Category.Compute,Size.L));
-		 ids.add(new Identifier(UUID.randomUUID().toString(),Category.Network,Size.S));
+		 ids.add(new Identifier(UUID.randomUUID().toString(),Category.Compute,Size.L, Provider.LibVirt));
+		 ids.add(new Identifier(UUID.randomUUID().toString(),Category.Network,Size.S, Provider.LibVirt));
 		 repo.save(new OrderedService("LAMP Stack",ids));
 	 }
 	

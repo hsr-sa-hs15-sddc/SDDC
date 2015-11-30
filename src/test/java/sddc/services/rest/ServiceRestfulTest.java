@@ -22,6 +22,7 @@ import sddc.services.OrderedServiceRepo;
 import sddc.services.ServiceModuleRepo;
 import sddc.services.ServiceRepo;
 import sddc.services.domain.Category;
+import sddc.services.domain.Provider;
 import sddc.services.domain.Service;
 import sddc.services.domain.ServiceModule;
 import sddc.services.domain.Size;
@@ -52,7 +53,7 @@ public class ServiceRestfulTest {
 	orderedRepo.deleteAll();
 	moduleRepo.deleteAll();
 	Set<ServiceModule> modules = new HashSet<ServiceModule>();
-	modules.add(new ServiceModule("Network Bridge",Size.S,Category.Network,networkconfig));
+	modules.add(new ServiceModule("Network Bridge",Size.S, Provider.LibVirt, Category.Network,networkconfig));
     repo.save(new Service("Network Virtual Bridge",modules));
 	}
 	 
@@ -100,7 +101,7 @@ public class ServiceRestfulTest {
 		 Service service = repo.findOne(id);
 		 service.setServiceName("Some new Service");
 		 Set<ServiceModule> modules =service.getModules();
-		 modules.add(new ServiceModule("Debian",Size.S,Category.Network,networkconfig));
+		 modules.add(new ServiceModule("Debian",Size.S, Provider.LibVirt, Category.Network,networkconfig));
 		 template.put("http://localhost:8080/api/services/{id}", service, id);
 		 Assert.assertEquals("Some new Service",repo.findOne(id).getServiceName());
 		 Assert.assertEquals(2, repo.findOne(id).getModules().size());

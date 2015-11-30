@@ -19,7 +19,7 @@ import junit.framework.Assert;
 import sddc.ApplicationMain;
 import sddc.services.ServiceModuleRepo;
 import sddc.services.domain.Category;
-
+import sddc.services.domain.Provider;
 import sddc.services.domain.ServiceModule;
 import sddc.services.domain.Size;
 import sddc.util.FileUtil;
@@ -40,7 +40,7 @@ public class ServiceModuleRestfulTest {
 	@Before
 	public void setUp() {
 	repo.deleteAllInBatch();
-    repo.save(new ServiceModule("Network Bridge",Size.S,Category.Network,networkconfig));
+    repo.save(new ServiceModule("Network Bridge",Size.S, Provider.LibVirt, Category.Network,networkconfig));
 	}
 	 
 	@Test
@@ -52,7 +52,7 @@ public class ServiceModuleRestfulTest {
 	
 	@Test
 	public void testCreateServiceModule() {
-		ServiceModule module = new ServiceModule("KVM VM",Size.L,Category.Compute,networkconfig);
+		ServiceModule module = new ServiceModule("KVM VM",Size.L, Provider.LibVirt, Category.Compute,networkconfig);
 		ServiceModule result = template.postForObject("http://localhost:8080/api/servicemodules/new", module, ServiceModule.class);
 		Assert.assertEquals("KVM VM", result.getName());
 		Assert.assertEquals(Size.L, result.getSize());

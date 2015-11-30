@@ -62,8 +62,8 @@ Charset.defaultCharset(), false);
 		computeConfig = FileUtil.getContentOfFile("src/test/resources/LibVirtComputeConfigExample.xml",
 				Charset.defaultCharset(), false);
 				
-		module1 = new ServiceModule("Compute",Size.S,Category.Compute,computeConfig);
-		module2 = new ServiceModule("Storage",Size.M,Category.Storage,storageConfig);
+		module1 = new ServiceModule("Compute",Size.S, Provider.LibVirt, Category.Compute,computeConfig);
+		module2 = new ServiceModule("Storage",Size.M, Provider.LibVirt, Category.Storage,storageConfig);
 		module3 = new ServiceModule("Network",Category.Network,networkConfig);
 		modules.add(module1);
 		modules.add(module2);
@@ -104,7 +104,7 @@ Charset.defaultCharset(), false);
 	@Test
 	public void testExceptionCompute() {
 		Set<ServiceModule> modules = new HashSet<ServiceModule>();
-		computeModule = new ServiceModule("FailingCompute",Size.S, Category.Compute, failingConfig );
+		computeModule = new ServiceModule("FailingCompute",Size.S, Provider.LibVirt, Category.Compute, failingConfig );
 		modules.add(computeModule);
 		Service service = new Service("Hello Exception",modules);
 		repo.save(service);
@@ -115,7 +115,7 @@ Charset.defaultCharset(), false);
 	@Test
 	public void testExceptionStorage() {
 		Set<ServiceModule> modules = new HashSet<ServiceModule>();
-		storageModule = new ServiceModule("FailingStorage",Size.S, Category.Compute, failingConfig );
+		storageModule = new ServiceModule("FailingStorage",Size.S, Provider.LibVirt, Category.Compute, failingConfig );
 		modules.add(storageModule);
 		Service service = new Service("Hello Exception",modules);
 		repo.save(service);

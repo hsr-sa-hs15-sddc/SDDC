@@ -24,16 +24,20 @@ public class Identifier {
 	@Enumerated(EnumType.STRING)
 	private Size size;
 	
+	@Enumerated(EnumType.STRING)
+	private Provider provider;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="orderedservice_id")
 	private OrderedService orderedService;
 	
 	public Identifier() {}
 	
-	public Identifier(String uuid, Category category, Size size) {
+	public Identifier(String uuid, Category category, Size size, Provider provider) {
 		this.uuid = uuid;
 		this.category = category;
 		this.setSize(size);
+		this.setProvider(provider);
 	}
 
 	public Category getCategory() {
@@ -75,6 +79,14 @@ public class Identifier {
 
 	public void setSize(Size size) {
 		this.size = size;
+	}
+	
+	public Provider getProvider() {
+		return provider;
+	}
+	
+	public void setProvider(Provider provider) {
+		this.provider = provider;
 	}
 	
 	

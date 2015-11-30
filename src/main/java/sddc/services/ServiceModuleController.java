@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import sddc.services.domain.Category;
+import sddc.services.domain.Provider;
 import sddc.services.domain.ServiceModule;
 import sddc.services.domain.Size;
 
@@ -28,7 +29,7 @@ public class ServiceModuleController {
 	  
 	    @PostConstruct
 	    private void createInitialData() {
-	    	repo.save(new ServiceModule("Deletable ServiceModule",Size.S, Category.Storage,"Config"));
+	    	repo.save(new ServiceModule("Deletable ServiceModule",Size.S, Provider.LibVirt,Category.Storage,"Config"));
 	    }
 	  	
 	  	

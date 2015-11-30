@@ -1,17 +1,18 @@
 package sddc.genericapi.libvirt;
 
 import java.util.UUID;
-
 import org.libvirt.Connect;
-
-import sddc.genericapi.IResourceController;
+import sddc.genericapi.ResourceController;
+import sddc.services.domain.Category;
+import sddc.services.domain.Provider;
 import sddc.util.ConfigUtil;
 
-public abstract class LibVirtController implements IResourceController {
+public abstract class LibVirtController extends ResourceController {
 	
 	protected Connect connect;
 	
-	public LibVirtController(Connect connect) {
+	public LibVirtController(Category category, Connect connect) {
+		super(category, Provider.LibVirt);
 		this.connect = connect;
 	}
 	

@@ -27,6 +27,9 @@ public class ServiceModule {
 	@Enumerated(EnumType.STRING)
     private Size size;
 	
+	@Enumerated(EnumType.STRING)
+	private Provider provider;
+	
 	@Column(length=10000)
 	private String config;
 	
@@ -38,9 +41,10 @@ public class ServiceModule {
 	
 	public ServiceModule() {}
 	
-	public ServiceModule(String name, Size size, Category category, String config) {
+	public ServiceModule(String name, Size size, Provider provider, Category category, String config) {
 		this.setName(name);
 		this.setSize(size);
+		this.setProvider(provider);
 		this.setCategory(category);
 		this.setConfig(config);
 	}
@@ -58,6 +62,10 @@ public class ServiceModule {
 	
 	public Size getSize() {
 		return size;
+	}
+	
+	public Provider getProvider() {
+		return provider;
 	}
 	
 	public Category getCategory() {
@@ -91,6 +99,10 @@ public class ServiceModule {
 
 	public void setSize(Size size) {
 		this.size = size;
+	}
+	
+	public void setProvider(Provider provider) {
+		this.provider = provider;
 	}
 
 	public void setCategory(Category category) {

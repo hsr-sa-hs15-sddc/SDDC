@@ -15,6 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import junit.framework.Assert;
 import sddc.ApplicationMain;
 import sddc.services.domain.Category;
+import sddc.services.domain.Provider;
 import sddc.services.domain.ServiceModule;
 import sddc.services.domain.Size;
 import sddc.util.FileUtil;
@@ -42,7 +43,7 @@ public class ServiceModuleControllerTest {
 	@Before
 	public void setUp() {
 		repo.deleteAllInBatch();
-		repo.save(new ServiceModule("Network Bridges",Size.S,Category.Network,networkconfig));
+		repo.save(new ServiceModule("Network Bridges",Size.S, Provider.LibVirt, Category.Network,networkconfig));
 	}
 	
 	@Test

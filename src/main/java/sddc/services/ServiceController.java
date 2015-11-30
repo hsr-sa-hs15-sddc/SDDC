@@ -23,6 +23,7 @@ import sddc.services.domain.Size;
 import sddc.services.domain.Workflow;
 import sddc.util.FileUtil;
 import sddc.services.domain.Category;
+import sddc.services.domain.Provider;
 
 
 @RestController
@@ -60,23 +61,23 @@ public class ServiceController {
     	moduleRepo.deleteAll();
     	Set<ServiceModule> modules = new HashSet<ServiceModule>();
     	ServiceModule network = new ServiceModule("Network Bridge",Category.Network,networkConfig);
-    	ServiceModule compute = new ServiceModule("Debian Squeez",Size.M, Category.Compute,ubuntuConfigNet);
+    	ServiceModule compute = new ServiceModule("Debian Squeez",Size.M, Provider.LibVirt, Category.Compute,ubuntuConfigNet);
     	modules.add(network);
     	modules.add(compute);
         Service service = new Service("Virtual Bridge + Debian",modules);
         repo.save(service);
         Set<ServiceModule> modules2 = new HashSet<ServiceModule>();
-        ServiceModule compute2 = new ServiceModule("Ubuntu VM",Size.M,Category.Compute,ubuntuConfig);
+        ServiceModule compute2 = new ServiceModule("Ubuntu VM",Size.M,Provider.LibVirt,Category.Compute,ubuntuConfig);
         modules2.add(compute2);
         Service service2 = new Service("Ubuntu 14.04",modules2);
         repo.save(service2);
         Set<ServiceModule> modules3 = new HashSet<ServiceModule>();
-        ServiceModule compute3 = new ServiceModule("Debian VM",Size.M,Category.Compute,debianConfig);
+        ServiceModule compute3 = new ServiceModule("Debian VM",Size.M,Provider.LibVirt,Category.Compute,debianConfig);
         modules3.add(compute3);
         Service service3 = new Service("Debian Squeeze",modules3);
         repo.save(service3);
         Set<ServiceModule> modules4 = new HashSet<ServiceModule>();
-        ServiceModule storage = new ServiceModule("Dir Storage Pool",Size.M,Category.Storage,storageConfig);
+        ServiceModule storage = new ServiceModule("Dir Storage Pool",Size.M,Provider.LibVirt,Category.Storage,storageConfig);
         modules4.add(storage);
         Service service4 = new Service("Storage Pool",modules4);
         repo.save(service4);
