@@ -23,7 +23,7 @@
 	<constructor-arg><ref bean="LibVirtConnect" /></constructor-arg>
 	</bean>
 	
-	<bean id="LibVirtServiceModuleHandler" class="sddc.genericapi.ServiceModulehandler">
+	<bean id="LibVirtServiceModuleHandler" class="sddc.genericapi.ServiceModuleHandler">
 	<constructor-arg>
 		<list>
 			<ref bean="LibVirtComputeController" />
