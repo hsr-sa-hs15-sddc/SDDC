@@ -2,18 +2,16 @@ package sddc.genericapi.libvirt;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.libvirt.Connect;
 import org.libvirt.Domain;
 import org.libvirt.DomainInfo;
 import org.libvirt.LibvirtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import sddc.services.domain.Category;
 import sddc.services.domain.Identifier;
 import sddc.services.domain.ServiceModule;
-import sddc.services.genericapi.GenericAPILibVirt;
+
 
 public class LibVirtComputeController extends LibVirtController {
 	
