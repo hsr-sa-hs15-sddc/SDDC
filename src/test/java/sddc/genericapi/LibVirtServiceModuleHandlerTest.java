@@ -43,7 +43,7 @@ public class LibVirtServiceModuleHandlerTest {
 				
 		Identifier identifier = handler.create(module);
 		
-		Assert.assertNull(identifier);
+		Assert.assertNotNull(identifier);
 	}
 
 }
