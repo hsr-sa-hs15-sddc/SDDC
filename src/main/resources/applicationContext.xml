@@ -33,14 +33,6 @@
 	</constructor-arg>
 	</bean>
 	
-	<bean id="ServiceModuleHandler" class="sddc.genericapi.ServiceModuleHandler">
-	<constructor-arg>
-		<list>
-			<ref bean="LibVirtComputeController" />
-			<ref bean="LibVirtNetworkController" />
-			<ref bean="LibVirtStorageController" />
-		</list>
-	</constructor-arg>
-	</bean>
+	
 	             
 </beans>

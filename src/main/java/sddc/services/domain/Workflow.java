@@ -33,7 +33,7 @@ public class Workflow {
 	
 	public Workflow() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		handler = (IServiceModuleHandler) context.getBean("ServiceModuleHandler");
+		handler = (IServiceModuleHandler) context.getBean("LibVirtServiceModuleHandler");
 		
 		((ConfigurableApplicationContext)context).close();
 	}
