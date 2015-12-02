@@ -23,6 +23,10 @@ public class LibVirtComputeController extends LibVirtController {
 
 	@Override
 	public Identifier create(ServiceModule module) {
+		
+		if(module == null)
+			return null;
+		
 		String config = replaceUUID(module.getConfig());
 		
 		logger.trace("createCompute(config: " + config + ")");
@@ -39,6 +43,10 @@ public class LibVirtComputeController extends LibVirtController {
 
 	@Override
 	public void delete(Identifier identifier) {
+		
+		if(identifier == null)
+			return;
+		
 		logger.trace("deleteCompute(identifier: " + identifier.getUuid() + ")");
 		
 		try {
@@ -53,10 +61,15 @@ public class LibVirtComputeController extends LibVirtController {
 	@Override
 	public Map<String, String> getInformations(Identifier identifier) {
 		
+		Map<String, String> infos = new HashMap<>();
+		
+		if(identifier == null)
+			return infos;
+		
 		logger.trace("getInformations(identifier: " + identifier.getUuid() + ")");
 		
 		DomainInfo domainInfo;
-		Map<String, String> infos = new HashMap<>();
+		
 		
 		try {
 			domainInfo = connect.domainLookupByUUIDString(identifier.getUuid()).getInfo();

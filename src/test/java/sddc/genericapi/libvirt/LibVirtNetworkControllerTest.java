@@ -53,11 +53,7 @@ public class LibVirtNetworkControllerTest {
 		ServiceModule module = new ServiceModule("LibVirtNetworkConfigErrorTest", Size.L, Provider.LibVirt, Category.Network, "<<");
 		
 		Identifier identifier = controller.create(module);
-		Assert.assertNull(identifier);
-		
-		Map<String, String> infos = controller.getInformations(identifier);
-		Assert.assertTrue(infos.isEmpty());
-		
+		Assert.assertNull(identifier);	
 	}
 
 }
