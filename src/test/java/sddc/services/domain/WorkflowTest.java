@@ -44,7 +44,7 @@ public class WorkflowTest {
 	@Autowired
 	private ServiceRepo repo;
 	
-	private Workflow workflow;
+	private Workflow workflow = new Workflow();
 
 	@Before
 	public void setUp() throws Exception {
