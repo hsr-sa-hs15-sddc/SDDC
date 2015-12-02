@@ -44,7 +44,6 @@ public class WorkflowTest {
 	@Autowired
 	private ServiceRepo repo;
 	
-	@Autowired
 	private Workflow workflow;
 
 	@Before
