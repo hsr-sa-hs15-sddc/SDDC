@@ -1,16 +1,11 @@
 package sddc.genericapi;
 
-import static org.junit.Assert.*;
-
 import java.nio.charset.Charset;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import junit.framework.Assert;
 import sddc.services.domain.Category;
 import sddc.services.domain.Identifier;
@@ -25,12 +20,11 @@ public class LibVirtServiceModuleHandlerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Resource resource = new ClassPathResource("applicationContext.xml");
 		
-		@SuppressWarnings("deprecation")
-		BeanFactory factory = new XmlBeanFactory(resource);
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		handler = (IServiceModuleHandler) context.getBean("LibVirtServiceModuleHandler");
 		
-		handler = (IServiceModuleHandler) factory.getBean("LibVirtServiceModuleHandler");
+		((ConfigurableApplicationContext)context).close();
 	}
 
 	@Test
