@@ -20,22 +20,22 @@ import sddc.services.domain.ServiceModule;
 import sddc.services.domain.Size;
 import sddc.util.FileUtil;
 
-public class LibVirtComputeControllerTest {
+public class LibVirtNetworkControllerTest {
 	
 	private ResourceController controller;
 
 	@Before
 	public void setUp() throws Exception {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		controller = (ResourceController) context.getBean("LibVirtComputeController");
+		controller = (ResourceController) context.getBean("LibVirtNetworkController");
 		
 		((ConfigurableApplicationContext)context).close();
 	}
 
 	@Test
-	public void ComputeControllerTest() {
-		String config = FileUtil.getContentOfFile("src/test/resources/LibVirtComputeConfigExample.xml", Charset.defaultCharset(), false);
-		ServiceModule module = new ServiceModule("LibVirtComputeConfigTest", Size.L, Provider.LibVirt, Category.Compute, config);
+	public void NetworkControllerTest() {
+		String config = FileUtil.getContentOfFile("src/test/resources/LibVirtNetworkConfigExample.xml", Charset.defaultCharset(), false);
+		ServiceModule module = new ServiceModule("LibVirtNetworkConfigTest", Size.L, Provider.LibVirt, Category.Network, config);
 		
 		Identifier identifier = controller.create(module);
 		Assert.assertNotNull(identifier);
@@ -50,7 +50,7 @@ public class LibVirtComputeControllerTest {
 	
 	@Test
 	public void ComputeControllerErrorTest() {
-		ServiceModule module = new ServiceModule("LibVirtComputeConfigErrorTest", Size.L, Provider.LibVirt, Category.Compute, "<<");
+		ServiceModule module = new ServiceModule("LibVirtNetworkConfigErrorTest", Size.L, Provider.LibVirt, Category.Network, "<<");
 		
 		Identifier identifier = controller.create(module);
 		Assert.assertNull(identifier);
