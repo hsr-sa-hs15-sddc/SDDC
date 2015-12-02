@@ -137,9 +137,10 @@ public class Workflow {
 		*/
 	}
 	
-	//Nur Testweise
 	private void rollback(Set<Identifier> identifiers) {
-		cancelService(new OrderedService("rollback", identifiers));
+		OrderedService orderedService = new OrderedService("rollback", identifiers);
+		orderedServiceRepo.save(orderedService);
+		cancelService(orderedService);
 	}
 
 }
