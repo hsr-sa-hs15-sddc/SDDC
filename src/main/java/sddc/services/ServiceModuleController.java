@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wordnik.swagger.annotations.ApiOperation;
+
 import sddc.services.domain.Category;
 import sddc.services.domain.Provider;
 import sddc.services.domain.ServiceModule;
@@ -32,15 +34,20 @@ public class ServiceModuleController {
 	    	repo.save(new ServiceModule("Deletable ServiceModule",Size.S, Provider.LibVirt,Category.Storage,"Config"));
 	    }
 	  	
-	  	
-	  	@RequestMapping("/api/servicemodules")
+	    @ApiOperation(value = "Returns all ServiceModules", 
+	    		notes = "Returns a list of all ServiceModules", 
+	    		response = ServiceModule[].class)
+	  	@RequestMapping(value="/api/servicemodules",method = RequestMethod.GET)
 	    @ResponseBody
 	    public List<ServiceModule> getServiceModules() {
 	  		logger.info("Get all ServiceModules");
 	        List<ServiceModule> result = repo.findAll();
 	        return result;
-	    }
-
+	    }	
+	    
+	    @ApiOperation(value = "Returns a ServiceModule by it's id", 
+	    		notes = "Returns a ServiceModule by it's id", 
+	    		response = ServiceModule.class)
 	  	 @RequestMapping(value="/api/servicemodules/{id}",method = RequestMethod.GET)
 	     @ResponseBody
 	     public ServiceModule getServiceModule(@PathVariable("id") long id){
@@ -48,6 +55,8 @@ public class ServiceModuleController {
 	         return repo.findOne(id);
 	     }
 	  	 
+	    @ApiOperation(value = "Delets a existing ServiceModule", 
+	    		notes = "Delets a existing ServiceModule")
 	  	 @RequestMapping(value="/api/servicemodules/{id}",method = RequestMethod.DELETE)
 	     @ResponseBody
 	     public void deleteServiceModule(@PathVariable("id") long id){
@@ -55,12 +64,16 @@ public class ServiceModuleController {
 	         repo.delete(id);
 	     }
 	  	 
+	    @ApiOperation(value = "Creates a ServiceModule", 
+	    		notes = "Creates a ServiceModule")
 	  	@RequestMapping(value = "/api/servicemodules/new", method = RequestMethod.POST)
 	    public ServiceModule createServiceModule(@RequestBody ServiceModule module) {
 	  		logger.info("Create ServiceModule:" + module.getName());
 	    	return repo.save(module);
 	    }
 	  	
+	    @ApiOperation(value = "Updates a existing ServiceModule", 
+	    		notes = "Updates a existing ServiceModule")
 	  	 @RequestMapping(value="/api/servicemodules/{id}", method = RequestMethod.PUT)
 	     @Transactional
 	     public void updateServiceModule(@PathVariable("id") long id, @RequestBody ServiceModule module) {

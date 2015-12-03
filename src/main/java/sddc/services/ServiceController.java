@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+
 import sddc.services.domain.Service;
 import sddc.services.domain.ServiceModule;
 import sddc.services.domain.Size;
@@ -25,7 +29,7 @@ import sddc.util.FileUtil;
 import sddc.services.domain.Category;
 import sddc.services.domain.Provider;
 
-
+@Api(value = "service", description = "Endpoint for Service management")
 @RestController
 public class ServiceController {
 	
@@ -82,8 +86,10 @@ public class ServiceController {
         Service service4 = new Service("Storage Pool",modules4);
         repo.save(service4);
     }
-    
-    @RequestMapping("/api/services")
+    @ApiOperation(value = "Returns all Services", 
+    		notes = "Returns a list of all Services", 
+    		response = Service[].class)
+    @RequestMapping(value="/api/services",method = RequestMethod.GET)
     @ResponseBody
     public List<Service> getServices() {
     	logger.info("Get all Services");
@@ -91,6 +97,9 @@ public class ServiceController {
         return result;
     }
     
+    @ApiOperation(value = "Returns a Service by it's id", 
+    		notes = "Returns a Service by it's id", 
+    		response = Service.class)
     @RequestMapping(value="/api/services/{id}",method = RequestMethod.GET)
     @ResponseBody
     public Service getService(@PathVariable("id") long id){
@@ -98,6 +107,8 @@ public class ServiceController {
         return repo.findOne(id);
     }
     
+    @ApiOperation(value = "Creates a new Service", 
+    		notes = "Creates a new Service")
     @RequestMapping(value = "/api/services/new", method = RequestMethod.POST)
     @Transactional
     public Service createService(@RequestBody Service service) {
@@ -108,19 +119,26 @@ public class ServiceController {
     	}
     	return repo.save(new Service(service.getServiceName(),modules));
     }
-
+    
+    @ApiOperation(value = "Order a existing Service", 
+    		notes = "Order a existing Service")
     @RequestMapping(value = "/api/services/{id}", method = RequestMethod.POST)
     public void orderService(@RequestBody Service service){
     	logger.info("Order Service:" + service.getServiceName());
     	workflow.orderService(service);
     }
     
+    @ApiOperation(value = "Delets a existing Service", 
+    		notes = "Delets a existing Service")
     @RequestMapping(value="/api/services/{id}", method = RequestMethod.DELETE)
     public void deleteService(@PathVariable("id") long id) {
     	logger.info("Delete Service:" + repo.findOne(id).getServiceName());
     	repo.delete(id);
     }
     
+    
+    @ApiOperation(value = "Update a Service", 
+    		notes = "Update a Service")
     @RequestMapping(value="/api/services/{id}", method = RequestMethod.PUT)
     @Transactional
     public void updateService(@PathVariable("id") long id, @RequestBody Service service) {
