@@ -60,7 +60,7 @@ public class ServiceController {
     	repo.deleteAll();
     	moduleRepo.deleteAll();
     	Set<ServiceModule> modules = new HashSet<ServiceModule>();
-    	ServiceModule network = new ServiceModule("Network Bridge",Category.Network,networkConfig);
+    	ServiceModule network = new ServiceModule("Network Bridge",Provider.LibVirt,Category.Network,networkConfig);
     	ServiceModule compute = new ServiceModule("Debian Squeez",Size.M, Provider.LibVirt, Category.Compute,ubuntuConfigNet);
     	modules.add(network);
     	modules.add(compute);

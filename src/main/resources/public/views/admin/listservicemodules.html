@@ -23,6 +23,9 @@
             Name
         </td>
         <td>
+            Provider
+        </td>
+        <td>
             Size
         </td>
         <td>
@@ -35,6 +38,9 @@
     </thead>
     <tr ng-repeat="module in servicemodules">
         <td><a href="#/admin/servicemodules/{{module.id}}">{{module.name}}</a></td>
+         <td>
+            {{module.provider}}
+        </td>
         <td>
             {{module.size}}
         </td>

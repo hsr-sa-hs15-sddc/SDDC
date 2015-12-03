@@ -49,7 +49,7 @@ public class ServiceModule {
 		this.setConfig(config);
 	}
 	
-	public ServiceModule(String name, Category category, String config) {
+	public ServiceModule(String name, Provider provider,Category category, String config) {
 		this.setName(name);
 		this.setCategory(category);
 		this.setConfig(config);
