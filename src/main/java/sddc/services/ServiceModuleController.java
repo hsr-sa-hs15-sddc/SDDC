@@ -40,6 +40,31 @@ public class ServiceModuleController {
 	        List<ServiceModule> result = repo.findAll();
 	        return result;
 	    }
+	  	
+	  	@RequestMapping("/api/servicemodules/providers")
+	    @ResponseBody
+	    public Provider[] getServiceModulesProviders() {
+	  		logger.info("Get all Providers");
+	        Provider[] result = Provider.values();
+	        return result;
+	    }
+	  	
+		@RequestMapping("/api/servicemodules/categories")
+	    @ResponseBody
+	    public Category[] getServiceModulesCategories() {
+	  		logger.info("Get all Categories");
+	        Category[] result = Category.values();
+	        return result;
+	    }
+		
+		@RequestMapping("/api/servicemodules/sizes")
+	    @ResponseBody
+	    public Size[] getServiceModulesSizes() {
+	  		logger.info("Get all Categories");
+	  		Size[] result = Size.values();
+	        return result;
+	    }
+	  	
 
 	  	 @RequestMapping(value="/api/servicemodules/{id}",method = RequestMethod.GET)
 	     @ResponseBody
