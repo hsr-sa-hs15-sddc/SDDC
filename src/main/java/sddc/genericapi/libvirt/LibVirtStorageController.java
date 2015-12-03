@@ -23,6 +23,10 @@ public class LibVirtStorageController extends LibVirtController {
 
 	@Override
 	public Identifier create(ServiceModule module) {
+		
+		if(module == null)
+			return null;
+		
 		String config = replaceUUID(module.getConfig());
 		
 		logger.trace("createStorage(config: " + config + ")");
@@ -37,6 +41,10 @@ public class LibVirtStorageController extends LibVirtController {
 
 	@Override
 	public void delete(Identifier identifier) {
+		
+		if(identifier == null)
+			return;
+		
 		logger.trace("deleteStorage(uuid: " + identifier.getUuid() + ")");
 		try {
 			StoragePool storagePool = connect.storagePoolLookupByUUIDString(identifier.getUuid());
@@ -51,10 +59,14 @@ public class LibVirtStorageController extends LibVirtController {
 	@Override
 	public Map<String, String> getInformations(Identifier identifier) {
 		
+		Map<String, String> infos = new HashMap<>();
+		if(identifier == null)
+			return infos;
+		
 		logger.trace("getInformations(identifier: " + identifier.getUuid() + ")");
 		
 		StoragePoolInfo storagePoolInfo;
-		Map<String, String> infos = new HashMap<>();
+		
 		
 		try {
 			storagePoolInfo = connect.storagePoolLookupByUUIDString(identifier.getUuid()).getInfo();

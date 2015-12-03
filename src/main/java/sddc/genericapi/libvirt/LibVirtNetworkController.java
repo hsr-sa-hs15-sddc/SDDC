@@ -23,6 +23,9 @@ public class LibVirtNetworkController extends LibVirtController {
 	@Override
 	public Identifier create(ServiceModule module) {
 		
+		if(module == null)
+			return null;
+		
 		String config = replaceUUID(module.getConfig());
 		
 		logger.trace("createNetwork(config: " + config + ")");
@@ -37,6 +40,10 @@ public class LibVirtNetworkController extends LibVirtController {
 
 	@Override
 	public void delete(Identifier identifier) {
+		
+		if(identifier == null)
+			return;
+		
 		logger.trace("deleteNetwork(uuid: " + identifier.getUuid() + ")");
 		try {
 			Network network = connect.networkLookupByUUIDString(identifier.getUuid());
@@ -50,10 +57,15 @@ public class LibVirtNetworkController extends LibVirtController {
 
 	@Override
 	public Map<String, String> getInformations(Identifier identifier) {
+		
+		Map<String, String> infos = new HashMap<>();
+		
+		if(identifier == null)
+			return infos;
+		
 		logger.trace("getInformations(identifier: " + identifier.getUuid() + ")");
 		
 		Network network;
-		Map<String, String> infos = new HashMap<>();
 		
 		try {
 			network = connect.networkLookupByUUIDString(identifier.getUuid());

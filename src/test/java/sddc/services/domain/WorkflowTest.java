@@ -64,7 +64,7 @@ Charset.defaultCharset(), false);
 				
 		module1 = new ServiceModule("Compute",Size.S, Provider.LibVirt, Category.Compute,computeConfig);
 		module2 = new ServiceModule("Storage",Size.M, Provider.LibVirt, Category.Storage,storageConfig);
-		module3 = new ServiceModule("Network",Category.Network,networkConfig);
+		module3 = new ServiceModule("Network",Size.L, Provider.LibVirt, Category.Network,networkConfig);
 		modules.add(module1);
 		modules.add(module2);
 		modules.add(module3);
@@ -126,7 +126,7 @@ Charset.defaultCharset(), false);
 	@Test
 	public void testExceptionNetwork() {
 		Set<ServiceModule> modules = new HashSet<ServiceModule>();
-		networkModule = new ServiceModule("FailingNetwork", Category.Compute, failingConfig );
+		networkModule = new ServiceModule("FailingNetwork", Size.S, Provider.LibVirt, Category.Compute, failingConfig );
 		modules.add(networkModule);
 		Service service = new Service("Hello Exception",modules);
 		repo.save(service);

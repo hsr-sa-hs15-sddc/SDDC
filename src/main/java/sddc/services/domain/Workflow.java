@@ -3,14 +3,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.libvirt.LibvirtException;
+import org.mockito.internal.util.collections.ArrayUtils;
 
-
+import sddc.genericapi.IServiceModuleHandler;
 import sddc.services.OrderedServiceRepo;
 import sddc.services.genericapi.IGenericAPIFacade;
 import sddc.services.genericapi.factory.GenericAPILibVirtFactory;
@@ -21,16 +24,41 @@ public class Workflow {
 	@Autowired
 	private OrderedServiceRepo orderedServiceRepo;
 	
-	private IGenericAPIFacade api;
+	private IServiceModuleHandler handler;
 	
 	public static final Logger LOGGER = LoggerFactory.getLogger(Workflow.class);
-
+	
+	private static final Category[] workflowOrder = new Category[] {Category.Network, Category.Storage, Category.Compute};
+	private static final Category[] workflowCancel = new Category[] {Category.Compute, Category.Storage, Category.Network};
+	
 	public Workflow() {
-		api = GenericAPILibVirtFactory.getInstance();
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		handler = (IServiceModuleHandler) context.getBean("LibVirtServiceModuleHandler");
+		
+		((ConfigurableApplicationContext)context).close();
 	}
 	
 	public void orderService(Service service) {
 		
+		Set<Identifier> identifiers = new HashSet<>();
+		
+		for(Category category : workflowOrder) {
+			for(ServiceModule module : service.getServiceModules(category)) {
+				
+				Identifier identifier = handler.create(module);
+				if(identifier == null) {
+					rollback(identifiers);
+					return;
+				}
+				
+				identifiers.add(identifier);
+				
+			}
+		}
+		
+		orderedServiceRepo.save(new OrderedService(service.getServiceName(),identifiers));
+		
+		/*
 		Set<Identifier> ids = new HashSet<Identifier>();
 		for(ServiceModule serviceModule : service.getServiceModules(Category.Network)) {
 			try {
@@ -66,9 +94,20 @@ public class Workflow {
 		}
 		
 		orderedServiceRepo.save(new OrderedService(service.getServiceName(),ids));
+		*/
 	}
 	
 	public void cancelService(OrderedService orderedService) {
+		
+		for(Category category : workflowCancel) {
+			for(Identifier identifier : orderedService.getIdentifiers(category)) {
+				handler.delete(identifier);
+			}
+		}
+		
+		orderedServiceRepo.delete(orderedService);
+		
+		/*
 		for(Identifier identifier : orderedService.getIdentifiers(Category.Compute)) {
 			try {
 				api.deleteCompute(identifier.getUuid());
@@ -94,11 +133,14 @@ public class Workflow {
 		}
 		
 		orderedServiceRepo.delete(orderedService);
+		
+		*/
 	}
 	
-	//Nur Testweise
 	private void rollback(Set<Identifier> identifiers) {
-		cancelService(new OrderedService("rollback", identifiers));
+		OrderedService orderedService = new OrderedService("rollback", identifiers);
+		orderedServiceRepo.save(orderedService);
+		cancelService(orderedService);
 	}
 
 }

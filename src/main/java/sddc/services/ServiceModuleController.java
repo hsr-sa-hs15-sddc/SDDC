@@ -43,9 +43,9 @@ public class ServiceModuleController {
 	  		logger.info("Get all ServiceModules");
 	        List<ServiceModule> result = repo.findAll();
 	        return result;
-	    }	
-	    
-	    @ApiOperation(value = "Returns a ServiceModule by it's id", 
+	     }	
+
+		@ApiOperation(value = "Returns a ServiceModule by it's id", 
 	    		notes = "Returns a ServiceModule by it's id", 
 	    		response = ServiceModule.class)
 	  	 @RequestMapping(value="/api/servicemodules/{id}",method = RequestMethod.GET)
@@ -85,6 +85,39 @@ public class ServiceModuleController {
 	     	m.setServices(module.getServices());
 	     	m.setCategory(module.getCategory());
 	     	repo.save(m);
-	     }	 
+	     }
+	    
+	    @ApiOperation(value = "Returns all Providers", 
+	    		notes = "Returns a list of all Providers", 
+	    		response = Provider[].class)
+	  	@RequestMapping(value="/api/servicemodules/providers",method = RequestMethod.GET)
+	    @ResponseBody
+	    public Provider[] getServiceModulesProviders() {
+	  		logger.info("Get all Providers");
+	        Provider[] result = Provider.values();
+	        return result;
+	    }
+	  	
+	    @ApiOperation(value = "Returns all Categories", 
+	    		notes = "Returns a list of all Categories", 
+	    		response = Category[].class)
+		@RequestMapping(value="/api/servicemodules/categories",method = RequestMethod.GET)
+	    @ResponseBody
+	    public Category[] getServiceModulesCategories() {
+	  		logger.info("Get all Categories");
+	        Category[] result = Category.values();
+	        return result;
+	    }
+		
+	    @ApiOperation(value = "Returns all Sizes", 
+	    		notes = "Returns a list of all Sizes", 
+	    		response = Size[].class)
+		@RequestMapping(value="/api/servicemodules/sizes",method = RequestMethod.GET)
+	    @ResponseBody
+	    public Size[] getServiceModulesSizes() {
+	  		logger.info("Get all Categories");
+	  		Size[] result = Size.values();
+	        return result;
+	    }
 	  
 }

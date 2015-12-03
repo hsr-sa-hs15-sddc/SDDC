@@ -88,6 +88,27 @@ public class ServiceModuleRestfulTest {
 		Assert.assertEquals(Category.Storage,repo.findOne(id).getCategory());
 		Assert.assertEquals(Size.L,repo.findOne(id).getSize());
 	}
+	
+	@Test
+	public void testGetProviders() {
+		Provider[] result = template.getForObject("http://localhost:8080/api/servicemodules/providers", Provider[].class);
+
+	    Assert.assertTrue(result.length > 0);
+	}
+	
+	@Test
+	public void testGetCategories() {
+		Category[] result = template.getForObject("http://localhost:8080/api/servicemodules/categories", Category[].class);
+
+	    Assert.assertTrue(result.length > 0);
+	}
+	
+	@Test
+	public void testGetSizes() {
+		Size[] result = template.getForObject("http://localhost:8080/api/servicemodules/sizes", Size[].class);
+
+	    Assert.assertTrue(result.length > 0);
+	}
 	 
 	 
 }
