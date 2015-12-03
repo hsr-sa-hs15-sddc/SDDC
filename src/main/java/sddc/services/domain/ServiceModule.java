@@ -51,6 +51,7 @@ public class ServiceModule {
 	
 	public ServiceModule(String name, Provider provider,Category category, String config) {
 		this.setName(name);
+		this.setProvider(provider);
 		this.setCategory(category);
 		this.setConfig(config);
 	}
