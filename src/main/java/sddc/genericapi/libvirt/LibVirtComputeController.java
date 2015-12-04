@@ -34,7 +34,7 @@ public class LibVirtComputeController extends LibVirtController {
 		try {
 			Domain domain = connect.domainDefineXML(config);
 			domain.create();
-			return new Identifier(domain.getUUIDString(), module.getCategory(), module.getSize(), module.getProvider());
+			return new Identifier(module.getName(),domain.getUUIDString(), module.getCategory(), module.getSize(), module.getProvider());
 		} catch(LibvirtException libvirtException) {
 			logger.error("Could not create Compute: " + libvirtException.getMessage());
 			return null;
@@ -69,17 +69,18 @@ public class LibVirtComputeController extends LibVirtController {
 		logger.trace("getInformations(identifier: " + identifier.getUuid() + ")");
 		
 		DomainInfo domainInfo;
-		
+		String domainName;
 		
 		try {
 			domainInfo = connect.domainLookupByUUIDString(identifier.getUuid()).getInfo();
+			domainName = connect.domainLookupByUUIDString(identifier.getUuid()).getName();
 		} catch(LibvirtException libvirtException) {
 			logger.error("Could not get Informations: " + libvirtException.getMessage());
 			return infos;
 		}
-		
-		infos.put("cpuTime", String.valueOf(domainInfo.cpuTime));
-		infos.put("maxMem", String.valueOf(domainInfo.maxMem));
+		infos.put("name", domainName);
+		infos.put("memory", String.valueOf(domainInfo.memory));
+		infos.put("vcpu", String.valueOf(domainInfo.nrVirtCpu));
 		//...
 		
 		return infos;

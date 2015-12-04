@@ -20,9 +20,30 @@
 
 <h1>{{service.orderedServiceName}}</h1>
 
-<h2>Module</h2>
+<h2>Modules</h2>
 <span ng-repeat="identifier in service.identifiers">
-<p><h3>UUID:</h3>{{identifier.uuid}}</p>
-<p><h4>Category:</h4>{{identifier.category}}</p>
+<hr>
+<div class="row">
+<div class="col-md-6">
+<p><h3>Name:</h3>{{identifier.name}}</p>
+<p ng-model="category"><h4>Category:</h4>{{identifier.category}}</p>
 <p><h4>Size:</h4>{{identifier.size}}</p>
+</div>
+    <div ng-if="identifier.category=='Storage'" class="col-md-6">
+        <p><h3>Moduleinfos:</h3></p>
+        <p><h4>Name:</h4>{{identifier.infos.name}}</p>
+        <p><h4>Capacity:</h4>{{identifier.infos.capacity}} Bytes</p>
+    </div>
+    <div ng-if="identifier.category=='Compute'" class="col-md-6">
+        <p><h3>Moduleinfos:</h3></p>
+        <p><h4>Name:</h4>{{identifier.infos.name}}</p>
+        <p><h4>vCPUs:</h4>{{identifier.infos.vcpu}}</p>
+        <p><h4>Meomry:</h4>{{identifier.infos.memory}}</p>
+    </div>
+    <div ng-if="identifier.category=='Network'" class="col-md-6">
+        <p><h3>Moduleinfos:</h3></p>
+        <p><h4>Name:</h4>{{identifier.infos.name}}</p>
+        <p><h4>Bridge Name:</h4>{{identifier.infos.bridgename}}</p>
+    </div>
+</div>
 </span>

@@ -41,8 +41,8 @@ public class OrderedServiceRestfulTest {
 	 public void setUp() {
 		 repo.deleteAll();
 		 Set<Identifier> ids = new HashSet<Identifier>();
-		 ids.add(new Identifier(UUID.randomUUID().toString(),Category.Compute,Size.L, Provider.LibVirt));
-		 ids.add(new Identifier(UUID.randomUUID().toString(),Category.Network,Size.S, Provider.LibVirt));
+		 ids.add(new Identifier("Storage Pool",UUID.randomUUID().toString(),Category.Compute,Size.L, Provider.LibVirt));
+		 ids.add(new Identifier("Network Bridge",UUID.randomUUID().toString(),Category.Network,Size.S, Provider.LibVirt));
 		 repo.save(new OrderedService("LAMP Stack",ids));
 	 }
 	

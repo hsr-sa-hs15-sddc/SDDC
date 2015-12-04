@@ -22,7 +22,7 @@
             Name
         </td>
          <td>
-            Identifiers
+            Modules
         </td>
         <td>
            Options
@@ -33,7 +33,7 @@
         <td><a href="#/orderedservices/{{service.id}}">{{service.orderedServiceName}}</a></td>
         <td>
         <span ng-repeat="identifier in service.identifiers">
-        {{identifier.uuid}},
+        {{identifier.name}},
         </span></td>
         <td>
           <button type="button" class="btn btn-primary" ng-click="cancelService(service)">Terminate</button>

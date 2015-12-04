@@ -31,7 +31,7 @@ public class LibVirtNetworkController extends LibVirtController {
 		logger.trace("createNetwork(config: " + config + ")");
 		try {
 			Network network = connect.networkCreateXML(config);
-			return new Identifier(network.getUUIDString(), module.getCategory(), module.getSize(), module.getProvider());
+			return new Identifier(module.getName(),network.getUUIDString(), module.getCategory(), module.getSize(), module.getProvider());
 		} catch(LibvirtException libvirtException) {
 			logger.error("Could not create Network: " + libvirtException.getMessage());
 			return null;
@@ -76,7 +76,7 @@ public class LibVirtNetworkController extends LibVirtController {
 		
 		try {
 			infos.put("name", network.getName());
-			infos.put("bridge name", network.getBridgeName());
+			infos.put("bridgename", network.getBridgeName());
 			//...
 		} catch(LibvirtException libvirtException) {
 			logger.error("Could not get Informations: " + libvirtException.getMessage());

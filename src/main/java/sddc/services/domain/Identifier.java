@@ -1,5 +1,9 @@
 package sddc.services.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,6 +20,8 @@ public class Identifier {
 	@Id @GeneratedValue
 	private long id;
 	
+	private String name;
+	
 	private String uuid;
 	
 	@Enumerated(EnumType.STRING)
@@ -27,15 +33,19 @@ public class Identifier {
 	@Enumerated(EnumType.STRING)
 	private Provider provider;
 	
+	@ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
+	private Map<String, String> infos = new HashMap<>();
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="orderedservice_id")
 	private OrderedService orderedService;
 	
 	public Identifier() {}
 	
-	public Identifier(String uuid, Category category, Size size, Provider provider) {
-		this.uuid = uuid;
-		this.category = category;
+	public Identifier(String name,String uuid, Category category, Size size, Provider provider) {
+		this.setName(name);
+		this.setUuid(uuid);
+		this.setCategory(category);
 		this.setSize(size);
 		this.setProvider(provider);
 	}
@@ -87,6 +97,22 @@ public class Identifier {
 	
 	public void setProvider(Provider provider) {
 		this.provider = provider;
+	}
+
+	public Map<String, String> getInfos() {
+		return infos;
+	}
+
+	public void setInfos(Map<String, String> infos) {
+		this.infos = infos;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

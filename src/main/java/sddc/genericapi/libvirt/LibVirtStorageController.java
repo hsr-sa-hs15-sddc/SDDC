@@ -32,7 +32,7 @@ public class LibVirtStorageController extends LibVirtController {
 		logger.trace("createStorage(config: " + config + ")");
 		try {
 			StoragePool storagePool = connect.storagePoolCreateXML(config, 0);
-			return new Identifier(storagePool.getUUIDString(), module.getCategory(), module.getSize(), module.getProvider());
+			return new Identifier(module.getName(),storagePool.getUUIDString(), module.getCategory(), module.getSize(), module.getProvider());
 		} catch (LibvirtException libvirtException) {
 			logger.error("Could not create Storage: " + libvirtException.getMessage());
 			return null;
@@ -66,17 +66,17 @@ public class LibVirtStorageController extends LibVirtController {
 		logger.trace("getInformations(identifier: " + identifier.getUuid() + ")");
 		
 		StoragePoolInfo storagePoolInfo;
-		
+		String storageName;
 		
 		try {
 			storagePoolInfo = connect.storagePoolLookupByUUIDString(identifier.getUuid()).getInfo();
+			storageName = connect.storagePoolLookupByUUIDString(identifier.getUuid()).getName();
 		} catch(LibvirtException libvirtException) {
 			logger.error("Could not get Informations: " + libvirtException.getMessage());
 			return infos;
 		}
-		
+		infos.put("name", storageName);
 		infos.put("capacity", String.valueOf(storagePoolInfo.capacity));
-		infos.put("available", String.valueOf(storagePoolInfo.available));
 		//...
 		
 		return infos;
