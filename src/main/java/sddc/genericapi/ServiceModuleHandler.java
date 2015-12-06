@@ -3,16 +3,12 @@ package sddc.genericapi;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import sddc.services.domain.Category;
 import sddc.services.domain.Identifier;
 import sddc.services.domain.Provider;
 import sddc.services.domain.ServiceModule;
 
 public class ServiceModuleHandler implements IServiceModuleHandler {
-	
-	private static final Logger logger = LoggerFactory.getLogger(ServiceModuleHandler.class.getName());
 	
 	private Map<Category, Map<Provider, ResourceController>> controllers = new HashMap<>();
 
