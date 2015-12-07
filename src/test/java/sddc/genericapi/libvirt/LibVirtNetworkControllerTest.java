@@ -1,7 +1,6 @@
 package sddc.genericapi.libvirt;
 
-
-
+import static org.junit.Assert.*;
 
 import java.nio.charset.Charset;
 import java.util.Map;
