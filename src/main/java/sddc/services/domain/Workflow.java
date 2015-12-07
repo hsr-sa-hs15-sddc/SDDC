@@ -34,6 +34,10 @@ public class Workflow {
 		((ConfigurableApplicationContext)context).close();
 	}
 	
+	public Workflow(IServiceModuleHandler handler) {
+		this.handler = handler;
+	}
+	
 	public void orderService(Service service) {
 		
 		Set<Identifier> identifiers = new HashSet<>();

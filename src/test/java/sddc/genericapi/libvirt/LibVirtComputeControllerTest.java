@@ -27,7 +27,7 @@ public class LibVirtComputeControllerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContextTest.xml");
 		controller = (ResourceController) context.getBean("LibVirtComputeController");
 		
 		((ConfigurableApplicationContext)context).close();

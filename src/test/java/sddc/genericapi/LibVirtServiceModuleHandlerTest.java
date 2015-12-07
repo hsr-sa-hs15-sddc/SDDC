@@ -21,7 +21,7 @@ public class LibVirtServiceModuleHandlerTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContextTest.xml");
 		handler = (IServiceModuleHandler) context.getBean("LibVirtServiceModuleHandler");
 		
 		((ConfigurableApplicationContext)context).close();
