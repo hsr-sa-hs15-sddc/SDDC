@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.ConfigFileApplicationContextInitializer;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -22,6 +24,7 @@ import sddc.services.domain.Provider;
 import sddc.services.domain.Service;
 import sddc.services.domain.ServiceModule;
 import sddc.services.domain.Size;
+import sddc.services.domain.Workflow;
 import sddc.util.FileUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,7 +34,7 @@ import sddc.util.FileUtil;
 @WebAppConfiguration
 public class ServiceControllerTest {
 	
-	@Autowired
+	
 	private ServiceController controller;
 	
 	@Autowired
@@ -49,6 +52,13 @@ public class ServiceControllerTest {
 	
 	@Before
 	public void setUp() {
+	
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		controller = new ServiceController((Workflow) context.getBean("Workflow"));
+		
+		((ConfigurableApplicationContext)context).close();
+		
+		
 	repo.deleteAll();
 	moduleRepo.deleteAll();
 	Set<ServiceModule> modules = new HashSet<ServiceModule>();

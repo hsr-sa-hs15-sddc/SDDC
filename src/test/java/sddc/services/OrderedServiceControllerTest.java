@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.ConfigFileApplicationContextInitializer;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -22,6 +24,7 @@ import sddc.services.domain.Identifier;
 import sddc.services.domain.OrderedService;
 import sddc.services.domain.Provider;
 import sddc.services.domain.Size;
+import sddc.services.domain.Workflow;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ApplicationMain.class,
@@ -30,7 +33,7 @@ import sddc.services.domain.Size;
 @WebAppConfiguration
 public class OrderedServiceControllerTest {
 	
-	@Autowired
+	
 	private OrderedServiceController controller;
 	
 	@Autowired
@@ -41,6 +44,12 @@ public class OrderedServiceControllerTest {
 	
 	@Before
 	 public void setUp() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		controller = new OrderedServiceController((Workflow) context.getBean("Workflow"));
+		
+		((ConfigurableApplicationContext)context).close();
+		
+		
 		 repo.deleteAll();
 		 Set<Identifier> ids = new HashSet<Identifier>();
 		 ids.add(new Identifier("Storage Pool",UUID.randomUUID().toString(),Category.Compute,Size.L, Provider.LibVirt));
