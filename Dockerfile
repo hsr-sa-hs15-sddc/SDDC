@@ -35,7 +35,7 @@ RUN mvn package -Dmaven.test.skip=true && \
 
 WORKDIR /
 
-ADD GenericAPILibVirtConfig.conf GenericAPILibVirtConfig.conf
+ADD Config.xml Config.xml
 ADD LibVirtComputeConfigDebian.xml LibVirtComputeConfigDebian.xml
 ADD LibVirtComputeConfigDebianNetwork.xml LibVirtComputeConfigDebianNetwork.xml
 ADD LibVirtComputeConfigUbuntu.xml LibVirtComputeConfigUbuntu.xml
