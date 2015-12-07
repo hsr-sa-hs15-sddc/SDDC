@@ -53,10 +53,10 @@ public class ServiceControllerTest {
 	@Before
 	public void setUp() {
 	
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContextTest.xml");
-		controller = new ServiceController((Workflow) context.getBean("Workflow"));
+		ApplicationContext con = new ClassPathXmlApplicationContext("applicationContextTest.xml");
+		controller = new ServiceController((Workflow) con.getBean("Workflow"));
 		
-		((ConfigurableApplicationContext)context).close();
+		((ConfigurableApplicationContext)con).close();
 		
 		
 	repo.deleteAll();
