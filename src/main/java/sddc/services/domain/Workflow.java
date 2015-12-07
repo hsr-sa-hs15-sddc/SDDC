@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,14 +29,10 @@ public class Workflow {
 	private static final Category[] workflowCancel = new Category[] {Category.Compute, Category.Storage, Category.Network};
 	
 	public Workflow() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ApplicationContext context = new FileSystemXmlApplicationContext("./Config.xml");
 		handler = (IServiceModuleHandler) context.getBean("LibVirtServiceModuleHandler");
 		
 		((ConfigurableApplicationContext)context).close();
-	}
-	
-	public Workflow(IServiceModuleHandler handler) {
-		this.handler = handler;
 	}
 	
 	public void orderService(Service service) {

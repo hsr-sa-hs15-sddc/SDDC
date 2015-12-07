@@ -34,7 +34,7 @@ import sddc.util.FileUtil;
 @WebAppConfiguration
 public class ServiceControllerTest {
 	
-	
+	@Autowired
 	private ServiceController controller;
 	
 	@Autowired
@@ -52,13 +52,6 @@ public class ServiceControllerTest {
 	
 	@Before
 	public void setUp() {
-	
-		ApplicationContext con = new ClassPathXmlApplicationContext("applicationContextTest.xml");
-		controller = new ServiceController((Workflow) con.getBean("WorkflowTest"));
-		
-		((ConfigurableApplicationContext)con).close();
-		
-		
 	repo.deleteAll();
 	moduleRepo.deleteAll();
 	Set<ServiceModule> modules = new HashSet<ServiceModule>();

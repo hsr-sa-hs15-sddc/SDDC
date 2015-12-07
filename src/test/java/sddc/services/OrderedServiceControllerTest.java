@@ -33,7 +33,7 @@ import sddc.services.domain.Workflow;
 @WebAppConfiguration
 public class OrderedServiceControllerTest {
 	
-	
+	@Autowired
 	private OrderedServiceController controller;
 	
 	@Autowired
@@ -44,12 +44,6 @@ public class OrderedServiceControllerTest {
 	
 	@Before
 	 public void setUp() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContextTest.xml");
-		controller = new OrderedServiceController((Workflow) context.getBean("WorkflowTest"));
-		
-		((ConfigurableApplicationContext)context).close();
-		
-		
 		 repo.deleteAll();
 		 Set<Identifier> ids = new HashSet<Identifier>();
 		 ids.add(new Identifier("Storage Pool",UUID.randomUUID().toString(),Category.Compute,Size.L, Provider.LibVirt));

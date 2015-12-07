@@ -42,6 +42,7 @@ public class ServiceController {
     @Autowired
     private ServiceModuleRepo moduleRepo;
     
+    @Autowired
     private Workflow workflow;
     
     private static final Logger logger = LoggerFactory.getLogger(ServiceController.class);
@@ -61,16 +62,7 @@ public class ServiceController {
     private String storageConfig = FileUtil.getContentOfFile("./LibVirtStorageConfig.xml",
     		Charset.defaultCharset(), false);
     
-    public ServiceController() {
-    	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		workflow = (Workflow) context.getBean("Workflow");
-		
-		((ConfigurableApplicationContext)context).close();
-	}
     
-    public ServiceController(Workflow workflow) {
-		this.workflow = workflow;
-	}
     
     @PostConstruct
     private void createInitialData() {

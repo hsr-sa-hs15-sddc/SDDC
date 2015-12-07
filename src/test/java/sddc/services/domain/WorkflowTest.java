@@ -48,19 +48,11 @@ public class WorkflowTest {
 	@Autowired
 	private ServiceRepo repo;
 	
-	
+	@Autowired
 	private Workflow workflow;
 
 	@Before
 	public void setUp() throws Exception {
-		
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContextTest.xml");
-		workflow = new Workflow((IServiceModuleHandler) context.getBean("LibVirtServiceModuleHandlerTest"));
-		
-		((ConfigurableApplicationContext)context).close();
-		
-		
-		
 		orderedRepo.deleteAll();
 		repo.deleteAll();
 		orderedRepo.deleteAll();

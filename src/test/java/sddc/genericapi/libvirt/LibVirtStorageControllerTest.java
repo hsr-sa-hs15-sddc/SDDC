@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import junit.framework.Assert;
 import sddc.genericapi.ResourceController;
@@ -26,8 +27,8 @@ public class LibVirtStorageControllerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContextTest.xml");
-		controller = (ResourceController) context.getBean("LibVirtStorageControllerTest");
+		ApplicationContext context = new FileSystemXmlApplicationContext("./Config.xml");
+		controller = (ResourceController) context.getBean("LibVirtStorageController");
 		
 		((ConfigurableApplicationContext)context).close();
 	}

@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
 import junit.framework.Assert;
 import sddc.services.domain.Category;
 import sddc.services.domain.Identifier;
@@ -21,8 +23,8 @@ public class LibVirtServiceModuleHandlerTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContextTest.xml");
-		handler = (IServiceModuleHandler) context.getBean("LibVirtServiceModuleHandlerTest");
+		ApplicationContext context = new FileSystemXmlApplicationContext("./Config.xml");
+		handler = (IServiceModuleHandler) context.getBean("LibVirtServiceModuleHandler");
 		
 		((ConfigurableApplicationContext)context).close();
 	}

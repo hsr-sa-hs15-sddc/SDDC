@@ -27,20 +27,10 @@ public class OrderedServiceController {
 	@Autowired
 	private OrderedServiceRepo repo;
 	
+	@Autowired
 	private Workflow workflow;
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrderedServiceController.class);
-	
-	public OrderedServiceController() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		workflow = (Workflow) context.getBean("Workflow");
-		
-		((ConfigurableApplicationContext)context).close();
-	}
-	
-	public OrderedServiceController(Workflow workflow) {
-		this.workflow = workflow;
-	}
 	
 	@ApiOperation(value = "Returns all OrderedServices", 
     		notes = "Returns a list of all OrderedServices", 
