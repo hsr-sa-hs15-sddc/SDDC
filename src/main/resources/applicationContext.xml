@@ -33,6 +33,10 @@
 	</constructor-arg>
 	</bean>
 	
+	<bean id="Workflow" class="sddc.services.domain.Workflow">
+		<constructor-arg><ref bean="LibVirtServiceModuleHandler" /></constructor-arg>
+	</bean>
+	
 	
 	             
 </beans>

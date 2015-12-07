@@ -10,6 +10,9 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,7 +42,6 @@ public class ServiceController {
     @Autowired
     private ServiceModuleRepo moduleRepo;
     
-    @Autowired
     private Workflow workflow;
     
     private static final Logger logger = LoggerFactory.getLogger(ServiceController.class);
@@ -58,6 +60,17 @@ public class ServiceController {
     
     private String storageConfig = FileUtil.getContentOfFile("./LibVirtStorageConfig.xml",
     		Charset.defaultCharset(), false);
+    
+    public ServiceController() {
+    	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		workflow = (Workflow) context.getBean("Workflow");
+		
+		((ConfigurableApplicationContext)context).close();
+	}
+    
+    public ServiceController(Workflow workflow) {
+		this.workflow = workflow;
+	}
     
     @PostConstruct
     private void createInitialData() {
