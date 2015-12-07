@@ -62,7 +62,7 @@ public class ServiceController {
     		Charset.defaultCharset(), false);
     
     public ServiceController() {
-    	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+    	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContextTest.xml");
 		workflow = (Workflow) context.getBean("Workflow");
 		
 		((ConfigurableApplicationContext)context).close();
