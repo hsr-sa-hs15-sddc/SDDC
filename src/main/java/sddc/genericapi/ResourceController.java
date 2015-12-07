@@ -17,8 +17,25 @@ public abstract class ResourceController {
 		this.provider = provider;
 	}
 	
+	/**
+	 * Creates the resource described in the ServiceModule
+	 * and returns an identifier
+	 * @param module A ServiceModule describing a Resource/Module
+	 * @return An Identifier that stores information about the created Resource
+	 */
 	public abstract Identifier create(ServiceModule module);
+	
+	/**
+	 * Deletes an existing resource
+	 * @param identifier 
+	 */
 	public abstract void delete(Identifier identifier);
+	
+	/**
+	 * Gets information about an existing Resource/Module
+	 * @param identifier
+	 * @return 
+	 */
 	public abstract Map<String, String> getInformations(Identifier identifier);
 	
 	public Category getCategory() {
