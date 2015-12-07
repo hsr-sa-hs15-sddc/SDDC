@@ -3,7 +3,6 @@ package sddc.services;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,12 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.ConfigFileApplicationContextInitializer;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
 import junit.framework.Assert;
 import sddc.ApplicationMain;
 import sddc.services.domain.Category;
@@ -24,7 +20,6 @@ import sddc.services.domain.Identifier;
 import sddc.services.domain.OrderedService;
 import sddc.services.domain.Provider;
 import sddc.services.domain.Size;
-import sddc.services.domain.Workflow;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ApplicationMain.class,

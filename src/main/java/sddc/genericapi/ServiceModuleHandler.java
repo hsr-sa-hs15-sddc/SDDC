@@ -30,16 +30,19 @@ public class ServiceModuleHandler implements IServiceModuleHandler {
 	
 	@Override
 	public Identifier create(ServiceModule module) {
+		logger.trace("creating " + module.getName());
 		return controllers.get(module.getCategory()).get(module.getProvider()).create(module);
 	}
 
 	@Override
 	public void delete(Identifier identifier) {
+		logger.trace("deleting " + identifier.getName());
 		controllers.get(identifier.getCategory()).get(identifier.getProvider()).delete(identifier);
 	}
 
 	@Override
 	public Map<String, String> getInformations(Identifier identifier) {
+		logger.trace("getting informations " + identifier.getName());
 		return controllers.get(identifier.getCategory()).get(identifier.getProvider()).getInformations(identifier);
 	}
 }

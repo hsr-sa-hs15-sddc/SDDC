@@ -1,17 +1,12 @@
 package sddc.genericapi.libvirt;
 
-import static org.junit.Assert.*;
-
 import java.nio.charset.Charset;
 import java.util.Map;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-
 import junit.framework.Assert;
 import sddc.genericapi.ResourceController;
 import sddc.services.domain.Category;
