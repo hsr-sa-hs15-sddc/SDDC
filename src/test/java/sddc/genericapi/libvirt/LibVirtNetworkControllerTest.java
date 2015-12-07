@@ -28,7 +28,7 @@ public class LibVirtNetworkControllerTest {
 	@Before
 	public void setUp() throws Exception {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContextTest.xml");
-		controller = (ResourceController) context.getBean("LibVirtNetworkController");
+		controller = (ResourceController) context.getBean("LibVirtNetworkControllerTest");
 		
 		((ConfigurableApplicationContext)context).close();
 	}

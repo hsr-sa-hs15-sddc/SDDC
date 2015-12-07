@@ -28,7 +28,7 @@ public class LibVirtStorageControllerTest {
 	@Before
 	public void setUp() throws Exception {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContextTest.xml");
-		controller = (ResourceController) context.getBean("LibVirtStorageController");
+		controller = (ResourceController) context.getBean("LibVirtStorageControllerTest");
 		
 		((ConfigurableApplicationContext)context).close();
 	}

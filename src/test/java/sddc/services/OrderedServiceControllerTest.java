@@ -44,8 +44,8 @@ public class OrderedServiceControllerTest {
 	
 	@Before
 	 public void setUp() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		controller = new OrderedServiceController((Workflow) context.getBean("Workflow"));
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContextTest.xml");
+		controller = new OrderedServiceController((Workflow) context.getBean("WorkflowTest"));
 		
 		((ConfigurableApplicationContext)context).close();
 		

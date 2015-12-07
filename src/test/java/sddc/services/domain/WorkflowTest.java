@@ -55,7 +55,7 @@ public class WorkflowTest {
 	public void setUp() throws Exception {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContextTest.xml");
-		workflow = new Workflow((IServiceModuleHandler) context.getBean("LibVirtServiceModuleHandler"));
+		workflow = new Workflow((IServiceModuleHandler) context.getBean("LibVirtServiceModuleHandlerTest"));
 		
 		((ConfigurableApplicationContext)context).close();
 		

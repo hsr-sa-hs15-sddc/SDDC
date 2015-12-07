@@ -54,7 +54,7 @@ public class ServiceControllerTest {
 	public void setUp() {
 	
 		ApplicationContext con = new ClassPathXmlApplicationContext("applicationContextTest.xml");
-		controller = new ServiceController((Workflow) con.getBean("Workflow"));
+		controller = new ServiceController((Workflow) con.getBean("WorkflowTest"));
 		
 		((ConfigurableApplicationContext)con).close();
 		

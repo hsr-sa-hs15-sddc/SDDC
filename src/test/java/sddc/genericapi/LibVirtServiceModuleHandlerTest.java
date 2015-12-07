@@ -22,7 +22,7 @@ public class LibVirtServiceModuleHandlerTest {
 	public void setUp() throws Exception {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContextTest.xml");
-		handler = (IServiceModuleHandler) context.getBean("LibVirtServiceModuleHandler");
+		handler = (IServiceModuleHandler) context.getBean("LibVirtServiceModuleHandlerTest");
 		
 		((ConfigurableApplicationContext)context).close();
 	}
