@@ -1,5 +1,4 @@
-# SDDC [![Build Status](https://travis-ci.org/hsr-sa-hs15-sddc/SDDC.svg?branch=master)](https://travis-ci.org/hsr-sa-hs15-sddc/SDDC)
-
+# SDDC [![Build Status](https://travis-ci.org/hsr-sa-hs15-sddc/SDDC.svg?branch=master)](https://travis-ci.org/hsr-sa-hs15-sddc/SDDC) [![Coverage Status](https://coveralls.io/repos/github/hsr-sa-hs15-sddc/SDDC/badge.svg?branch=master)](https://coveralls.io/github/hsr-sa-hs15-sddc/SDDC?branch=master)
 
 
 #REST API + Dashboard
