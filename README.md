@@ -8,15 +8,15 @@ Server startet auf port 8080 (API Paths -> /api/services, /api/orderedservices, 
 
 ##Customer Dashboard
 
-<a href="http://example.com/#/services">http://app.silvn.com/#/services</a>
+<a href="http://example.com/#/services">http://example.com/#/services</a>
 
 ##Admin Dashboard
 
-<a href="http://example.com/#/admin/services">http://app.silvn.com/#/admin/services</a>
+<a href="http://example.com/#/admin/services">http://example.com/#/admin/services</a>
 
 ##REST API Doku
 
-<a href="http://example.com/swagger-ui.html">http://app.silvn.com/swagger-ui.html</a>
+<a href="http://example.com/swagger-ui.html">http://example.com/swagger-ui.html</a>
 
 #Dockerfile
 
